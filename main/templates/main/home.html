@@ -1,11 +1,170 @@
-{% extends 'main/base.html' %} 
-    {% block title %}
-        NetFix
-    {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - NetFix</title>
 
-{% block content %}
-    <div style="margin-top: 50px;">
-        <p class="site_title">NetFix</p>
-        <img class="home_logo" src="/static/css/logo.png" alt="logo">
+    <!-- Load the static files in Django templates -->
+    {% load static %}
+
+    <!-- Internal CSS -->
+    <style>
+        /* Global Styles */
+        body {
+            background: #292929;
+            font-family: 'Lexend Exa', sans-serif;
+            padding: 0;
+            margin: 0;
+            color: #f9f8fd;
+        }
+
+        a {
+            color: #ee5e4b;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #e02a21;
+            text-shadow: 0px 0px 2px #a1a1a1;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 15px;
+            box-shadow: inset 1px -1px 10px rgb(116, 116, 116);
+            border: 2px solid white;
+            border-radius: 30px;
+            background-color: #e7e7e7;
+            width: 95%;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .navbar-left ul, .navbar-right ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar-left ul li, .navbar-right ul li {
+            margin-right: 30px;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: #ec2f00;
+            text-transform: uppercase;
+        }
+
+        .navbar-left a:hover, .navbar-right a:hover {
+            color: #f9f8fd;
+        }
+
+        /* Main Content */
+        .main-content {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Logo Card */
+        .logo-card {
+            background: #535151;
+            display: inline-block;
+            padding: 280px;
+            margin-bottom: 50px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-logo {
+            width: 200px;
+            height: auto;
+        }
+
+        /* Service Box */
+        .service-box {
+            background-color: #646464;
+            padding: 20px;
+            margin: 0 auto;
+            width: 65%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 35px -20px #ec2f00;
+        }
+
+        .service-box .box-title {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ec2f00;
+        }
+
+        .service-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .service-item {
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
+
+        .service-divider {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+            </ul>
+        </div>
+        <div class="navbar-right">
+            <ul>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content with centered card for logo -->
+    <div class="main-content">
+        <!-- Logo Card -->
+        <div class="logo-card">
+            <img class="home-logo" src="{% static 'css/logo.png' %}" alt="logo">
+        </div>
+
+        <!-- Most Requested Service Section -->
+        <div class="service-box">
+            <h2 class="box-title">Most Requested Service</h2>
+            <div class="service-list">
+                {% if services %}
+                    {% for service in services %}
+                        <div class="service-item">
+                            <p>{{ service.name }}</p>
+                            <hr class="service-divider">
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No services available yet.</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
-{% endblock %}
+
+</body>
+</html>
