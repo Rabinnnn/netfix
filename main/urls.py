@@ -5,5 +5,6 @@ app_name = "main"
 
 urlpatterns = [
     path('', v.home, name='home'),
-    path('logout/', v.logout, name='logout')
+    path('login/', v.login_view, name='login'),  # Add the login URL pattern
+    path('logout/', v.logout, name='logout'),  # Logout URL
 ]
