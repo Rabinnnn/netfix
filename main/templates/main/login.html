@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - NetFix</title>
+
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f3f3f3;
+            font-family: 'Lexend Exa', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #292929;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Centered card container */
+        .card {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Card Title */
+        .card-title {
+            color: #ec2f00;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Card Description */
+        .card-description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Form styling */
+        form {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #ec2f00;
+            outline: none;
+        }
+
+        /* Help Text Styling */
+        .helptext {
+            display: block;
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #ec2f00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #d94400;
+        }
+
+        /* Link to register page */
+        .register-link {
+            color: #ec2f00;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Form error messages */
+        .error {
+            color: #ff4040;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Success message */
+        .success {
+            color: #4caf50;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Centered Card Layout -->
+    <div class="card">
+        <h2 class="card-title">Login to Your Account</h2>
+        <p class="card-description">Please enter your credentials to login.</p>
+
+        <!-- Error messages (if any) -->
+        {% if form.errors %}
+            <div class="error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Login Form -->
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" name="login">Login</button>
+        </form>
+
+        <!-- Link to registration page -->
+        <p class="register-link">Don't have an account? <a href="/register/company">register company</a>| <a href="/register/customer">register as a customer</a></p>
+    </div>
+</body>
+</html>
