@@ -1,13 +1,211 @@
-{% extends 'main/base.html' %} 
-{% block title %}
-  Company Registration
-{%endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Registration</title>
 
-{% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{form}}
-        <span class="helptext">Choose Field Above</span>
-        <button type="submit" name="register">Register</button>
-    </form>
-{% endblock %}
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f3f3f3;
+            font-family: 'Lexend Exa', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #292929;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Centered card container */
+        .card {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Card Title */
+        .card-title {
+            color: #ec2f00;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Card Description */
+        .card-description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Form styling */
+        form {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #ec2f00;
+            outline: none;
+        }
+
+        /* Help Text Styling */
+        .helptext {
+            display: block;
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #ec2f00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #d94400;
+        }
+
+        /* Link to login page */
+        .login-link {
+            color: #ec2f00;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Form error messages */
+        .error {
+            color: #ff4040;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Success message */
+        .success {
+            color: #4caf50;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Centered Card Layout -->
+    <div class="card">
+        <h2 class="card-title">Register Your Company</h2>
+        <p class="card-description">Please fill in the details to register your company with us.</p>
+
+        <!-- Success message (if any) -->
+        {% if messages %}
+            <div class="success">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Error messages (if any) -->
+        {% if form.errors %}
+            <div class="error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Registration Form -->
+        <form method="POST">
+            {% csrf_token %}
+             <!-- Username Field -->
+             <div class="form-group">
+              <label for="username">Company Name</label>
+              <input type="text" id="company" name="company" required placeholder="Choose a company name">
+          </div>
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+            </div>
+
+           
+
+            <!-- Field of Work Dropdown -->
+            <div class="form-group">
+                <label for="field_of_work">Field of Work</label>
+                <span class="helptext">Choose the appropriate field for your company above</span>
+                <select name="field_of_work" id="field_of_work" class="form-control">
+                    <option value="Air Conditioner">Air Conditioner</option>
+                    <option value="All in One">All in One</option>
+                    <option value="Carpentry">Carpentry</option>
+                    <option value="Electricity">Electricity</option>
+                    <option value="Gardening">Gardening</option>
+                    <option value="Home Machines">Home Machines</option>
+                    <option value="Housekeeping">Housekeeping</option>
+                    <option value="Interior Design">Interior Design</option>
+                    <option value="Locks">Locks</option>
+                    <option value="Painting">Painting</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Water Heaters">Water Heaters</option>
+                </select>
+            </div>
+
+            <!-- Register Button -->
+            <button type="submit" name="register">Register</button>
+        </form>
+
+        <!-- Link to login page -->
+        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
+    </div>
+</body>
+</html>
