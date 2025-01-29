@@ -1,28 +1,137 @@
-{% extends 'main/base.html' %} 
-{% block title %}
-  User Type
-{%endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Type - Register</title>
 
-{%block content %}
-    <p class="choice_text">Choose wether you want to be a customer or a company</p>
-    
-    <div style="margin-top: 70px;">
-        <div style="margin-left: 50px" class="choice">
-            <div class="company img" id="company">
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #fff; /* White background for the entire page */
+            font-family: 'Lexend Exa', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #292929;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full view height to center the card vertically */
+        }
+
+        /* Centered card container */
+        .card {
+            background-color: #f9f8fd; /* Light color for the card */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        /* Header Text */
+        .choice_text {
+            font-size: 36px;
+            color: #3b2823;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #868281;
+        }
+
+        /* Choice container styles */
+        .choice-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .choice {
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            width: 150px;
+        }
+
+        .choice:hover {
+            transform: scale(1.05);
+        }
+
+        .choice img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .choice img:hover {
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .choice p {
+            color: #292929;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .choice a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Extra responsive styles */
+        @media (max-width: 768px) {
+            .choice-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .choice img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .choice p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Centered Card -->
+    <div class="card">
+        <!-- User Type Selection Text -->
+        <p class="choice_text">Choose whether you want to be a Customer or a Company</p>
+        
+        <!-- Choice container (Company & Customer options) -->
+        <div class="choice-container">
+            <!-- Company Option -->
+            <div class="choice">
                 <a href="/register/company">
-                    <img src="/static/css/company.png" alt="company" >
+                    <div class="company img" id="company">
+                        <p>Company</p>
+                        <!-- <img src="/static/css/company.png" alt=""> -->
+                    </div>
                 </a>
+               
             </div>
-            <p class="label_images">Company</p>
-        </div>
 
-        <div style="float: right; margin-right: 50px;" class="choice">
-            <div class="img" id="customer">
+            <!-- Customer Option -->
+            <div class="choice">
                 <a href="/register/customer">
-                    <img src="/static/css/customer.png" alt="customer">
+                    <div class="img" id="customer">
+                        <p>Customer</p>
+                        <!-- <img src="/static/css/customer.png" alt=""> -->
+                    </div>
                 </a>
+                
             </div>
-            <p>Customer</p>
         </div>
     </div>
-{% endblock %}
+
+</body>
+</html>
