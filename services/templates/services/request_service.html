@@ -1,11 +1,108 @@
-{% extends 'main/base.html' %}
 {% block title %}
     Request Service
 {% endblock %}
 
 {% block content %}
-    <p class="title">Service Request Details</p>
-    <form method="POST">
-        <button type="submit">Request</button>
-    </form>
+    <div class="request-service-container">
+        <p class="title">Service Request Details</p>
+        
+        <!-- Service Request Form -->
+        <form method="POST" class="request-form">
+            {% csrf_token %}
+            <!-- Add any relevant fields for the request here, e.g., message, date, etc. -->
+            <label for="service-details" class="form-label">Provide service details:</label>
+            <textarea id="service-details" name="service_details" class="form-input" rows="5" placeholder="Enter your request details here..."></textarea>
+
+            <button type="submit" class="submit-btn">Request</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .title {
+            font-size: 2.5em;
+            color: #ec2f00;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Request Service Container */
+        .request-service-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Styling */
+        .request-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-label {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .form-input {
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #ec2f00;
+            outline: none;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #ec2f00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2em;
+            }
+
+            .request-service-container {
+                padding: 20px;
+            }
+
+            .submit-btn {
+                font-size: 1em;
+            }
+        }
+    </style>
 {% endblock %}
