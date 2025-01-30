@@ -1,15 +1,118 @@
-{% extends 'main/base.html' %}
 {% block title %}
     {{ service.name }}
 {% endblock %}
+
 {% block content %}
-    <div class='service_info_header'>
-        <h1>{{service.name}} -- {{service.price_hour}}€/hour</h1>
-        <h5>by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></h5>
+    <div class="service-info-container">
+        <div class="service_info_header">
+            <h1 class="service-title">{{ service.name }} -- {{ service.price_hour }}€/hour</h1>
+            <h5 class="company-info">by <a href="/company/{{ service.company.user }}" class="company-link">{{ service.company.user }}</a></h5>
+        </div>
+        
+        <h3 class="service-field">{{ service.field }}</h3>
+        <p class="service-description">{{ service.description }}</p>
+        
+        {% if request.user.is_customer %}
+            <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
+        {% endif %}
     </div>
-    <h3>{{service.field}}</h3>
-    <p style="text-align: left;">{{service.description}}</p>
-    {% if request.user.is_customer %}
-        <a href="/services/{{service.id}}/request_service/" class="like_button">Request Service</a>
-    {% endif %}
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .service-info-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .service_info_header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 2.5em;
+            color: #ec2f00;
+            margin-bottom: 10px;
+        }
+
+        .company-info {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .company-link {
+            color: #ec2f00;
+            text-decoration: none;
+        }
+
+        .company-link:hover {
+            text-decoration: underline;
+        }
+
+        .service-field {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .service-description {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #555;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .request-button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #ec2f00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 30px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .request-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .service-title {
+                font-size: 2em;
+            }
+
+            .service-field {
+                font-size: 1.3em;
+            }
+
+            .service-description {
+                font-size: 1em;
+            }
+
+            .request-button {
+                font-size: 1em;
+            }
+        }
+    </style>
 {% endblock %}
