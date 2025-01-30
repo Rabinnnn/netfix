@@ -1,26 +1,160 @@
-{% extends 'main/base.html' %}
 {% block title %}
-    {{field}} Services List
+    {{ field }} Services List
 {% endblock %}
-{% block content %}
 
-    {% if services.all|length != 0 %}
-        <p class="title">{{field}} Services</p>
-        <ul class='services_list'>
-            {% for service in services.all %}
-                <div style="display: ruby;">
-                    <div class='service_list_info'>
-                        <li><a href="/services/{{service.id}}">{{ service.name }}</a>-- {{ service.price_hour }}€/hour</li>
-                        <pre>{{ service.description }}</pre>
+{% block content %}
+    <div class="services-container">
+        {% if services.all|length != 0 %}
+            <p class="title">{{ field }} Services</p>
+            <div class="services-list">
+                {% for service in services.all %}
+                    <div class="service-card">
+                        <div class="service-card-content">
+                            <a href="/services/{{ service.id }}" class="service-name">{{ service.name }}</a>
+                            <p class="service-price">{{ service.price_hour }}€/hour</p>
+                            <p class="service-description">{{ service.description }}</p>
+                            <p class="company-info">by <a href="/company/{{ service.company.user }}" class="company-link">{{ service.company.user }}</a></p>
+                        </div>
                     </div>
-                    <p style="display:block; margin: 0; float: right;font-size: small; margin-right: 30px;">by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></p>
-                </div>
-                {% if forloop.counter != services.all|length %}
-                    <div class="line"></div>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% else %}
-        <h2>Sorry. No {{field}} services available</h2>
-    {% endif %}
+                    {% if forloop.counter != services.all|length %}
+                        <div class="line"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2 class="no-services">Sorry. No {{ field }} services available</h2>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .title {
+            font-size: 2.5em;
+            color: #ec2f00;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Main Services Container */
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Service List */
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        /* Individual Service Card */
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card-content {
+            padding: 20px;
+        }
+
+        /* Service Name */
+        .service-name {
+            font-size: 1.8em;
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .service-name:hover {
+            color: #ec2f00;
+        }
+
+        /* Service Price */
+        .service-price {
+            font-size: 1.2em;
+            color: #27ae60;
+            margin: 10px 0;
+        }
+
+        /* Service Description */
+        .service-description {
+            font-size: 1em;
+            color: #555;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        /* Company Info */
+        .company-info {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .company-link {
+            color: #ec2f00;
+            text-decoration: none;
+        }
+
+        .company-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Line Separator Between Services */
+        .line {
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+
+        /* No Services Available Message */
+        .no-services {
+            text-align: center;
+            font-size: 1.5em;
+            color: #ec2f00;
+            margin-top: 30px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2em;
+            }
+
+            .service-card {
+                margin: 0 10px;
+            }
+
+            .service-name {
+                font-size: 1.5em;
+            }
+
+            .service-price {
+                font-size: 1em;
+            }
+        }
+    </style>
 {% endblock %}
