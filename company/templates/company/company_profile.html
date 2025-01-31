@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ company.name }} Profile</title>
+</head>
+<body>
+    <h1>{{ company.name }} Profile</h1>
+    <p><strong>Email:</strong> {{ company.email }}</p>
+    <p><strong>Field of Work:</strong> {{ company.get_field_of_work_display }}</p>
+    <p><strong>Description:</strong> {{ company.description }}</p>
+    <p><strong>Location:</strong> {{ company.location }}</p>
+
+    <h2>Services Offered</h2>
+    <ul>
+        {% for service in services %}
+            <li>
+                <a href="{% url 'service_detail' service.id %}">{{ service.name }}</a> - ${{ service.price_per_hour }} per hour
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_service' %}">Create New Service</a>
+</body>
+</html>

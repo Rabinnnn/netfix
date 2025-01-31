@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Services</title>
+</head>
+<body>
+    <h1>Your Services</h1>
+    <ul>
+        {% for service in services %}
+            <li>
+                <a href="{% url 'company_service_detail' service.id %}">{{ service.name }}</a> 
+                - ${{ service.price_hour }} per hour
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'create_service' %}">Create New Service</a>
+</body>
+</html>
