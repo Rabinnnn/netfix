@@ -31,7 +31,7 @@ def customer_signup(request):
 
             login(request, user)  # Log the user in
             messages.success(request, 'Registration successful! Welcome to NetFix.')
-            return redirect('customer:dashboard')
+            return redirect('customer:customer_dashboard')  # Updated redirect
     else:
         form = CustomerSignUpForm()
     
@@ -93,9 +93,9 @@ def login_view(request):
                     
                     # Redirect based on user type
                     if hasattr(user, 'customer'):
-                        return redirect('customer:customer_dashboard')
+                        return redirect('customer:dashboard')  
                     elif hasattr(user, 'company'):
-                        return redirect('company:company_dashboard')  # Replace with the correct URL name for company dashboard')
+                        return redirect('company:company_dashboard')
                     else:
                         return redirect('main:home')
                 else:
