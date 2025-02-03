@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-header">
+        <h1>Customer Dashboard</h1>
+        <p>Welcome, {{ customer.user.username }}!</p>
+        <form method="POST" action="{% url 'users:logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <h3>Total Requests</h3>
+            <p>{{ total_requests }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Pending</h3>
+            <p>{{ pending_requests }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Completed</h3>
+            <p>{{ completed_requests }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Spent</h3>
+            <p>${{ total_spent|floatformat:2 }}</p>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Recent Service Requests</h2>
+        <div class="service-requests">
+            {% for request in recent_requests %}
+            <div class="request-card">
+                <h4>{{ request.service.name }}</h4>
+                <p><strong>Provider:</strong> {{ request.service.company.user.username }}</p>
+                <p><strong>Status:</strong> {{ request.status }}</p>
+                <p><strong>Address:</strong> {{ request.address }}</p>
+                <p><strong>Hours:</strong> {{ request.hours_needed }}</p>
+                <p><strong>Total Cost:</strong> ${{ request.total_cost }}</p>
+                <p><strong>Requested on:</strong> {{ request.request_date }}</p>
+                {% if request.status == 'COMPLETED' %}
+                <a href="#" class="btn btn-primary">Add Review</a>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>No service requests yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="dashboard-actions">
+        <a href="{% url 'services:service_list' %}" class="btn btn-primary">Browse Services</a>
+        <a href="{% url 'customer:service_history' %}" class="btn btn-info">View Service History</a>
+        <a href="{% url 'services:most_requested' %}" class="btn btn-success">Popular Services</a>
+    </div>
+</div>
+{% endblock %}
