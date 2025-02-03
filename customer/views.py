@@ -9,6 +9,7 @@ from services.models import Service, ServiceRequest
 # Create your views here.
 
 @login_required
+@login_required
 def dashboard(request):
     if not request.user.is_customer:
         messages.error(request, "Access denied. Customer account required.")
@@ -37,7 +38,7 @@ def dashboard(request):
         'completed_requests': service_requests.filter(status='COMPLETED').count(),
         'total_spent': total_spent
     }
-    return render(request, 'customer/dashboard.html', context)
+    return render(request, 'customer/customer_dashboard.html', context)  # Updated template name   return render(request, 'customer/dashboard.html', context)
 
 @login_required
 def customer_profile(request):

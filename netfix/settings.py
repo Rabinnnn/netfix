@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     # apps created
     'main',
     'services',
-    'users'
+    'users',
+    'company',
+    'customer',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +123,20 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Uncomment and configure the following lines for SMTP settings when ready to send emails:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your_email@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your_email_password'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

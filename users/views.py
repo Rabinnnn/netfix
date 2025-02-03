@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.views.generic import CreateView, TemplateView
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
 from .models import User, Company, Customer
 
@@ -13,28 +13,42 @@ from .models import User, Company, Customer
 def register(request):
     return render(request, 'users/register.html')
 
+# Customer Profile view
+@login_required
+def customer_profile(request):
+    if not request.user.is_customer:
+        messages.error(request, "Access denied. Customer account required.")
+        return redirect('main:home')
+    
+    customer = request.user.customer  # Get the customer instance
+    # You can add any additional logic or context data here
+
+    return render(request, 'customer/customer_profile.html', {'customer': customer})  # Ensure the template exists
 
 # Customer sign-up view
+
 def customer_signup(request):
     if request.method == 'POST':
         form = CustomerSignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Save user instance without committing to the database
-            user.set_password(form.cleaned_data['password'])  # Set the password
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.is_customer = True  # Set is_customer to True
             user.save()  # Now save the user
 
             # Create Customer instance
             customer = Customer.objects.create(
                 user=user,
-                birth=form.cleaned_data['date_of_birth']  # Pass date_of_birth to the Customer model
+                birth=form.cleaned_data['date_of_birth'],  # Pass date_of_birth to the Customer model
+                name=user.get_full_name()  # Assuming you want to save the full name
             )
 
             login(request, user)  # Log the user in
             messages.success(request, 'Registration successful! Welcome to NetFix.')
-            return redirect('customer:customer_dashboard')  # Updated redirect
+            return redirect('customer:customer_dashboard')
     else:
         form = CustomerSignUpForm()
-    
+
     return render(request, 'users/register_customer.html', {
         'form': form,
         'user_type': 'customer'
@@ -93,9 +107,9 @@ def login_view(request):
                     
                     # Redirect based on user type
                     if hasattr(user, 'customer'):
-                        return redirect('customer:dashboard')  
+                        return redirect('customer:customer_dashboard')  
                     elif hasattr(user, 'company'):
-                        return redirect('company:company_dashboard')
+                        return redirect('company:dashboard')  
                     else:
                         return redirect('main:home')
                 else:

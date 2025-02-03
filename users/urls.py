@@ -11,5 +11,6 @@ urlpatterns = [
     path('customer/', user_views.customer_signup, name='register_customer'),
     path('login/', user_views.login_view, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('dashboard/', customer_views.dashboard, name='dashboard'),  
+    path('dashboard/', customer_views.dashboard, name='dashboard'),
+    path('profile/', user_views.customer_profile, name='profile'),  # Add this line
 ]
