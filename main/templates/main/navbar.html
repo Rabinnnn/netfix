@@ -52,7 +52,7 @@
         
         /* Additional Navbar Styles */
         nav {
-            background-color: #35424a;
+            background-color: #ffffff;
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -119,10 +119,27 @@
            
             <!-- <a href="{% url 'customer:customer_dashboard' %}">Customer Dashboard</a> -->
         </div>
-        <div class="navbar-right">
-            <a href="{% url 'users:profile' %}">Profile</a>
-            <a href="{% url 'main:home' %}">Logout</a>
-        </div>
+        <nav style="background-color: #ffffff;">
+            <h1>Navbar</h1>
+            <div class="navbar-right">
+                <a href="{% url 'users:profile' %}">Profile</a>
+                <a href="#" onclick="confirmLogout(event)">Logout</a>
+            </div>
+        </nav>
+        
+        <script>
+            function confirmLogout(event) {
+                event.preventDefault(); // Prevent the default action
+                if (confirm("Are you sure you want to logout?")) {
+                    // If the user confirms, submit the logout form
+                    document.getElementById('logout-form').submit();
+                }
+            }
+        </script>
+        
+        <form id="logout-form" method="POST" action="{% url 'users:logout' %}" style="display:none;">
+            {% csrf_token %}
+        </form>
     </nav>
 </body>
 </html>
