@@ -116,125 +116,84 @@ class CustomerSignUpForm(forms.ModelForm):
         return user
 
 class CompanySignUpForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    password_confirmation = forms.CharField(widget=forms.PasswordInput)
-    description = forms.CharField(
-        widget=forms.Textarea,
-        help_text='Provide a brief description of your company and services'
-    )
-    location = forms.CharField(
-        max_length=255,
-        help_text='Enter your company\'s primary location'
+    username = forms.CharField(
+        max_length=150, required=True, 
+        help_text="Enter your company name"
     )
     email = forms.EmailField(
-        help_text='Enter your business email'
+        required=True, help_text="Enter your business email"
     )
-    field = forms.ChoiceField(choices=(
-        ('Air Conditioner', 'Air Conditioner'),
-        ('All in One', 'All in One'),
-        ('Carpentry', 'Carpentry'),
-        ('Electricity', 'Electricity'),
-        ('Gardening', 'Gardening'),
-        ('Home Machines', 'Home Machines'),
-        ('House Keeping', 'House Keeping'),
-        ('Interior Design', 'Interior Design'),
-        ('Locks', 'Locks'),
-        ('Painting', 'Painting'),
-        ('Plumbing', 'Plumbing'),
-        ('Water Heaters', 'Water Heaters')
-    ))
+    password = forms.CharField(
+        widget=forms.PasswordInput, required=True, 
+        help_text="Enter a strong password"
+    )
+    password_confirmation = forms.CharField(
+        widget=forms.PasswordInput, required=True, 
+        help_text="Confirm your password"
+    )
+    description = forms.CharField(
+        widget=forms.Textarea, required=True, 
+        help_text="Provide a brief description of your company and services"
+    )
+    location = forms.CharField(
+        max_length=255, required=True, 
+        help_text="Enter your company's primary location"
+    )
+    field_of_work = forms.ChoiceField(
+        choices=(
+            ('Air Conditioner', 'Air Conditioner'),
+            ('All in One', 'All in One'),
+            ('Carpentry', 'Carpentry'),
+            ('Electricity', 'Electricity'),
+            ('Gardening', 'Gardening'),
+            ('Home Machines', 'Home Machines'),
+            ('House Keeping', 'House Keeping'),
+            ('Interior Design', 'Interior Design'),
+            ('Locks', 'Locks'),
+            ('Painting', 'Painting'),
+            ('Plumbing', 'Plumbing'),
+            ('Water Heaters', 'Water Heaters')
+        ),
+        required=True
+    )
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password']
+        model = Company
+        fields = ['description', 'location', 'field_of_work']
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if not username:
-            raise ValidationError('Company name is required')
-        
-        if len(username) < 3:
-            raise ValidationError('Company name must be at least 3 characters long')
-        
-        if not re.match(r'^[a-zA-Z0-9\s_-]+$', username):
-            raise ValidationError('Company name can only contain letters, numbers, spaces, hyphens, and underscores')
-        
         if User.objects.filter(username=username).exists():
-            raise ValidationError('This company name is already taken')
-        
+            raise ValidationError("This company name is already taken")
         return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if not email:
-            raise ValidationError('Email is required')
-        
         if User.objects.filter(email=email).exists():
-            raise ValidationError('This email is already registered')
+            raise ValidationError("This email is already registered")
         
-        # Basic email format validation
-        if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
-            raise ValidationError('Enter a valid business email address')
-        
-        # Common free email providers
         free_email_providers = [
             'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 
             'aol.com', 'mail.com', 'icloud.com'
         ]
         domain = email.split('@')[1].lower()
         if domain in free_email_providers:
-            raise ValidationError('Please use a business email address, not a personal email service')
+            raise ValidationError("Please use a business email address, not a personal one")
         
         return email
 
-    def clean_description(self):
-        description = self.cleaned_data.get('description')
-        if not description:
-            raise ValidationError('Company description is required')
-        
-        if len(description) < 6:
-            raise ValidationError('Description must be at least 6 characters long')
-        
-        if len(description) > 1000:
-            raise ValidationError('Description must not exceed 1000 characters')
-        
-        return description
-
-    def clean_location(self):
-        location = self.cleaned_data.get('location')
-        if not location:
-            raise ValidationError('Company location is required')
-        
-        if len(location) < 5:
-            raise ValidationError('Please enter a more specific location')
-        
-        return location
-
     def clean_password(self):
         password = self.cleaned_data.get('password')
-        if not password:
-            raise ValidationError('Password is required')
-        
-        # Password length
-        if len(password) < 10:  # Stricter for companies
-            raise ValidationError('Password must be at least 10 characters long')
-        
-        # Password complexity
+        if len(password) < 10:
+            raise ValidationError("Password must be at least 10 characters long")
         if not re.search(r'[A-Z]', password):
-            raise ValidationError('Password must contain at least one uppercase letter')
+            raise ValidationError("Password must contain at least one uppercase letter")
         if not re.search(r'[a-z]', password):
-            raise ValidationError('Password must contain at least one lowercase letter')
+            raise ValidationError("Password must contain at least one lowercase letter")
         if not re.search(r'[0-9]', password):
-            raise ValidationError('Password must contain at least one number')
+            raise ValidationError("Password must contain at least one number")
         if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-            raise ValidationError('Password must contain at least one special character')
-        
-        # Additional complexity for companies
-        if len(re.findall(r'[0-9]', password)) < 2:
-            raise ValidationError('Password must contain at least two numbers')
-        if len(re.findall(r'[!@#$%^&*(),.?":{}|<>]', password)) < 2:
-            raise ValidationError('Password must contain at least two special characters')
-        
+            raise ValidationError("Password must contain at least one special character")
         return password
 
     def clean(self):
@@ -242,24 +201,26 @@ class CompanySignUpForm(forms.ModelForm):
         password = cleaned_data.get('password')
         password_confirmation = cleaned_data.get('password_confirmation')
 
-        if password and password_confirmation:
-            if password != password_confirmation:
-                raise ValidationError('Passwords do not match')
+        if password and password_confirmation and password != password_confirmation:
+            raise ValidationError("Passwords do not match")
 
         return cleaned_data
 
     def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])
+        user = User.objects.create_user(
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password']
+        )
+        company = super().save(commit=False)
+        company.user = user
+        company.email = self.cleaned_data['email']
+
         if commit:
-            user.save()
-            Company.objects.create(
-                user=user,
-                description=self.cleaned_data['description'],
-                location=self.cleaned_data['location'],
-                field=self.cleaned_data['field']
-            )
-        return user
+            company.save()
+
+        return company
+
 
 class UserLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):

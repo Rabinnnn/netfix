@@ -8,7 +8,9 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ("user", "field")
+    #list_display = ("user", "field")
+    list_display = ('user', 'email', 'field_of_work', 'location')  # Updated from 'field' to 'field_of_work'
+
 
 
 @admin.register(Customer)

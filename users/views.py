@@ -56,6 +56,7 @@ def customer_signup(request):
 
 
 # Company sign-up view
+"""
 def company_signup(request):
     if request.method == 'POST':
         form = CompanySignUpForm(request.POST)
@@ -70,20 +71,45 @@ def company_signup(request):
     return render(request, 'users/register_company.html', {
         'form': form,
         'user_type': 'company'
-    })
+    })"""
 
 
 # Company registration view (if needed, can be removed)
+# def register_company(request):
+#     if request.method == 'POST':
+#         form = CompanySignUpForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.set_password(form.cleaned_data['password'])
+#             user.save()
+#             return redirect('customer:customer_dashboard')  # Redirect to customer dashboard
+#     else:
+#         form = CompanySignUpForm()
+#     return render(request, 'users/register_company.html', {'form': form})
 def register_company(request):
     if request.method == 'POST':
         form = CompanySignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            return redirect('customer:customer_dashboard')  # Redirect to customer dashboard
+            user = User.objects.create_user(  # Create user and hash password
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password']
+            )
+
+            # Now create the Company linked to the User
+            company = Company.objects.create(
+                user=user,
+                email=form.cleaned_data['email'],
+                description=form.cleaned_data['description'],
+                location=form.cleaned_data['location'],
+                field_of_work=form.cleaned_data['field']
+            )
+
+            return redirect('customer:customer_dashboard')  # Redirect after successful registration
+
     else:
         form = CompanySignUpForm()
+
     return render(request, 'users/register_company.html', {'form': form})
 
 
