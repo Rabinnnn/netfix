@@ -90,24 +90,26 @@ def register_company(request):
     if request.method == 'POST':
         form = CompanySignUpForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(  # Create user and hash password
+            # Create and save the user
+            user = User.objects.create_user(
                 username=form.cleaned_data['username'],
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password']
             )
 
-            # Now create the Company linked to the User
-            company = Company.objects.create(
+            # Create and save the related Company instance
+            Company.objects.create(
                 user=user,
                 email=form.cleaned_data['email'],
                 description=form.cleaned_data['description'],
                 location=form.cleaned_data['location'],
-                field_of_work=form.cleaned_data['field']
+                field_of_work=form.cleaned_data['field_of_work']
             )
 
-            return redirect('customer:customer_dashboard')  # Redirect after successful registration
+            return redirect('company:company_dashboard')  # Redirect after successful registration
 
     else:
+        print("xxxxxxxxxxxxx")
         form = CompanySignUpForm()
 
     return render(request, 'users/register_company.html', {'form': form})
