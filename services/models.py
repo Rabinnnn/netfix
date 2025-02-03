@@ -32,3 +32,26 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ServiceRequest(models.Model):
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='requests')
+    customer = models.ForeignKey('users.Customer', on_delete=models.CASCADE, related_name='service_requests')
+    address = models.TextField()
+    hours_needed = models.PositiveIntegerField()
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    request_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=[
+        ('PENDING', 'Pending'),
+        ('ACCEPTED', 'Accepted'),
+        ('COMPLETED', 'Completed'),
+        ('CANCELLED', 'Cancelled')
+    ], default='PENDING')
+
+    def save(self, *args, **kwargs):
+        if not self.total_cost:
+            self.total_cost = self.service.price_hour * self.hours_needed
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.customer.user.username} - {self.service.name}"
