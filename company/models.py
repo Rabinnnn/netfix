@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import Company
 
 FIELD_CHOICES = [
     ('Air Conditioner', 'Air Conditioner'),
@@ -14,17 +15,6 @@ FIELD_CHOICES = [
     ('Plumbing', 'Plumbing'),
     ('Water Heaters', 'Water Heaters'),
 ]
-
-class Company(models.Model):
-    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)  # Link company to a user
-    name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
-    description = models.TextField()
-    location = models.CharField(max_length=255)
-    field_of_work = models.CharField(max_length=50, choices=FIELD_CHOICES)
-
-    def __str__(self):
-        return self.name
 
 class Service(models.Model):
     company = models.ForeignKey(Company, related_name='services', on_delete=models.CASCADE)

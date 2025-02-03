@@ -1,0 +1,154 @@
+{% extends 'main/base.html' %}
+
+<style>
+    body {
+        background-color: #f4f4f9;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        color: #333;
+    }
+
+    .container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .dashboard-header {
+        background: #ec2f00;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .dashboard-header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-danger {
+        background-color: #ff4d4d;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #e60000;
+    }
+
+    .dashboard-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        flex: 1;
+        margin: 0 10px;
+    }
+
+    .request-card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: box-shadow 0.3s;
+    }
+
+    .request-card:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+</style>
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-header">
+        <h1>Company Dashboard</h1>
+        <p>Welcome, {{ company.user.username }}!</p>
+        <form method="POST" action="{% url 'users:logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
+
+    <div class="dashboard-actions">
+        <a href="{% url 'company:company_profile' %}" class="btn btn-primary">View Company Profile</a>
+        <a href="{% url 'company:service_list' %}" class="btn btn-primary">View Services</a>
+    </div>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <h3>Total Services</h3>
+            <p>{{ total_services }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Average Rating</h3>
+            <p>{{ avg_rating|floatformat:1 }} / 5.0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Field</h3>
+            <p>{{ company.field }}</p>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Pending Service Requests</h2>
+        <div class="service-requests">
+            {% for request in pending_requests %}
+            <div class="request-card">
+                <h4>{{ request.service.name }}</h4>
+                <p><strong>Customer:</strong> {{ request.customer.user.username }}</p>
+                <p><strong>Address:</strong> {{ request.address }}</p>
+                <p><strong>Hours Needed:</strong> {{ request.hours_needed }}</p>
+                <p><strong>Total Cost:</strong> ${{ request.total_cost }}</p>
+                <p><strong>Requested on:</strong> {{ request.request_date }}</p>
+                <div class="request-actions">
+                    <a href="#" class="btn btn-success">Accept</a>
+                    <a href="#" class="btn btn-danger">Decline</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No pending requests.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Your Services</h2>
+        <div class="actions">
+            <a href="{% url 'company:service_list' %}" class="btn btn-primary">View All Services</a>
+            <a href="{% url 'services:create_service' %}" class="btn btn-success">Create New Service</a>
+        </div>
+        <div class="services-grid">
+            {% for service in services|slice:":3" %}
+            <div class="service-card">
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description|truncatewords:20 }}</p>
+                <p><strong>Price:</strong> ${{ service.price_hour }}/hour</p>
+                <p><strong>Field:</strong> {{ service.field }}</p>
+                <p><strong>Rating:</strong> {{ service.rating }}/5</p>
+                <a href="{% url 'services:service_detail' id=service.id %}" class="btn btn-info">View Details</a>
+            </div>
+            {% empty %}
+            <p>No services created yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

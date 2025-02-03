@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.db.models import Avg
+
 from .models import Company
-from services.models import Service
+from services.models import Service, ServiceRequest
 from services.forms import CreateNewService, RequestServiceForm  # Reusing forms from services app
 
 # List all services for the company
@@ -62,3 +66,58 @@ def request_service(request, id):
         form = RequestServiceForm()
 
     return render(request, 'company/request_service.html', {'service': service, 'form': form})
+
+@login_required
+def company_dashboard(request):
+    # Fetch any necessary data for the dashboard
+    company = request.user.company
+    services = Service.objects.filter(company=company).order_by('-date')
+    pending_requests = ServiceRequest.objects.filter(
+        service__company=company,
+        status='PENDING'
+    ).order_by('-request_date')
+    
+    context = {
+        'company': company,
+        'services': services,
+        'pending_requests': pending_requests,
+        'total_services': services.count(),
+        'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
+    }
+    return render(request, 'company/dashboard.html', context)
+
+@login_required
+def company_profile(request):
+    # Logic to retrieve and display company profile information
+    company = request.user.company
+    services = Service.objects.filter(company=company).order_by('-date')
+    completed_requests = ServiceRequest.objects.filter(
+        service__company=company,
+        status='COMPLETED'
+    ).count()
+    
+    context = {
+        'company': company,
+        'services': services,
+        'completed_requests': completed_requests,
+        'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
+    }
+    return render(request, 'company/company_profile.html', context)
+
+@login_required
+def service_requests(request):
+    if not request.user.is_company:
+        messages.error(request, "Access denied. Company account required.")
+        return redirect('main:home')
+    
+    company = request.user.company
+    requests = ServiceRequest.objects.filter(
+        service__company=company
+    ).order_by('-request_date')
+    
+    context = {
+        'requests': requests,
+        'pending_count': requests.filter(status='PENDING').count(),
+        'completed_count': requests.filter(status='COMPLETED').count()
+    }
+    return render(request, 'company/service_requests.html', context)
