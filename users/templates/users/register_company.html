@@ -17,7 +17,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px 0;
         }
 
         /* Centered card container */
@@ -27,7 +28,7 @@
             border-radius: 15px;
             box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
             width: 80%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
         }
 
@@ -47,17 +48,23 @@
         }
 
         /* Form styling */
-        form {
-            width: 100%;
+        .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
-        form input,
-        form select,
-        form textarea {
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
             font-size: 16px;
             border-radius: 8px;
             border: 1px solid #ddd;
@@ -65,9 +72,14 @@
             transition: border-color 0.3s;
         }
 
-        form input:focus,
-        form select:focus,
-        form textarea:focus {
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: #ec2f00;
             outline: none;
         }
@@ -76,9 +88,16 @@
         .helptext {
             display: block;
             font-size: 14px;
-            color: #888;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            color: #d32f2f;
+            font-size: 14px;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
         }
 
         /* Submit Button */
@@ -92,6 +111,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
+            margin-top: 20px;
         }
 
         button[type="submit"]:hover {
@@ -115,7 +135,7 @@
         .error {
             color: #ff4040;
             font-size: 14px;
-            margin-bottom: 10px;
+            margin: 5px 0;
         }
 
         /* Success message */
@@ -153,59 +173,78 @@
         {% endif %}
 
         <!-- Registration Form -->
-        <form method="POST">
+        <form method="POST" action="{% url 'users:register_company' %}">
             {% csrf_token %}
-             <!-- Username Field -->
-             <div class="form-group">
-              <label for="username">Company Name</label>
-              <input type="text" id="company" name="company" required placeholder="Choose a company name">
-          </div>
+
+            <!-- Company Name Field -->
+            <div class="form-group">
+                <label for="username">Company Name</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your company name">
+                {{ form.username.errors }}
+            </div>
+
             <!-- Email Field -->
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                <label for="email">Business Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your business email">
+                {{ form.email.errors }}
             </div>
 
             <!-- Password Field -->
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required placeholder="Enter your password">
+                {{ form.password.errors }}
             </div>
 
             <!-- Confirm Password Field -->
             <div class="form-group">
                 <label for="password_confirmation">Confirm Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+                {{ form.password_confirmation.errors }}
             </div>
 
-           
+            <!-- Company Description Field -->
+            <div class="form-group">
+                <label for="description">Company Description</label>
+                <textarea id="description" name="description" rows="4" required placeholder="Tell us about your company and services"></textarea>
+                {{ form.description.errors }}
+            </div>
+
+            <!-- Company Location Field -->
+            <div class="form-group">
+                <label for="location">Company Location</label>
+                <input type="text" id="location" name="location" required placeholder="Enter your company's location">
+                {{ form.location.errors }}
+            </div>
 
             <!-- Field of Work Dropdown -->
             <div class="form-group">
                 <label for="field_of_work">Field of Work</label>
-                <span class="helptext">Choose the appropriate field for your company above</span>
-                <select name="field_of_work" id="field_of_work" class="form-control">
+                <select name="field_of_work" id="field_of_work" required>
+                    <option value="">Select your field</option>
                     <option value="Air Conditioner">Air Conditioner</option>
                     <option value="All in One">All in One</option>
                     <option value="Carpentry">Carpentry</option>
                     <option value="Electricity">Electricity</option>
                     <option value="Gardening">Gardening</option>
                     <option value="Home Machines">Home Machines</option>
-                    <option value="Housekeeping">Housekeeping</option>
+                    <option value="House Keeping">House Keeping</option>
                     <option value="Interior Design">Interior Design</option>
                     <option value="Locks">Locks</option>
                     <option value="Painting">Painting</option>
                     <option value="Plumbing">Plumbing</option>
                     <option value="Water Heaters">Water Heaters</option>
                 </select>
+                {{ form.field_of_work.errors }}
             </div>
 
             <!-- Register Button -->
-            <button type="submit" name="register">Register</button>
+            <button type="submit" name="register">Register Company</button>
         </form>
 
         <!-- Link to login page -->
-        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
+        <p>Already have an account? <a class="login-link" href="/login">Login here</a></p>
     </div>
 </body>
 </html>
