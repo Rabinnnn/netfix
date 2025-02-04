@@ -3,7 +3,7 @@ from .models import User, Customer, Company
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ("id", "username", "email")
+    list_display = ("id", "username", "email", "is_company")
 
 
 @admin.register(Company)

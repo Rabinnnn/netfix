@@ -94,8 +94,10 @@ def register_company(request):
             user = User.objects.create_user(
                 username=form.cleaned_data['username'],
                 email=form.cleaned_data['email'],
-                password=form.cleaned_data['password']
+                password=form.cleaned_data['password'],
+                is_company = True 
             )
+            #user.is_company = True  # Mark as company
 
             # Create and save the related Company instance
             Company.objects.create(
@@ -109,7 +111,6 @@ def register_company(request):
             return redirect('company:company_dashboard')  # Redirect after successful registration
 
     else:
-        print("xxxxxxxxxxxxx")
         form = CompanySignUpForm()
 
     return render(request, 'users/register_company.html', {'form': form})

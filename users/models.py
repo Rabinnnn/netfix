@@ -4,9 +4,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class User(AbstractUser):
     is_company = models.BooleanField(default=False)
-    is_customer = models.BooleanField(default=True)
+    is_customer = models.BooleanField(default=False)
     email = models.CharField(max_length=100, unique=True)
 
+    def __str__(self):
+        return self.user.username  # or you can return any other field
 
 class Customer(models.Model):
     # Adding the user field as a OneToOneField

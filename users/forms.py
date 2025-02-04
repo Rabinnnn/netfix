@@ -210,8 +210,14 @@ class CompanySignUpForm(forms.ModelForm):
         user = User.objects.create_user(
             username=self.cleaned_data['username'],
             email=self.cleaned_data['email'],
-            password=self.cleaned_data['password']
+            password=self.cleaned_data['password'],
+          #  is_company = True 
         )
+        #user.is_company = True # Mark as company
+      #  print(f"Before save: is_company = {user.is_company}") # Check before saving
+        user.save()
+      #  print(f"After save: is_company = {user.is_company}")  # Check after saving
+
         company = super().save(commit=False)
         company.user = user
         company.email = self.cleaned_data['email']
