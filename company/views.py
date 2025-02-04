@@ -84,7 +84,7 @@ def company_dashboard(request):
         'total_services': services.count(),
         'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
     }
-    return render(request, 'company/dashboard.html', context)
+    return render(request, 'company/company_dashboard.html', context)
 
 @login_required
 def company_profile(request):

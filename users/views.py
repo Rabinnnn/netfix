@@ -107,7 +107,8 @@ def register_company(request):
                 location=form.cleaned_data['location'],
                 field_of_work=form.cleaned_data['field_of_work']
             )
-
+            
+            login(request, user)
             return redirect('company:company_dashboard')  # Redirect after successful registration
 
     else:
@@ -138,7 +139,7 @@ def login_view(request):
                     if hasattr(user, 'customer'):
                         return redirect('customer:customer_dashboard')  
                     elif hasattr(user, 'company'):
-                        return redirect('company:dashboard')  
+                        return redirect('company:company_dashboard')  
                     else:
                         return redirect('main:home')
                 else:

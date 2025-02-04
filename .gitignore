@@ -1,0 +1,14 @@
+# Byte-compiled / cached files
+__pycache__/
+*.pyo
+*.pyd
+*.pyc
+
+#database
+.sqlite3
+
+# Virtual environment
+venv/
+env/
+*.env
+*.venv
