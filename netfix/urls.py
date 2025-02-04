@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('services/', include('services.urls')),
     path('register/', include('users.urls')),
+    path('accounts/login/', include('users.urls')),  # Add login URL pattern
     path('company/', include('company.urls')),  # Include company URLs
     path('customer/', include('customer.urls')),
     path('customer/<slug:name>', v.customer_profile, name='customer_profile'),
