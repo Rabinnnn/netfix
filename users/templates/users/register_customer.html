@@ -8,6 +8,7 @@
 
     <style>
         /* Global Styles */
+        /*  */
         body {
             background-color: #f3f3f3;
             font-family: 'Lexend Exa', sans-serif;
@@ -51,12 +52,21 @@
             margin-bottom: 20px;
         }
 
-        form input,
-        form select,
-        form textarea {
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
             font-size: 16px;
             border-radius: 8px;
             border: 1px solid #ddd;
@@ -64,11 +74,24 @@
             transition: border-color 0.3s;
         }
 
-        form input:focus,
-        form select:focus,
-        form textarea:focus {
+        .form-group input:focus {
             border-color: #ec2f00;
             outline: none;
+        }
+
+        .helptext {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            color: #d32f2f;
+            font-size: 14px;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
         }
 
         /* Submit Button */
@@ -92,7 +115,7 @@
         .error {
             color: #ff4040;
             font-size: 14px;
-            margin-bottom: 10px;
+            margin: 5px 0;
         }
 
         /* Success message */
@@ -117,16 +140,67 @@
     </style>
 </head>
 <body>
-
     <div class="card">
         <h2>Customer Registration</h2>
         <p>Create your account to get started with our services.</p>
 
+        {% if messages %}
+            <div class="success">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}
             
-            <!-- Form Fields -->
-            {{ form.as_p }}
+            <!-- Username Field -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Choose a username">
+                {{ form.username.errors }}
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                {{ form.email.errors }}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+                <span class="helptext">Password must be at least 8 characters long and contain letters and numbers</span>
+                {{ form.password.errors }}
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+                {{ form.password_confirmation.errors }}
+            </div>
+
+            <!-- Date of Birth Field -->
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth</label>
+                <input type="date" id="date_of_birth" name="date_of_birth" required>
+                <span class="helptext">You must be at least 18 years old</span>
+                {{ form.date_of_birth.errors }}
+            </div>
             
             <!-- Register Button -->
             <button type="submit" name="register">Register</button>
@@ -135,6 +209,5 @@
         <!-- Link to login page -->
         <p>Already have an account? <a class="login-link" href="/login">Login here</a></p>
     </div>
-
 </body>
 </html>

@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Most Requested Services</h1>
+<!--  -->
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ service.field }}</h6>
+                    <p class="card-text">{{ service.description|truncatewords:30 }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Provided by <a href="{% url 'company_profile' name=service.company.user.username %}">{{ service.company.user.username }}</a>
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        <strong>Price per hour:</strong> ${{ service.price_hour }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Total Requests:</strong> {{ service.request_count }}
+                    </p>
+                    <a href="{% url 'services:service_detail' id=service.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No services available yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

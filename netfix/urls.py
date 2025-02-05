@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import re_path
 from django.contrib import admin
 from django.urls import include, path
-
+# 
 from . import views as v
 
 urlpatterns = [
@@ -24,6 +24,9 @@ urlpatterns = [
     path('', include('main.urls')),
     path('services/', include('services.urls')),
     path('register/', include('users.urls')),
+    path('accounts/', include('users.urls')),  # Add login URL pattern
+    path('company/', include('company.urls')),  # Include company URLs
+    path('customer/', include('customer.urls')),
     path('customer/<slug:name>', v.customer_profile, name='customer_profile'),
     path('company/<slug:name>', v.company_profile, name='company_profile')
 ]

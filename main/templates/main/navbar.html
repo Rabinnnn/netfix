@@ -1,39 +1,145 @@
-<nav class="navbar">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li>
-            <a href="/services/">Services</a>
-            <ul>
-                <li><a href="/services/air-conditioner">Air Conditioner</a></li>
-                <li><a href="/services/carpentry">Carpentry</a></li>
-                <li><a href="/services/electricity">Electricity</a></li>
-                <li><a href="/services/gardening">Gardening</a></li>
-                <li><a href="/services/home-machines">Home Machines</a></li>
-                <li><a href="/services/house-keeping">House Keeping</a></li>
-                <li><a href="/services/interior-design">Interior Design</a></li>
-                <li><a href="/services/locks">Locks</a></li>
-                <li><a href="/services/painting">Painting</a></li>
-                <li><a href="/services/plumbing">Plumbing</a></li>
-                <li><a href="/services/water-heaters">Water Heaters</a></li>
-            </ul>
-        </li>
-        <li><a href="/company/{{ request.user.username }}">Profile</a></li>
-    </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Link to your CSS file -->
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            color: rgb(255, 255, 255);
+        }
+        .navbar a {
+            color:black;
+            text-decoration: black;
+            padding: 10px;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+            border-radius: 5px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Additional Navbar Styles */
+        nav {
+            background-color: #ffffff;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+        }
 
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
 
+        nav ul li {
+            margin-right: 20px;
+        }
 
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
+        nav ul li a:hover {
+            background-color: #2c3e50;
+        }
+/*  */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="{% url 'main:home' %}">Home</a>
+            <div class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'services:air_conditioner' %}">Air Conditioner</a>
+                    <a href="{% url 'services:carpentry' %}">Carpentry</a>
+                    <a href="{% url 'services:electricity' %}">Electricity</a>
+                    <a href="{% url 'services:gardening' %}">Gardening</a>
+                    <a href="{% url 'services:home_machines' %}">Home Machines</a>
+                    <a href="{% url 'services:house_keeping' %}">House Keeping</a>
+                    <a href="{% url 'services:interior_design' %}">Interior Design</a>
+                    <a href="{% url 'services:locks' %}">Locks</a>
+                    <a href="{% url 'services:painting' %}">Painting</a>
+                    <a href="{% url 'services:plumbing' %}">Plumbing</a>
+                    <a href="{% url 'services:water_heaters' %}">Water Heaters</a>
+                </div>
+            </div>
+           
+            <!-- <a href="{% url 'customer:customer_dashboard' %}">Customer Dashboard</a> -->
+        </div>
+        <nav style="background-color: #ffffff;">
+            <h1>Navbar</h1>
+            <div class="navbar-right">
+                <a href="{% url 'users:profile' %}">Profile</a>
+                <a href="#" onclick="confirmLogout(event)">Logout</a>
+            </div>
+        </nav>
+        
+        <script>
+            function confirmLogout(event) {
+                event.preventDefault(); // Prevent the default action
+                if (confirm("Are you sure you want to logout?")) {
+                    // If the user confirms, submit the logout form
+                    document.getElementById('logout-form').submit();
+                }
+            }
+        </script>
+        
+        <form id="logout-form" method="POST" action="{% url 'users:logout' %}" style="display:none;">
+            {% csrf_token %}
+        </form>
+    </nav>
+</body>
+</html>

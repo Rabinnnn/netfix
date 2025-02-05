@@ -11,7 +11,7 @@ def home(request):
 def customer_profile(request):
     pass
 
-
+# 
 def company_profile(request, name):
     # fetches the company user and all of the services available by it
     user = User.objects.get(username=name)

@@ -129,14 +129,16 @@
     <nav class="navbar">
         <div class="navbar-left">
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'main:home' %}">Home</a></li>
                 <li><a href="/services">Services</a></li>
             </ul>
         </div>
         <div class="navbar-right">
             <ul>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
+                <li><a href="{% url 'users:register' %}">Register</a></li>
+                <li><a href="{% url 'users:login' %}">Login</a></li>
+                <!-- Add more links as needed -->
+                
             </ul>
         </div>
     </nav>

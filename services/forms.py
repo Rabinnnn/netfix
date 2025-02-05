@@ -21,7 +21,21 @@ class CreateNewService(forms.Form):
         self.fields['price_hour'].widget.attrs['placeholder'] = 'Enter Price per Hour'
 
         self.fields['name'].widget.attrs['autocomplete'] = 'off'
-
+# 
 
 class RequestServiceForm(forms.Form):
-    pass
+    address = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Enter Service Address'}),
+        required=True
+    )
+    hours_needed = forms.IntegerField(
+        min_value=1,
+        widget=forms.NumberInput(attrs={'placeholder': 'Hours Needed'}),
+        required=True
+    )
+
+    def clean_hours_needed(self):
+        hours = self.cleaned_data.get('hours_needed')
+        if hours < 1:
+            raise forms.ValidationError("Hours must be at least 1")
+        return hours

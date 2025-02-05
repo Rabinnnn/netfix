@@ -15,7 +15,7 @@ FIELD_CHOICES = [
     ('Plumbing', 'Plumbing'),
     ('Water Heaters', 'Water Heaters'),
 ]
-
+# service
 class Service(models.Model):
     company = models.ForeignKey(Company, related_name='services', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

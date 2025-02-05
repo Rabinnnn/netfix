@@ -8,6 +8,7 @@ from .models import Company
 from services.models import Service, ServiceRequest
 from services.forms import CreateNewService, RequestServiceForm  # Reusing forms from services app
 
+#
 # List all services for the company
 def service_list(request):
     company = request.user.company  # Directly accessing the company from the user model
@@ -84,7 +85,7 @@ def company_dashboard(request):
         'total_services': services.count(),
         'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
     }
-    return render(request, 'company/dashboard.html', context)
+    return render(request, 'company/company_dashboard.html', context)
 
 @login_required
 def company_profile(request):

@@ -1,12 +1,16 @@
 from django.urls import path
-from django.contrib.auth import views
-
-from .forms import UserLoginForm
-from . import views as v
+from django.contrib.auth import views as auth_views
+from . import views as user_views
+from customer import views as customer_views
+# 
+app_name = 'users'
 
 urlpatterns = [
-    path('', v.register, name='register'),
-    path('company/', v.CompanySignUpView.as_view(), name='register_company'),
-    path('customer/', v.CustomerSignUpView.as_view(), name='register_customer'),
-    path('login/', v.login_view, name='login'),  # Add the login URL pattern
+    path('', user_views.register, name='register'),
+    path('company/', user_views.register_company, name='register_company'),
+    path('customer/', user_views.customer_signup, name='register_customer'),
+    path('login/', user_views.login_view, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('dashboard/', customer_views.dashboard, name='dashboard'),
+    path('profile/', user_views.customer_profile, name='profile'),  # Add this line
 ]
