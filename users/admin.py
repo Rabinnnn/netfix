@@ -16,3 +16,4 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ("user", "birth")  # These fields must now exist in the Customer model
+# 

@@ -9,7 +9,7 @@ from .models import User, Customer, Company
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-
+# 
 class CustomerSignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password_confirmation = forms.CharField(widget=forms.PasswordInput)

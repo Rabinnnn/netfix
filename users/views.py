@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
 from .models import User, Company, Customer
 
-
+# 
 # Register view (landing page for registration)
 def register(request):
     return render(request, 'users/register.html')
