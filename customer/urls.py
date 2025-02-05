@@ -8,3 +8,4 @@ urlpatterns = [
     path('profile/', views.customer_profile, name='customer_profile'),
     path('history/', views.service_history, name='service_history'),
 ]
+# 
