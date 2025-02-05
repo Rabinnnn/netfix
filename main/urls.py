@@ -13,7 +13,7 @@ from . import views as v
 from .views import CustomPasswordResetView, CustomPasswordResetDoneView, CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
 
 app_name = "main"
-
+# 
 urlpatterns = [
     path('', v.home, name='home'),
     path('login/', v.login_view, name='login'),

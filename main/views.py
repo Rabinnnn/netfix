@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 # Home view
 def home(request):
     return render(request, "main/home.html", {})
-
+# 
 # Login view
 def login_view(request):
     if request.method == 'POST':
