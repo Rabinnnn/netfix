@@ -8,6 +8,7 @@ from .models import Company
 from services.models import Service, ServiceRequest
 from services.forms import CreateNewService, RequestServiceForm  # Reusing forms from services app
 
+#
 # List all services for the company
 def service_list(request):
     company = request.user.company  # Directly accessing the company from the user model

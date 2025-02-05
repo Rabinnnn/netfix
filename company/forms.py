@@ -5,3 +5,4 @@ class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['name', 'description', 'field', 'price_per_hour']
+#do
