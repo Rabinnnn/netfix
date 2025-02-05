@@ -21,3 +21,4 @@ urlpatterns = [
     path('plumbing/', v.plumbing_view, name='plumbing'),
     path('water-heaters/', v.water_heaters_view, name='water_heaters'),
 ]
+# 

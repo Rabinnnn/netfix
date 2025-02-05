@@ -32,7 +32,7 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
-
+# 
 
 class ServiceRequest(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='requests')

@@ -21,7 +21,7 @@ class CreateNewService(forms.Form):
         self.fields['price_hour'].widget.attrs['placeholder'] = 'Enter Price per Hour'
 
         self.fields['name'].widget.attrs['autocomplete'] = 'off'
-
+# 
 
 class RequestServiceForm(forms.Form):
     address = forms.CharField(
