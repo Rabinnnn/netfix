@@ -25,8 +25,10 @@ def service_detail(request, id):
 # Create a new service (for company)
 def create_service(request):
     company = request.user.company
-    choices = [(choice[0], choice[1]) for choice in Service.FIELD_CHOICES]  # Assuming this comes from the service model
-    form = CreateNewService(choices=choices)
+   # choices = [(choice[0], choice[1]) for choice in Service.field]  # Assuming this comes from the service model
+   # form = CreateNewService(choices=choices)
+    field_choices = Service._meta.get_field('field').choices  # Accessing choices correctly
+    form = CreateNewService(choices=field_choices)
     
     if request.method == "POST":
         form = CreateNewService(request.POST, choices=choices)
