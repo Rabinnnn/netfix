@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Avg
@@ -44,6 +45,11 @@ def create_service(request):
             return redirect('company:service_list')  # Corrected redirect URL name to 'company:service_list'
 
     return render(request, 'company/create_service.html', {'form': form})
+
+# Logout view
+def logout(request):
+    django_logout(request)
+    return redirect('main:logout')  # Redirect to home page after logout
 
 # Filter services by field for the company
 def service_field(request, field):
