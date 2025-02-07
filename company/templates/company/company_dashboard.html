@@ -136,7 +136,7 @@
         <div class="navbar-right">
             <ul>
                 <li><a href="{% url 'company:company_profile' %}">Profile</a></li>
-                <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                <li><a href="{% url 'main:logout' %}">Logout</a></li>
                 <!-- Add more links as needed -->
                 
             </ul>
@@ -145,6 +145,7 @@
 
     <!-- Main content with centered card for logo -->
     <div class="main-content">
+        <p>Welcome, {{ company.user.username }}!</p>
         <!-- Logo Card -->
         <div class="logo-card">
             <img class="home-logo" src="{% static 'css/logo.png' %}" alt="logo">
