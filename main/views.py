@@ -39,7 +39,7 @@ def login_view(request):
 # Logout view
 def logout(request):
     django_logout(request)
-    return redirect('main:home')  # Redirect to home page after logout
+    return render(request, 'main/logout.html')  # Redirect to logout page after logout
 
 # Password Reset Request View
 class CustomPasswordResetView(PasswordResetView):
