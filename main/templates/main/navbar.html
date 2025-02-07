@@ -123,11 +123,11 @@
             <h1>Navbar</h1>
             <div class="navbar-right">
                 <a href="{% url 'users:profile' %}">Profile</a>
-                <a href="#" onclick="confirmLogout(event)">Logout</a>
+                <a href="{% url 'main:logout' %}">Logout</a>
             </div>
         </nav>
         
-        <script>
+        <!-- <script>
             function confirmLogout(event) {
                 event.preventDefault(); // Prevent the default action
                 if (confirm("Are you sure you want to logout?")) {
@@ -136,8 +136,8 @@
                 }
             }
         </script>
-        
-        <form id="logout-form" method="POST" action="{% url 'users:logout' %}" style="display:none;">
+         -->
+        <form id="logout-form" method="POST" action="{% url 'main:logout' %}" style="display:none;">
             {% csrf_token %}
         </form>
     </nav>

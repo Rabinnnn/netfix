@@ -9,7 +9,7 @@
         <!-- Create service link for companies -->
         {% if user.is_company %}
             <div class="create-service-container">
-                <a class="create-service" href="{% url 'create_service_url' %}">Create a New Service</a>
+                <a class="create-service" href="{% url 'company:create_service' %}">Create a New Service</a>
             </div>
         {% endif %}
 <!--  -->

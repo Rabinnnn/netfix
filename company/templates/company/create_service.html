@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Registration</title>
+
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f3f3f3;
+            font-family: 'Lexend Exa', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #292929;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Centered card container */
+        .card {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* Card Title */
+        .card-title {
+            color: #ec2f00;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Card Description */
+        .card-description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ec2f00;
+            outline: none;
+        }
+
+        /* Help Text Styling */
+        .helptext {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            color: #d32f2f;
+            font-size: 14px;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #ec2f00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #d94400;
+        }
+
+        /* Link to login page */
+        .login-link {
+            color: #ec2f00;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Form error messages */
+        .error {
+            color: #ff4040;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        /* Success message */
+        .success {
+            color: #4caf50;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Centered Card Layout -->
+    <div class="card">
+        <h2 class="card-title">Create Service</h2>
+        <p class="card-description">Please fill in the details below to create a service.</p>
+
+        <!-- Success message (if any) -->
+        {% if messages %}
+            <div class="success">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Error messages (if any) -->
+        {% if form.errors %}
+            <div class="error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Registration Form -->
+        <form method="POST" action="{% url 'company:create_service' %}">
+            {% csrf_token %}
+
+            <!-- Company Name Field -->
+            <div class="form-group">
+                <label for="name">Service</label>
+                <input type="text" id="name" name="name" required placeholder="Enter service name">
+                {{ form.name.errors }}
+            </div>
+
+        
+            <!-- Company Description Field -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required placeholder="Describe the service"></textarea>
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="location">Description</label>
+                <input type="text" id="description" name="description" required placeholder="Enter description">
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="description">Price per hour</label>
+                <input type="text" id="price_per_hour" name="price_hour" required placeholder="Enter price...">
+                {{ form.price_hour.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="field">Field of work</label>
+                <input type="text" id="field" name="field" required placeholder="Enter field of work...">
+                {{ form.field.errors }}
+            </div>
+         
+
+            <!-- Register Button -->
+            <button type="submit" name="create_service">Submit</button>
+        </form>
+
+        <!-- Link to login page -->
+        <p>Already have an account? <a class="login-link" href="/login">Login here</a></p>
+    </div>
+</body>
+</html>

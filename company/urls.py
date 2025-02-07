@@ -9,4 +9,6 @@ urlpatterns = [
     path('profile/', views.company_profile, name='company_profile'),
     path('requests/', views.service_requests, name='service_requests'),
     path('services/', views.service_list, name='service_list'),
+    path('create_service/', views.create_service, name='create_service'),
+
 ]

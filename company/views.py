@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Avg
@@ -26,8 +27,10 @@ def service_detail(request, id):
 # Create a new service (for company)
 def create_service(request):
     company = request.user.company
-    choices = [(choice[0], choice[1]) for choice in Service.FIELD_CHOICES]  # Assuming this comes from the service model
-    form = CreateNewService(choices=choices)
+   # choices = [(choice[0], choice[1]) for choice in Service.field]  # Assuming this comes from the service model
+   # form = CreateNewService(choices=choices)
+    field_choices = Service._meta.get_field('field').choices  # Accessing choices correctly
+    form = CreateNewService(choices=field_choices)
     
     if request.method == "POST":
         form = CreateNewService(request.POST, choices=choices)
@@ -43,6 +46,11 @@ def create_service(request):
             return redirect('company:service_list')  # Corrected redirect URL name to 'company:service_list'
 
     return render(request, 'company/create_service.html', {'form': form})
+
+# Logout view
+def logout(request):
+    django_logout(request)
+    return redirect('main:logout')  # Redirect to home page after logout
 
 # Filter services by field for the company
 def service_field(request, field):
