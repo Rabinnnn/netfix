@@ -92,7 +92,7 @@ def company_dashboard(request):
         'services': services,
         'pending_requests': pending_requests,
         'total_services': services.count(),
-        'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
+       # 'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
     }
     return render(request, 'company/company_dashboard.html', context)
 
