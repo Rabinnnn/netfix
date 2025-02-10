@@ -33,18 +33,19 @@ def create_service(request):
     form = CreateNewService(choices=field_choices)
     
     if request.method == "POST":
-        form = CreateNewService(request.POST, choices=choices)
+        form = CreateNewService(request.POST)
         if form.is_valid():
             service = Service(
                 name=form.cleaned_data['name'],
                 description=form.cleaned_data['description'],
-                price_hour=form.cleaned_data['price_hour'],
+                price_per_hour=form.cleaned_data['price_per_hour'],
                 field=form.cleaned_data['field'],
                 company=company
             )
             service.save()
             return redirect('company:service_list')  # Corrected redirect URL name to 'company:service_list'
-
+        else:
+           form = CreateNewService
     return render(request, 'company/create_service.html', {'form': form})
 
 # Logout view
