@@ -9,16 +9,22 @@
     <style>
         /* Navbar Styles */
         .navbar {
+            position: sticky;
+            top: 15px;
+            box-shadow: inset 1px -1px 10px rgb(116, 116, 116);
+            border: 2px solid white;
+            border-radius: 30px;
+            background-color: #e7e7e7;
+            width: 95%;
+            margin: 0 auto;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background-color: #ffffff;
             padding: 10px 20px;
-            color: rgb(255, 255, 255);
         }
         .navbar a {
-            color:black;
-            text-decoration: black;
+            color: black;
+            text-decoration: none;
             padding: 10px;
         }
         .navbar a:hover {
@@ -49,97 +55,50 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-        
-        /* Additional Navbar Styles */
-        nav {
-            background-color: #ffffff;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        nav h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        nav ul li a:hover {
-            background-color: #2c3e50;
-        }
-/*  */
-        .navbar-right {
-            display: flex;
-            align-items: center;
-        }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar-left">
             <a href="{% url 'main:home' %}">Home</a>
-            <div class="dropdown">
-                <a href="javascript:void(0)">Services</a>
-                <div class="dropdown-content">
-                    <a href="{% url 'services:air_conditioner' %}">Air Conditioner</a>
-                    <a href="{% url 'services:carpentry' %}">Carpentry</a>
-                    <a href="{% url 'services:electricity' %}">Electricity</a>
-                    <a href="{% url 'services:gardening' %}">Gardening</a>
-                    <a href="{% url 'services:home_machines' %}">Home Machines</a>
-                    <a href="{% url 'services:house_keeping' %}">House Keeping</a>
-                    <a href="{% url 'services:interior_design' %}">Interior Design</a>
-                    <a href="{% url 'services:locks' %}">Locks</a>
-                    <a href="{% url 'services:painting' %}">Painting</a>
-                    <a href="{% url 'services:plumbing' %}">Plumbing</a>
-                    <a href="{% url 'services:water_heaters' %}">Water Heaters</a>
+            {% if user.is_authenticated and user.is_company %}
+                <!-- If the user is authenticated and is a company, show the direct link to the services -->
+                <a href="{% url 'company:service_list' %}">Services</a>
+            {% else %}
+                <div class="dropdown">
+                    <a href="javascript:void(0)">Services</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'services:air_conditioner' %}">Air Conditioner</a>
+                        <a href="{% url 'services:carpentry' %}">Carpentry</a>
+                        <a href="{% url 'services:electricity' %}">Electricity</a>
+                        <a href="{% url 'services:gardening' %}">Gardening</a>
+                        <a href="{% url 'services:home_machines' %}">Home Machines</a>
+                        <a href="{% url 'services:house_keeping' %}">House Keeping</a>
+                        <a href="{% url 'services:interior_design' %}">Interior Design</a>
+                        <a href="{% url 'services:locks' %}">Locks</a>
+                        <a href="{% url 'services:painting' %}">Painting</a>
+                        <a href="{% url 'services:plumbing' %}">Plumbing</a>
+                        <a href="{% url 'services:water_heaters' %}">Water Heaters</a>
+                    </div>
                 </div>
-            </div>
-           
-            <!-- <a href="{% url 'customer:customer_dashboard' %}">Customer Dashboard</a> -->
+            {% endif %}
         </div>
-        <nav style="background-color: #ffffff;">
-            <h1>Navbar</h1>
-            <div class="navbar-right">
-                <a href="{% url 'users:profile' %}">Profile</a>
+        <div class="navbar-right">
+            {% if user.is_authenticated %}
+                {% if user.is_company %} <li>
+                    <a href="{% url 'company:company_profile' %}">Profile</a>
+                {% else %}
+                    <a href="{% url 'customer:service_history' %}">Service History</a>
+                    <a href="{% url 'customer:customer_profile' %}">Profile</a>
+                {% endif %}
                 <a href="{% url 'main:logout' %}">Logout</a>
-            </div>
-        </nav>
-        
-        <!-- <script>
-            function confirmLogout(event) {
-                event.preventDefault(); // Prevent the default action
-                if (confirm("Are you sure you want to logout?")) {
-                    // If the user confirms, submit the logout form
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
-         -->
-        <form id="logout-form" method="POST" action="{% url 'main:logout' %}" style="display:none;">
-            {% csrf_token %}
-        </form>
+            {% else %}
+                <a href="{% url 'users:login' %}">Login</a>
+                <a href="{% url 'users:register' %}">Register</a>
+            {% endif %}
+        </div>
     </nav>
 </body>
 </html>
+
+
