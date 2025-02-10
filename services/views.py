@@ -62,7 +62,7 @@ def create_service(request):
             service = Service(
                 name=form.cleaned_data['name'],
                 description=form.cleaned_data['description'],
-                price_hour=form.cleaned_data['price_hour'],
+                price_per_hour=form.cleaned_data['price_per_hour'],
                 field=form.cleaned_data['field'],
                 company=company
             )

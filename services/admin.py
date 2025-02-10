@@ -5,5 +5,5 @@ from .models import Service
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "price_hour", "field", "date")
+    list_display = ("id", "name", "price_per_hour", "field", "date")
 # 
