@@ -13,7 +13,7 @@ from services.forms import CreateNewService, RequestServiceForm  # Reusing forms
 # List all services for the company
 def service_list(request):
     company = request.user.company  # Directly accessing the company from the user model
-    services = Service.objects.filter(company=company).order_by("-date_created")
+    services = Service.objects.filter(company=company).order_by("date")
     return render(request, 'company/service_list.html', {'services': services})
 
 # View a single service for the company

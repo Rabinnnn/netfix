@@ -30,41 +30,6 @@
             text-shadow: 0px 0px 2px #a1a1a1;
         }
 
-        /* Navbar */
-        .navbar {
-            position: sticky;
-            top: 15px;
-            box-shadow: inset 1px -1px 10px rgb(116, 116, 116);
-            border: 2px solid white;
-            border-radius: 30px;
-            background-color: #e7e7e7;
-            width: 95%;
-            margin: 0 auto;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-        }
-
-        .navbar-left ul, .navbar-right ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-        }
-
-        .navbar-left ul li, .navbar-right ul li {
-            margin-right: 30px;
-        }
-
-        .navbar-left a, .navbar-right a {
-            color: #ec2f00;
-            text-transform: uppercase;
-        }
-
-        .navbar-left a:hover, .navbar-right a:hover {
-            color: #f9f8fd;
-        }
-
         /* Main Content */
         .main-content {
             text-align: center;
@@ -125,23 +90,8 @@
 </head>
 <body>
 
-    <!-- Navigation bar -->
-    <nav class="navbar">
-        <div class="navbar-left">
-            <ul>
-                <li><a href="{% url 'main:home' %}">Home</a></li>
-                <li><a href="/services">Services</a></li>
-            </ul>
-        </div>
-        <div class="navbar-right">
-            <ul>
-                <li><a href="{% url 'users:register' %}">Register</a></li>
-                <li><a href="{% url 'users:login' %}">Login</a></li>
-                <!-- Add more links as needed -->
-                
-            </ul>
-        </div>
-    </nav>
+    <!-- Include the Navigation bar -->
+    {% include 'main/navbar.html' %}
 
     <!-- Main content with centered card for logo -->
     <div class="main-content">

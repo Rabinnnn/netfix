@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Sum
-
+from django.contrib.auth import logout as django_logout
 from users.models import Customer
 from services.models import Service, ServiceRequest
 
@@ -39,7 +39,10 @@ def dashboard(request):
         'total_spent': total_spent
     }
     return render(request, 'customer/customer_dashboard.html', context)  # Updated template name   return render(request, 'customer/dashboard.html', context)
-
+# Logout view
+def logout(request):
+    django_logout(request)
+    return render(request, 'main/logout.html')  # Redirect to logout page after logout
 @login_required
 def customer_profile(request):
     if not request.user.is_customer:

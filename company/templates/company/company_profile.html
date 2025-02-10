@@ -1,24 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ company.name }} Profile</title>
-</head>
-<body>
-    <h1>{{ company.name }} Profile</h1> <!--jndfna-->
-    <p><strong>Email:</strong> {{ company.email }}</p>
-    <p><strong>Field of Work:</strong> {{ company.get_field_of_work_display }}</p>
-    <p><strong>Description:</strong> {{ company.description }}</p>
-    <p><strong>Location:</strong> {{ company.location }}</p>
+{% extends 'main/base.html' %}
 
-    <h2>Services Offered</h2>
-    <ul>
-        {% for service in services %}
-            <li>
-                <a href="{% url 'service_detail' service.id %}">{{ service.name }}</a> - ${{ service.price_per_hour }} per hour
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block content %}
+<!-- ert -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #35424a;
+            color: white;
+            padding: 15px;
+        }
+
+        nav h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        /* nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        } */
+
+        nav ul li a:hover {
+            background-color: #2c3e50;
+        }
+
+        /* .profile-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        } */
+
+        .profile-container h2 {
+            color: #ec2f00;
+        }
+
+        .profile-container p {
+            color: #555;
+        }
+    </style>
+
+    <!-- <nav>
+        <h1>Customer Profile</h1>
+        <ul>
+            <li><a href="{% url 'users:profile' %}">Profile</a></li>
+            <li><a href="{% url 'customer:customer_dashboard' %}">Back</a></li>
+            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+        </ul>
+    </nav> -->
+    <div class="profile-container">
+        <h2>Company Profile</h2>
+        <p>Name: {{ user.username }}</p>
+        <p>Email: {{ company.email }}</p>
+        <p>Location: {{company.location}}</p>
+        <p>Field of Work: {{ company.field_of_work }}</p>
+        <p>Description: {{ company.description }}</p>
+    </div>
+    <div>
+        <p><a href="{% url 'customer:customer_dashboard' %}">Back</a></p>
+    </div>
+{% endblock %}
