@@ -35,7 +35,6 @@ def create_service(request):
     if request.method == "POST":
         form = CreateNewService(request.POST, choices=field_choices)
         if form.is_valid():
-           # service = form.save(commit=False)
             service = Service(
                 name=form.cleaned_data['name'],
                 description=form.cleaned_data['description'],
@@ -45,7 +44,6 @@ def create_service(request):
             )
             service.save()
         else:
-            print(form.errors)
             return redirect('company:service_list')  # Corrected redirect URL name to 'company:service_list'
  
     return render(request, 'company/create_service.html', {'form': form})
