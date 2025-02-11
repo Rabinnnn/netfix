@@ -19,7 +19,7 @@ class Service(models.Model):
         ('Electricity', 'Electricity'),
         ('Gardening', 'Gardening'),
         ('Home Machines', 'Home Machines'),
-        ('House Keeping', 'House Keeping'),
+        ('Housekeeping', 'Housekeeping'),
         ('Interior Design', 'Interior Design'),
         ('Locks', 'Locks'),
         ('Painting', 'Painting'),
