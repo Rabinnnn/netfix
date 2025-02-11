@@ -83,36 +83,47 @@ def service_field(request, field):
         'field': field
     })
 
-
 def air_conditioner_view(request):
-    return render(request, 'services/air_conditioner.html')
+    services = Service.objects.filter(field='Air Conditioner')
+    return render(request, 'services/air_conditioner.html', {'services': services})
+
 
 def carpentry_view(request):
-    return render(request, 'services/carpentry.html')
+    services = Service.objects.filter(field='Carpentry')
+    return render(request, 'services/carpentry.html', {'services': services})
 
 def electricity_view(request):
-    return render(request, 'services/electricity.html')
+    services = Service.objects.filter(field='Electricity')
+    return render(request, 'services/electricity.html', {'services': services})
 
 def gardening_view(request):
-    return render(request, 'services/gardening.html')
-
-def home_machines_view(request):
-    return render(request, 'services/home_machines.html')
+    services = Service.objects.filter(field='Gardening')
+    return render(request, 'services/gardening.html', {'services': services})
 
 def house_keeping_view(request):
-    return render(request, 'services/house_keeping.html')
+    services = Service.objects.filter(field='House Keeping')
+    return render(request, 'services/house_keeping.html', {'services': services})
 
 def interior_design_view(request):
-    return render(request, 'services/interior_design.html')
+    services = Service.objects.filter(field='Interior Design')
+    return render(request, 'services/interior_design.html', {'services': services})
 
 def locks_view(request):
-    return render(request, 'services/locks.html')
+    services = Service.objects.filter(field='Locks')
+    return render(request, 'services/locks.html', {'services': services})
 
 def painting_view(request):
-    return render(request, 'services/painting.html')
+    services = Service.objects.filter(field='Painting')
+    return render(request, 'services/painting.html', {'services': services})
 
 def plumbing_view(request):
-    return render(request, 'services/plumbing.html')
+    services = Service.objects.filter(field='Plumbing')
+    return render(request, 'services/plumbing.html', {'services': services})
+
+def home_machines_view(request):
+    services = Service.objects.filter(field='Home Machines')
+    return render(request, 'services/home_machines.html', {'services': services})
 
 def water_heaters_view(request):
-    return render(request, 'services/water_heaters.html')
+    services = Service.objects.filter(field='Water Heaters')
+    return render(request, 'services/water_heaters.html', {'services': services})
