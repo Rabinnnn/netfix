@@ -25,7 +25,12 @@ def service_detail(request, id):
     return render(request, 'company/single_service.html', {'service': service})
 
 # Create a new service (for company)
+@login_required
 def create_service(request):
+    if not request.user.is_company:
+        messages.error(request, 'Only companies can create services')
+        return redirect('services:service_list')
+
     company = request.user.company
     field_choices = [(choice[0], choice[1]) for choice in Service.choices]
 
@@ -49,6 +54,7 @@ def create_service(request):
                 company=company
             )
             service.save()
+            messages.success(request, 'Service created successfully!')
             return redirect('company:service_list')  # Ensure correct redirect
 
     return render(request, 'company/create_service.html', {'form': form, 'company': company})
