@@ -110,7 +110,7 @@ def company_profile(request):
         'company': company,
         'services': services,
         'completed_requests': completed_requests,
-        'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
+        # 'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
     }
     return render(request, 'company/company_profile.html', context)
 
