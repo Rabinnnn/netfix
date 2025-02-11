@@ -1,16 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electricity Services</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <h1>Electricity Services</h1>
-    <p>Details about electricity services.</p>
-    <a href="{% url 'customer:customer_dashboard' %}">Go Back</a>
-</body>
-</html>
-<!--  -->
+{% load static %}
+
+{% block content %}
+<style>
+    .services-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .services-header {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .service-card {
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-title {
+        color: #ec2f00;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .service-description {
+        color: #666;
+        margin-bottom: 15px;
+    }
+
+    .service-price {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .no-services {
+        text-align: center;
+        color: #6c757d;
+        padding: 50px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+</style>
+{% include 'main/navbar.html' %}
+<div class="services-container">
+    <h1 class="services-header">Electricity Services</h1>
+    
+    {% if services %}
+        <div class="services-grid">
+            {% for service in services %}
+                <div class="service-card">
+                    <h3 class="service-title">{{ service.name }}</h3>
+                    <p class="service-description">{{ service.description }}</p>
+                    <p class="service-price">${{ service.price_per_hour }}/hour</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-services">
+            <p>No electricity services are currently available. Check back later!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
