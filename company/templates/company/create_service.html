@@ -208,7 +208,7 @@
                     <option value="" disabled>Select your field of work...</option>
                     {% if company.field_of_work != 'All in One' %}
                     <option value="{{ company.field_of_work }}" selected>{{ company.field_of_work }}</option>
-                    {% endif %}
+                    {% else %}
                     <option value="Air Conditioner">Air Conditioner</option>
                     <option value="Carpentry">Carpentry</option>
                     <option value="Electricity">Electricity</option>
@@ -220,6 +220,7 @@
                     <option value="Painting">Painting</option>
                     <option value="Plumbing">Plumbing</option>
                     <option value="Water Heaters">Water Heaters</option>
+                    {% endif %}
 
                 </select>
                 {{ form.field.errors }}
