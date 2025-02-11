@@ -29,9 +29,13 @@ def create_service(request):
     company = request.user.company
    # choices = [(choice[0], choice[1]) for choice in Service.field]  # Assuming this comes from the service model
    # form = CreateNewService(choices=choices)
-    field_choices = Service._meta.get_field('field').choices  # Accessing choices correctly
+   # field_choices = Service._meta.get_field('field').choices  # Accessing choices correctly
+    field_choices = [(choice[0], choice[1]) for choice in Service.choices]
     form = CreateNewService(choices=field_choices)
     
+    if company.field_of_work != 'All in One':
+        field_choices = [(f, n) for f, n in field_choices if f == company.field_of_work]
+
     if request.method == "POST":
         form = CreateNewService(request.POST, choices=field_choices)
         if form.is_valid():
