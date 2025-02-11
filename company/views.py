@@ -33,18 +33,19 @@ def create_service(request):
     form = CreateNewService(choices=field_choices)
     
     if request.method == "POST":
-        form = CreateNewService(request.POST, choices=choices)
+        form = CreateNewService(request.POST, choices=field_choices)
         if form.is_valid():
             service = Service(
                 name=form.cleaned_data['name'],
                 description=form.cleaned_data['description'],
-                price_hour=form.cleaned_data['price_hour'],
+                price_per_hour=form.cleaned_data['price_per_hour'],
                 field=form.cleaned_data['field'],
                 company=company
             )
             service.save()
+        else:
             return redirect('company:service_list')  # Corrected redirect URL name to 'company:service_list'
-
+ 
     return render(request, 'company/create_service.html', {'form': form})
 
 # Logout view
@@ -91,7 +92,7 @@ def company_dashboard(request):
         'services': services,
         'pending_requests': pending_requests,
         'total_services': services.count(),
-        'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
+       # 'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
     }
     return render(request, 'company/company_dashboard.html', context)
 

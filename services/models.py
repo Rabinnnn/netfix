@@ -10,9 +10,9 @@ class Service(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     description = models.TextField()
-    price_hour = models.DecimalField(decimal_places=2, max_digits=100)
-    rating = models.IntegerField(validators=[MinValueValidator(
-        0), MaxValueValidator(5)], default=0)
+    price_per_hour = models.DecimalField(decimal_places=2, max_digits=100)
+    # rating = models.IntegerField(validators=[MinValueValidator(
+        # 0), MaxValueValidator(5)], default=0)
     choices = (
         ('Air Conditioner', 'Air Conditioner'),
         ('Carpentry', 'Carpentry'),
@@ -50,7 +50,7 @@ class ServiceRequest(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.total_cost:
-            self.total_cost = self.service.price_hour * self.hours_needed
+            self.total_cost = self.service.price_per_hour * self.hours_needed
         super().save(*args, **kwargs)
 
     def __str__(self):
