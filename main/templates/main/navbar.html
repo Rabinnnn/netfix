@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Navbar</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Link to your CSS file -->
@@ -55,6 +56,74 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        /* NOTIFICATION ICON & POPUP */
+.notification-container {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-icon {
+    cursor: pointer;
+    font-size: 24px; /* Increased for better visibility */
+    padding: 10px;
+    color: black;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* NOTIFICATION POPUP */
+.notification-popup {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;  /* Changed to white for better visibility */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    max-height: 300px; /* Prevents overflow */
+    overflow-y: auto; /* Enables scrolling if many notifications */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1002;
+}
+
+/* Ensure all text inside notification popup is dark */
+.notification-popup h5 {
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+.notification-item {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    color: black; /* Ensures notification text is visible */
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #444; /* Slightly darker gray for readability */
+}
     </style>
 </head>
 <body>
@@ -85,20 +154,157 @@
         </div>
         <div class="navbar-right">
             {% if user.is_authenticated %}
-                {% if user.is_company %} <li>
+                {% if user.is_company %}
+                    <div class="notification-container">
+                        <div class="notification-icon" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            {% if unread_requests_count > 0 %}
+                                <span class="notification-badge">{{ unread_requests_count }}</span>
+                            {% endif %}
+                        </div>
+                        <div id="notificationPopup" class="notification-popup">
+                            <h5>Service Requests</h5>
+                            {% if service_requests %}
+                                {% for request in service_requests %}
+                                    <div class="notification-item">
+                                        <strong>{{ request.customer.user.username }}</strong> 
+                                        requested {{ request.service.name }}
+                                        <br>
+                                        <small>{{ request.address }}</small>
+                                        <small class="text-muted d-block">
+                                            {{ request.request_date|timesince }} ago
+                                        </small>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-center text-muted">No new requests</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if user.is_company %}
                     <a href="{% url 'company:company_profile' %}">Profile</a>
                 {% else %}
                     <a href="{% url 'customer:service_history' %}">Service History</a>
                     <a href="{% url 'customer:customer_profile' %}">Profile</a>
                 {% endif %}
-                <a href="{% url 'main:logout' %}">Logout</a>
+                <a href="{% url 'main:logout' %}" class="logout-btn">Logout</a>
             {% else %}
-                <a href="{% url 'users:login' %}">Login</a>
-                <a href="{% url 'users:register' %}">Register</a>
+                <a href="{% url 'users:login' %}" class="login-btn">Login</a>
+                <a href="{% url 'users:register' %}" class="register-btn">Register</a>
             {% endif %}
         </div>
     </nav>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+const notificationIcon = document.querySelector(".notification-icon");
+const notificationPopup = document.getElementById("notificationPopup");
+
+if (!notificationIcon || !notificationPopup) return;
+
+// Toggle notification popup when clicking the bell icon
+notificationIcon.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent closing when clicking the icon
+    notificationPopup.style.display =
+        notificationPopup.style.display === "block" ? "none" : "block";
+});
+
+// Close notification popup when clicking outside
+document.addEventListener("click", function (event) {
+    if (!notificationPopup.contains(event.target) && event.target !== notificationIcon) {
+        notificationPopup.style.display = "none";
+    }
+});
+
+checkNewNotifications();
+});
+
+function checkNewNotifications() {
+    fetch("/services/check-new-requests/")
+        .then((response) => response.json())
+        .then((data) => {
+            const badge = document.querySelector(".notification-badge");
+            const popup = document.getElementById("notificationPopup");
+
+            if (!popup) return;
+
+            // Clear existing content
+            popup.innerHTML = '<h5>Service Requests</h5>';
+
+            if (data.requests.length > 0) {
+                data.requests.forEach((request) => {
+                    const requestItem = document.createElement("div");
+                    requestItem.classList.add("notification-item");
+                    requestItem.innerHTML = `
+                        <strong>Request #${request.id}</strong> 
+                        at ${request.address} for ${request.hours_needed} hours
+                        <br>
+                        Total Cost: $${request.total_cost}
+                        <br>
+                        <small>${new Date(request.request_date).toLocaleString()}</small>
+                    `;
+                    popup.appendChild(requestItem);
+                });
+
+                // Update notification badge count
+                if (badge) {
+                    badge.textContent = data.new_requests_count;
+                    badge.style.display = data.new_requests_count > 0 ? "inline-block" : "none";
+                }
+            } else {
+                popup.innerHTML += `<p class="text-center text-muted">No new requests</p>`;
+                if (badge) {
+                    badge.style.display = "none"; // Hide badge if no new notifications
+                }
+            }
+        })
+        .catch((error) => console.error("Error fetching notifications:", error));
+}
+
+// Attach event listeners to newly created "View" buttons
+function attachViewEventListeners() {
+document.querySelectorAll(".view-btn").forEach((button) => {
+    button.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent closing popup when clicking "View"
+        const notificationId = this.getAttribute("data-id");
+        markNotificationAsRead(notificationId);
+        this.parentElement.remove(); // Remove from UI
+        updateBadgeCount();
+    });
+});
+}
+
+// Function to mark a notification as read
+function markNotificationAsRead(notificationId) {
+fetch(`/services/mark-request-read/${notificationId}/`, { method: "POST" })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(`Notification ${notificationId} marked as read`);
+    })
+    .catch((error) => console.error("Error marking notification as read:", error));
+}
+
+// Update badge count dynamically
+function updateBadgeCount() {
+const badge = document.querySelector(".notification-badge");
+if (badge) {
+    let currentCount = parseInt(badge.textContent) || 0;
+    currentCount = Math.max(0, currentCount - 1);
+    
+    if (currentCount > 0) {
+        badge.textContent = currentCount;
+    } else {
+        badge.style.display = "none"; // Hide badge when no notifications left
+    }
+}
+}
+
+// Check for new notifications every minute
+setInterval(checkNewNotifications, 60000);
+
+</script>
 </html>
 
 
