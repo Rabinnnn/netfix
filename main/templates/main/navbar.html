@@ -63,23 +63,28 @@
 }
 
 .notification-icon {
-    cursor: pointer;
-    font-size: 24px; /* Increased for better visibility */
-    padding: 10px;
+    font-size: 28px; /* Larger size */
     color: black;
+    transition: transform 0.2s ease-in-out;
 }
 
-.notification-badge {
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 3px 7px;
-    font-size: 12px;
-    font-weight: bold;
+.notification-icon:hover {
+    transform: scale(1.2); /* Slight zoom on hover */
+    color: #ff3b3b; /* Change color on hover */
 }
+
+
+.notification-badge {
+    top: 0;
+    right: 0;
+    background-color: #ff3b3b;
+    color: white;
+    font-size: 14px;
+    padding: 5px 8px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
 
 /* NOTIFICATION POPUP */
 .notification-popup {
@@ -225,6 +230,7 @@ function checkNewNotifications() {
     fetch("/services/check-new-requests/")
         .then((response) => response.json())
         .then((data) => {
+            console.log(data);  // Log the data to check its structure
             const badge = document.querySelector(".notification-badge");
             const popup = document.getElementById("notificationPopup");
 
@@ -238,12 +244,12 @@ function checkNewNotifications() {
                     const requestItem = document.createElement("div");
                     requestItem.classList.add("notification-item");
                     requestItem.innerHTML = `
-                        <strong>Request #${request.id}</strong> 
-                        at ${request.address} for ${request.hours_needed} hours
+                        <strong>Request ${request.id}</strong> <br> Status:${request.status}<br> 
+                        Address: ${request.address} <br> Hours to complete: ${request.hours_needed} hours
                         <br>
                         Total Cost: $${request.total_cost}
                         <br>
-                        <small>${new Date(request.request_date).toLocaleString()}</small>
+                        <small>Requested on: ${new Date(request.request_date).toLocaleString()}</small>
                     `;
                     popup.appendChild(requestItem);
                 });
@@ -276,15 +282,42 @@ document.querySelectorAll(".view-btn").forEach((button) => {
 });
 }
 
-// Function to mark a notification as read
-function markNotificationAsRead(notificationId) {
-fetch(`/services/mark-request-read/${notificationId}/`, { method: "POST" })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(`Notification ${notificationId} marked as read`);
+// Function to mark notifications as read by sending a request to the server
+function markNotificationsAsRead() {
+    fetch("/services/mark-notifications-read/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCSRFToken()  // Function to get CSRF token
+        },
+        body: JSON.stringify({})  // Sending an empty JSON object
     })
-    .catch((error) => console.error("Error marking notification as read:", error));
+    .then(response => {
+        if (response.ok) {
+            document.getElementById("notification-badge").style.display = "none"; // Hide badge
+        } else {
+            console.error("Failed to mark notifications as read");
+        }
+    })
+    .catch(error => console.error("Error:", error));
 }
+
+// Function to get CSRF token (Django-specific)
+function getCSRFToken() {
+    let cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+        let [name, value] = cookie.trim().split("=");
+        if (name === "csrftoken") {
+            return value;
+        }
+    }
+    return "";
+}
+
+// Event listener for clicking the notification bell
+document.getElementById("notification-bell").addEventListener("click", function() {
+    markNotificationsAsRead();
+});
 
 // Update badge count dynamically
 function updateBadgeCount() {
