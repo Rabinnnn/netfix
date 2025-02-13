@@ -84,11 +84,13 @@ def request_service(request, id):
         print('Request POST data:', request.POST)  # Log the incoming request data
         form = RequestServiceForm(request.POST)
         if form.is_valid():
-            # Create a service request instance
-            service_request = form.save(commit=False)
-            service_request.service = service  # Ensure this line correctly assigns the service
+            service_request = ServiceRequest(  # Create the instance directly
+                service=service,
+                customer=request.user.customer,  # ASSIGN THE CUSTOMER HERE
+                address=form.cleaned_data['address'],
+                hours_needed=form.cleaned_data['hours_needed']
+            )
             service_request.save()
-            
             messages.success(request, 'Your service request has been submitted successfully!')
             return redirect('services:request_service', id=id)
         else:
