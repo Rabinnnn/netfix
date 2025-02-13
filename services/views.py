@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.contrib import messages
@@ -13,6 +13,9 @@ def service_list(request):
     services = Service.objects.all().order_by("-date")
     return render(request, 'services/list.html', {'services': services})
 
+def check_new_requests(request):
+    new_requests_count = ServiceRequest.objects.filter(status='PENDING').count()
+    return JsonResponse({'new_requests_count': new_requests_count})
 
 def most_requested_services(request):
     services = Service.objects.annotate(
@@ -74,6 +77,27 @@ def create_service(request):
     
     return render(request, 'services/create.html', {'form': form})
 
+
+def request_service(request, id):
+    service = get_object_or_404(Service, id=id)
+    if request.method == 'POST':
+        print('Request POST data:', request.POST)  # Log the incoming request data
+        form = RequestServiceForm(request.POST)
+        if form.is_valid():
+            # Create a service request instance
+            service_request = form.save(commit=False)
+            service_request.service = service  # Ensure this line correctly assigns the service
+            service_request.save()
+            
+            messages.success(request, 'Your service request has been submitted successfully!')
+            return redirect('services:request_service', id=id)
+        else:
+            print('Form errors:', form.errors)  # Log form errors if not valid
+    else:
+        form = RequestServiceForm()
+
+    return render(request, 'services/request_service.html', {'service': service, 'form': form})
+    
 
 def service_field(request, field):
     field = field.replace('-', ' ').title()

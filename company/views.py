@@ -86,7 +86,7 @@ def request_service(request, id):
     else:
         form = RequestServiceForm()
 
-    return render(request, 'company/request_service.html', {'service': service, 'form': form})
+    return render(request, 'services/request_service.html', {'service': service, 'form': form})
 
 @login_required
 def company_dashboard(request):
