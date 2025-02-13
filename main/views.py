@@ -5,6 +5,10 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
 
+from django.http import JsonResponse
+from services.models import ServiceRequest# Adjust the import based on your project structure
+
+
 # Home view
 def home(request):
     return render(request, "main/home.html", {})
@@ -72,3 +76,16 @@ def company_dashboard(request):
 # Customer Dashboard view
 def customer_dashboard(request):
     return render(request, 'customer/templates/customer/customer_dashboard.html')  # Make sure this template exists
+
+
+def check_new_requests(request):
+    if request.user.is_authenticated and request.user.is_company:
+        new_requests = ServiceRequest.objects.filter(status='PENDING').values(
+            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id'
+        )
+        new_requests_count = new_requests.count()
+        return JsonResponse({
+            'new_requests_count': new_requests_count,
+            'requests': list(new_requests)
+        })
+    return JsonResponse({'new_requests_count': 0, 'requests': []})
