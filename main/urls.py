@@ -24,4 +24,5 @@ urlpatterns = [
     path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('customer/', include('customer.urls')),  # Include customer URLs
     path('company/', include('company.urls')),  # Include company URLs
+    path('services/check-new-requests/', v.check_new_requests, name='check_new_requests'),
 ]
