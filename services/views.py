@@ -78,6 +78,27 @@ def create_service(request):
     return render(request, 'services/create.html', {'form': form})
 
 
+def request_service(request, id):
+    service = get_object_or_404(Service, id=id)
+    if request.method == 'POST':
+        print('Request POST data:', request.POST)  # Log the incoming request data
+        form = RequestServiceForm(request.POST)
+        if form.is_valid():
+            # Create a service request instance
+            service_request = form.save(commit=False)
+            service_request.service = service  # Ensure this line correctly assigns the service
+            service_request.save()
+            
+            messages.success(request, 'Your service request has been submitted successfully!')
+            return redirect('services:request_service', id=id)
+        else:
+            print('Form errors:', form.errors)  # Log form errors if not valid
+    else:
+        form = RequestServiceForm()
+
+    return render(request, 'services/request_service.html', {'service': service, 'form': form})
+    
+
 def service_field(request, field):
     field = field.replace('-', ' ').title()
     services = Service.objects.filter(field=field).order_by('-date')
