@@ -73,8 +73,8 @@
                     <h3 class="service-title">{{ service.name }}</h3>
                     <p class="service-description">{{ service.description }}</p>
                     <p class="service-price">${{ service.price_per_hour }}/hour</p>
-                    <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a>
-
+                    <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a> or
+                    <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
                 </div>
             {% endfor %}
         </div>
