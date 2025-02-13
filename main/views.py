@@ -81,7 +81,7 @@ def customer_dashboard(request):
 def check_new_requests(request):
     if request.user.is_authenticated and request.user.is_company:
         new_requests = ServiceRequest.objects.filter(status='PENDING').values(
-            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id'
+            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id','status',
         )
         new_requests_count = new_requests.count()
         return JsonResponse({
