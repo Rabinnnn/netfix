@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.contrib import messages
@@ -13,6 +13,9 @@ def service_list(request):
     services = Service.objects.all().order_by("-date")
     return render(request, 'services/list.html', {'services': services})
 
+def check_new_requests(request):
+    new_requests_count = ServiceRequest.objects.filter(status='PENDING').count()
+    return JsonResponse({'new_requests_count': new_requests_count})
 
 def most_requested_services(request):
     services = Service.objects.annotate(

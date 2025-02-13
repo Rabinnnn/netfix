@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views as v
+from company import views as company_views
 
 app_name = 'services'
 
@@ -20,5 +21,7 @@ urlpatterns = [
     path('painting/', v.painting_view, name='painting'),
     path('plumbing/', v.plumbing_view, name='plumbing'),
     path('water-heaters/', v.water_heaters_view, name='water_heaters'),
+    path('<int:id>/request_service/', company_views.request_service, name='request_service'),
+   path('check-new-requests/', v.check_new_requests, name='check_new_requests'),
 ]
 # 
