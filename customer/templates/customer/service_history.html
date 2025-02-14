@@ -27,24 +27,20 @@
 
     <div class="dashboard-section">
         <h2>Recent Service Requests</h2>
-        <div class="service-requests">
-            {% for request in recent_requests %}
-            <div class="request-card">
-                <h4>{{ request.service.name }}</h4>
-                <p><strong>Provider:</strong> {{ request.service.company.user.username }}</p>
-                <p><strong>Status:</strong> {{ request.status }}</p>
-                <p><strong>Address:</strong> {{ request.address }}</p>
-                <p><strong>Hours:</strong> {{ request.hours_needed }}</p>
-                <p><strong>Total Cost:</strong> ${{ request.total_cost }}</p>
-                <p><strong>Requested on:</strong> {{ request.request_date }}</p>
-                {% if request.status == 'COMPLETED' %}
-                <a href="#" class="btn btn-primary">Add Review</a>
-                {% endif %}
-            </div>
-            {% empty %}
-            <p>No service requests yet.</p>
-            {% endfor %}
-        </div>
+        <ul>
+    {% for request in service_requests %}
+        <li>
+            <strong>Request ID: {{ request.id }}</strong><br>
+            Address: {{ request.address }}<br>
+            Hours Needed: {{ request.hours_needed }}<br>
+            Total Cost: ${{ request.total_cost }}<br>
+            Status: {{ request.status }}<br>
+            Requested on: {{ request.request_date|date:"F j, Y, g:i a" }}<br>
+        </li>
+    {% empty %}
+        <li>No service requests found.</li>
+    {% endfor %}
+</ul>
     </div>
 
     <div class="dashboard-actions">

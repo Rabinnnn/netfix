@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile</title>
+    {% load static %}
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #fff;
+            font-family: 'Lexend Exa', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #292929;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2 {
+            color: #ec2f00;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>{{ user.company_name }}</h1>
+        <img src="{{ user.logo_url }}" alt="Company Logo">
+    </header>
+    <section>
+        <h2>About Us</h2>
+        <p>{{ user.description }}</p>
+    </section>
+    <section>
+        <h2>Contact Information</h2>
+        <p>Name: {{ user.username }}</p>
+        <p>Email: {{ user.company.email }}</p>
+        <p>Location: {{user.company.location}}</p>
+        <p>Field of Work: {{user.company.field_of_work }}</p>
+        <p>Description: {{ user.company.description }}</p>
+    </section>
+    <section>
+        <h2>Services Offered</h2>
+        <li>
+            {% for service in services %}
+                <li>{{ service.name }}</li>
+            {% endfor %}
+        </li>
+    </section>
+    <section>
+        <h2>Reviews</h2>
+        <div>
+            {% for review in user.reviews %}
+                <p>{{ review }}</p>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>
