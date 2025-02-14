@@ -25,13 +25,24 @@ def service_detail(request, id):
     return render(request, 'company/single_service.html', {'service': service})
 
 # Create a new service (for company)
+@login_required
 def create_service(request):
+    if not request.user.is_company:
+        messages.error(request, 'Only companies can create services')
+        return redirect('services:service_list')
+
     company = request.user.company
-   # choices = [(choice[0], choice[1]) for choice in Service.field]  # Assuming this comes from the service model
-   # form = CreateNewService(choices=choices)
-    field_choices = Service._meta.get_field('field').choices  # Accessing choices correctly
-    form = CreateNewService(choices=field_choices)
-    
+    field_choices = [(choice[0], choice[1]) for choice in Service.choices]
+
+    # If company.field_of_work is not 'All in One', filter the choices and set initial value
+    initial_data = {}
+    if company.field_of_work != 'All in One':
+        field_choices = [(f, n) for f, n in field_choices if f == company.field_of_work]
+        initial_data['field'] = company.field_of_work  # Set default value
+
+    # Initialize form with field choices and default value (if applicable)
+    form = CreateNewService(choices=field_choices, initial=initial_data)
+
     if request.method == "POST":
         form = CreateNewService(request.POST, choices=field_choices)
         if form.is_valid():
@@ -43,10 +54,10 @@ def create_service(request):
                 company=company
             )
             service.save()
-        else:
-            return redirect('company:service_list')  # Corrected redirect URL name to 'company:service_list'
- 
-    return render(request, 'company/create_service.html', {'form': form})
+            messages.success(request, 'Service created successfully!')
+            return redirect('company:service_list')  # Ensure correct redirect
+
+    return render(request, 'company/create_service.html', {'form': form, 'company': company})
 
 # Logout view
 def logout(request):
@@ -75,7 +86,7 @@ def request_service(request, id):
     else:
         form = RequestServiceForm()
 
-    return render(request, 'company/request_service.html', {'service': service, 'form': form})
+    return render(request, 'services/request_service.html', {'service': service, 'form': form})
 
 @login_required
 def company_dashboard(request):

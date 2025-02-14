@@ -205,7 +205,10 @@
             <div class="form-group">
                 <label for="field">Field of Work</label>
                 <select id="field" name="field" required>
-                    <option value="" disabled selected>Select your field of work...</option>
+                    <option value="" disabled>Select your field of work...</option>
+                    {% if company.field_of_work != 'All in One' %}
+                    <option value="{{ company.field_of_work }}" selected>{{ company.field_of_work }}</option>
+                    {% else %}
                     <option value="Air Conditioner">Air Conditioner</option>
                     <option value="Carpentry">Carpentry</option>
                     <option value="Electricity">Electricity</option>
@@ -217,6 +220,7 @@
                     <option value="Painting">Painting</option>
                     <option value="Plumbing">Plumbing</option>
                     <option value="Water Heaters">Water Heaters</option>
+                    {% endif %}
 
                 </select>
                 {{ form.field.errors }}
