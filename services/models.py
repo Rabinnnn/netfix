@@ -47,10 +47,14 @@ class ServiceRequest(models.Model):
         ('COMPLETED', 'Completed'),
         ('CANCELLED', 'Cancelled')
     ], default='PENDING')
+    service_name = models.CharField(max_length=255, blank=True, null=True)  # New field to store the service name
 
     def save(self, *args, **kwargs):
         if not self.total_cost:
             self.total_cost = self.service.price_per_hour * self.hours_needed
+        
+        if self.service:
+            self.service_name = self.service.field 
         super().save(*args, **kwargs)
 
     def __str__(self):

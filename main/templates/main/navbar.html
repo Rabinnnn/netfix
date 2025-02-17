@@ -244,7 +244,7 @@ function checkNewNotifications() {
                     const requestItem = document.createElement("div");
                     requestItem.classList.add("notification-item");
                     requestItem.innerHTML = `
-                        <strong>Request ${request.id}</strong> <br> Status:${request.status}<br> 
+                        <strong>Request: ${request.service_name}</strong> <br> Status:${request.status}<br> 
                         Address: ${request.address} <br> Hours to complete: ${request.hours_needed} hours
                         <br>
                         Total Cost: $${request.total_cost}

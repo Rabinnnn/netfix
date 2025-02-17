@@ -99,7 +99,7 @@ def check_new_requests(request):
             status='PENDING',
             service_id__in=service_ids  # Corrected query
         ).values(
-            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id', 'status'
+            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id', 'status', 'service_name'
         )
 
         new_requests_count = new_requests.count()
