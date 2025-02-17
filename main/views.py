@@ -6,7 +6,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 from django.urls import reverse_lazy
 
 from django.http import JsonResponse
-from services.models import ServiceRequest# Adjust the import based on your project structure
+from services.models import Service, ServiceRequest# Adjust the import based on your project structure
 
 
 # Home view
@@ -78,14 +78,35 @@ def customer_dashboard(request):
     return render(request, 'customer/templates/customer/customer_dashboard.html')  # Make sure this template exists
 
 
+# def check_new_requests(request):
+#     if request.user.is_authenticated and request.user.is_company:
+#         new_requests = ServiceRequest.objects.filter(status='PENDING').values(
+#             'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id','status',
+#         )
+#         new_requests_count = new_requests.count()
+#         return JsonResponse({
+#             'new_requests_count': new_requests_count,
+#             'requests': list(new_requests)
+#         })
+#     return JsonResponse({'new_requests_count': 0, 'requests': []})
 def check_new_requests(request):
     if request.user.is_authenticated and request.user.is_company:
-        new_requests = ServiceRequest.objects.filter(status='PENDING').values(
-            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id','status',
+        # Get all service IDs owned by the logged-in company
+        service_ids = Service.objects.filter(company_id=request.user.id).values_list('id', flat=True)
+
+        # Filter service requests where service_id matches the logged-in company's services
+        new_requests = ServiceRequest.objects.filter(
+            status='PENDING',
+            service_id__in=service_ids  # Corrected query
+        ).values(
+            'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id', 'status'
         )
+
         new_requests_count = new_requests.count()
+        
         return JsonResponse({
             'new_requests_count': new_requests_count,
             'requests': list(new_requests)
         })
+
     return JsonResponse({'new_requests_count': 0, 'requests': []})

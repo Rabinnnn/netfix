@@ -10,6 +10,7 @@ class ServiceRequest(models.Model):
     status = models.CharField(max_length=20)
     customer_id = models.BigIntegerField()
     service_id = models.BigIntegerField()
+    
 
     def __str__(self):
         return f"Request {self.id} for {self.address}"
