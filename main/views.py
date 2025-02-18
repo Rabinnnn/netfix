@@ -97,7 +97,7 @@ def check_new_requests(request):
 
         # Filter service requests where service_id matches the logged-in company's services
         new_requests = ServiceRequest.objects.filter(
-            status='PENDING',
+            status__in=['PENDING', 'ACCEPTED', 'CANCELLED', 'COMPLETED'],
             service_id__in=service_ids  # Corrected query
         ).values(
             'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id', 'status', 'service_name'
