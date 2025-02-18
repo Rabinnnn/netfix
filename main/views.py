@@ -15,7 +15,7 @@ from services.models import Service, ServiceRequest# Adjust the import based on 
 def home(request):
     services_requested = ServiceRequest.objects.values('service_name').annotate(
         request_count=Count('id')
-    ).order_by('-request_count')[:1]
+    ).order_by('-request_count')[:3]
 
     return render(request, "main/home.html", {'services_requested': services_requested})
 
