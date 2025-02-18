@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -111,11 +112,15 @@ def check_new_requests(request):
 
     return JsonResponse({'new_requests_count': 0, 'requests': []})
 
+
 def update_request_status(request, request_id):
     if request.method == "POST":
         try:
             service_request = ServiceRequest.objects.get(id=request_id)
-            new_status = request.POST.get("status")
+            
+            # Parse the request body as JSON
+            data = json.loads(request.body.decode("utf-8"))
+            new_status = data.get("status")
             
             if new_status in ['ACCEPTED', 'CANCELLED', 'COMPLETED']:
                 service_request.status = new_status
@@ -125,4 +130,6 @@ def update_request_status(request, request_id):
                 return JsonResponse({"success": False, "error": "Invalid status"})
         except ServiceRequest.DoesNotExist:
             return JsonResponse({"success": False, "error": "Request not found"})
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "error": "Invalid JSON"})
     return JsonResponse({"success": False, "error": "Invalid method"})
