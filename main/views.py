@@ -110,3 +110,19 @@ def check_new_requests(request):
         })
 
     return JsonResponse({'new_requests_count': 0, 'requests': []})
+
+def update_request_status(request, request_id):
+    if request.method == "POST":
+        try:
+            service_request = ServiceRequest.objects.get(id=request_id)
+            new_status = request.POST.get("status")
+            
+            if new_status in ['ACCEPTED', 'CANCELLED', 'COMPLETED']:
+                service_request.status = new_status
+                service_request.save()
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse({"success": False, "error": "Invalid status"})
+        except ServiceRequest.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Request not found"})
+    return JsonResponse({"success": False, "error": "Invalid method"})

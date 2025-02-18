@@ -258,6 +258,18 @@ function checkNewNotifications() {
                 <option value="COMPLETED">Complete</option>
             </select>
                     `;
+                       // Add event listener for when an action is selected
+                const actionDropdown = requestItem.querySelector(".status-action-dropdown");
+                actionDropdown.addEventListener("change", function(event) {
+                    const selectedStatus = event.target.value;
+                    const requestId = event.target.getAttribute("data-request-id");
+
+                    // If an action is selected, send it to the server to update the status
+                    if (selectedStatus) {
+                        updateRequestStatus(requestId, selectedStatus);
+                    }
+                });
+
                     popup.appendChild(requestItem);
                 });
 
@@ -274,6 +286,34 @@ function checkNewNotifications() {
             }
         })
         .catch((error) => console.error("Error fetching notifications:", error));
+}
+
+function updateRequestStatus(requestId, newStatus) {
+    fetch(`/update-request-status/${requestId}/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")  // Ensure you include CSRF token if you're using Django
+        },
+        body: JSON.stringify({
+            status: newStatus
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Optionally, update the UI to reflect the new status
+            const requestItem = document.querySelector(`.notification-item[data-request-id="${requestId}"]`);
+            const statusField = requestItem.querySelector(".status");
+            statusField.textContent = `Status: ${newStatus}`;
+        } else {
+            alert("Failed to update the status.");
+        }
+    })
+    .catch(error => {
+        console.error("Error updating request status:", error);
+        alert("An error occurred while updating the status.");
+    });
 }
 
 // Attach event listeners to newly created "View" buttons
