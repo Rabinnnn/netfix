@@ -251,13 +251,28 @@ function checkNewNotifications() {
                         <br>
                         <small>Requested on: ${new Date(request.request_date).toLocaleString()}</small>
 
-                            <select class="status-action-dropdown" data-request-id="${request.id}">
-                <option value="">Actions</option>
-                <option value="ACCEPTED">Accept</option>
-                <option value="CANCELLED">Cancel</option>
-                <option value="COMPLETED">Complete</option>
-            </select>
+                        <select class="status-action-dropdown" data-request-id="${request.id}">
+                            <option value="">Actions</option>
+                            <option value="ACCEPTED">Accept</option>
+                            <option value="CANCELLED">Cancel</option>
+                            <option value="COMPLETED">Complete</option>
+                            <option value="PENDING">Pending</option>
+
+                        </select>
                     `;
+                       // Add event listener for when an action is selected
+                const actionDropdown = requestItem.querySelector(".status-action-dropdown");
+                actionDropdown.addEventListener("change", function(event) {
+                    const selectedStatus = event.target.value;
+                    console.log('Selected Status:', selectedStatus);
+                    const requestId = event.target.getAttribute("data-request-id");
+
+                    // If an action is selected, send it to the server to update the status
+                    if (selectedStatus) {
+                        updateRequestStatus(requestId, selectedStatus);
+                    }
+                });
+
                     popup.appendChild(requestItem);
                 });
 
@@ -275,6 +290,64 @@ function checkNewNotifications() {
         })
         .catch((error) => console.error("Error fetching notifications:", error));
 }
+
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for (let i = 0; i < cookieArr.length; i++) {
+        let cookie = cookieArr[i].trim();
+        if (cookie.startsWith(name + "=")) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+}
+
+function updateRequestStatus(requestId, newStatus) {
+    //console.log("updateRequestStatus called with:", requestId, newStatus);  // Debugging line
+    console.log(`Making fetch to /update-request-status/${requestId}/ with status: ${newStatus}`);
+    fetch(`/update-request-status/${requestId}/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")  // Ensure you include CSRF token if you're using Django
+        },
+        body: JSON.stringify({
+            status: newStatus
+        })
+    })
+    .then(response => {
+        console.log("Response received:", response);  // Debugging line
+        return response.json();
+    })
+    .then(data => {
+        console.log("Response data:", data);  // Debugging line
+
+        if (data.success) {
+            // Optionally, update the UI to reflect the new status
+            const requestItem = document.querySelector(`.notification-item[data-request-id="${requestId}"]`);
+            if (requestItem) {
+                console.log("Request item found:", requestItem);  // Debugging line
+                const statusField = requestItem.querySelector(".status");
+                if (statusField) {
+                    console.log("Updating status field with new status:", newStatus);  // Debugging line
+                    statusField.textContent = `Status: ${newStatus}`;
+                } else {
+                    console.warn("Status field not found in request item.");  // Debugging line
+                }
+            } else {
+                console.warn("Request item not found for request ID:", requestId);  // Debugging line
+            }
+        } else {
+            alert("Failed to update the status.");
+            console.error("Failed to update status:", data.error);  // Debugging line
+        }
+    })
+    .catch(error => {
+        console.error("Error updating request status:", error);
+        alert("An error occurred while updating the status.");
+    });
+}
+
 
 // Attach event listeners to newly created "View" buttons
 function attachViewEventListeners() {
