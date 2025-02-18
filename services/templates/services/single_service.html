@@ -16,6 +16,11 @@
             <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
         {% endif %}
     </div>
+    <div>
+        <p style="text-align: center;">
+            <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+        </p>
+    </div>
 {% endblock %}
 
 {% block css %}
