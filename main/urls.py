@@ -25,4 +25,5 @@ urlpatterns = [
     path('customer/', include('customer.urls')),  # Include customer URLs
     path('company/', include('company.urls')),  # Include company URLs
     path('services/check-new-requests/', v.check_new_requests, name='check_new_requests'),
+    path('update-request-status/<int:request_id>/', v.update_request_status, name='update_request_status'),
 ]
