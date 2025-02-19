@@ -69,13 +69,16 @@
     {% if services %}
         <div class="services-grid">
             {% for service in services %}
-                <div class="service-card">
-                    <h3 class="service-title">{{ service.name }}</h3>
-                    <p class="service-description">{{ service.description }}</p>
-                    <p class="service-price">${{ service.price_per_hour }}/hour</p>
-                    <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a> or
-                    <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
-                </div>
+            <div class="service-card">
+                <h3 class="service-title"> <strong>service:</strong> {{ service.name }}</h3>
+                <p class="service-provider"> <strong>Provider:</strong>{{ service.company.user.username }}</p>
+                <p class="service-description"><strong>Service Description:</strong> {{ service.description }}</p>
+                <p><strong>Field of Work:</strong> {{ service.field}}</p><br>
+                <p class="service-price">Price: ${{ service.price_per_hour }}/hour</p>
+                <p><strong>Created on:</strong> {{ service.date }}</p>
+                <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a> or
+                <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
+            </div>
             {% endfor %}
         </div>
     {% else %}

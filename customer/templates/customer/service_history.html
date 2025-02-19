@@ -30,7 +30,7 @@
         <ul>
     {% for request in service_requests %}
         <li>
-            <strong>Service Provider: {{user.company_username}}</strong><br>
+            <strong>Service Provider:{{ request.service.company.user.username }}</strong><br>
             Service Name:{{request.service.name}} <br>
             Service Field:{{request.service_name}} <br>
             Address: {{ request.address }}<br>
@@ -38,7 +38,7 @@
             Total Cost: ${{ request.total_cost }}<br>
             Status: {{ request.status }}<br>
             Requested on: {{ request.request_date|date:"F j, Y, g:i a" }}<br>
-        </li>
+        </li><br>
     {% empty %}
         <li>No service requests found.</li>
     {% endfor %}

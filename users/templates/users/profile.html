@@ -67,13 +67,11 @@
     </section>
     <section>
         <h2>Services Offered</h2>
-        <ul>
-            {% for service in services %}
+              {% for service in services %}
                 <li>{{ service.name }}</li>
             {% empty %}
                 <li>No services available.</li>
             {% endfor %}
-        </ul>
     </section>
     <section>
         <h2>Reviews</h2>
