@@ -27,11 +27,17 @@
                 </div>
             </div>
         </div>
+      
         {% empty %}
         <div class="col-12">
             <p class="text-center">No services available yet.</p>
         </div>
         {% endfor %}
+    </div>
+    <div>
+        <p style="text-align: center;">
+            <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+        </p>
     </div>
 </div>
 {% endblock %}
