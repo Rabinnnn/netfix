@@ -50,20 +50,20 @@
 </head>
 <body>
     <header>
-        <h1>{{ company.user.company_name }}</h1>
-        <img src="{{ company.user.logo_url }}" alt="Company Logo">
+        <h1>{{company.user.username }}</h1>
+        <!-- <img src="{{ company.user.logo_url }}" alt="Company Logo"> -->
     </header>
     <section>
         <h2>About Us</h2>
-        <p>{{ company.description }}</p>
+            <p><strong>Company Description </strong><br>{{ user.company.description }}</p>
+        
     </section>
     <section>
         <h2>Contact Information</h2>
-        <p>Name: {{ company.user.username }}</p>
-        <p>Email: {{ company.email }}</p>
-        <p>Location: {{ company.location }}</p>
-        <p>Field of Work: {{ company.field_of_work }}</p>
-        <p>Description: {{ company.description }}</p>
+        <p>Name: {{ user.name }}</p>
+        <p>Email: {{ user.company.email }}</p>
+        <p>Location: {{ user.company.location }}</p>
+        <p>Field of Work: {{ user.company.field_of_work }}</p>
     </section>
     <section>
         <h2>Services Offered</h2>
