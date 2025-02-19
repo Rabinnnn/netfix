@@ -110,46 +110,46 @@ def service_field(request, field):
     })
 
 def air_conditioner_view(request):
-    services = Service.objects.filter(field='Air Conditioner')
+    services = Service.objects.filter(field='Air Conditioner').order_by('-date')
     return render(request, 'services/air_conditioner.html', {'services': services})
 
 
 def carpentry_view(request):
-    services = Service.objects.filter(field='Carpentry')
+    services = Service.objects.filter(field='Carpentry').order_by('-date')
     return render(request, 'services/carpentry.html', {'services': services})
 
 def electricity_view(request):
-    services = Service.objects.filter(field='Electricity')
+    services = Service.objects.filter(field='Electricity').order_by('-date')
     return render(request, 'services/electricity.html', {'services': services})
 
 def gardening_view(request):
-    services = Service.objects.filter(field='Gardening')
+    services = Service.objects.filter(field='Gardening').order_by('-date')
     return render(request, 'services/gardening.html', {'services': services})
 
 def house_keeping_view(request):
-    services = Service.objects.filter(field='Housekeeping')
+    services = Service.objects.filter(field='Housekeeping').order_by('-date')
     return render(request, 'services/house_keeping.html', {'services': services})
 
 def interior_design_view(request):
-    services = Service.objects.filter(field='Interior Design')
+    services = Service.objects.filter(field='Interior Design').order_by('-date')
     return render(request, 'services/interior_design.html', {'services': services})
 
 def locks_view(request):
-    services = Service.objects.filter(field='Locks')
+    services = Service.objects.filter(field='Locks').order_by('-date')
     return render(request, 'services/locks.html', {'services': services})
 
 def painting_view(request):
-    services = Service.objects.filter(field='Painting')
+    services = Service.objects.filter(field='Painting').order_by('-date')
     return render(request, 'services/painting.html', {'services': services})
 
 def plumbing_view(request):
-    services = Service.objects.filter(field='Plumbing')
+    services = Service.objects.filter(field='Plumbing').order_by('-date')
     return render(request, 'services/plumbing.html', {'services': services})
 
 def home_machines_view(request):
-    services = Service.objects.filter(field='Home Machines')
+    services = Service.objects.filter(field='Home Machines').order_by('-date')
     return render(request, 'services/home_machines.html', {'services': services})
 
 def water_heaters_view(request):
-    services = Service.objects.filter(field='Water Heaters')
+    services = Service.objects.filter(field='Water Heaters').order_by('-date')
     return render(request, 'services/water_heaters.html', {'services': services})

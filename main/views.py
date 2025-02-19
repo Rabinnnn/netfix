@@ -110,7 +110,7 @@ def check_new_requests(request):
         new_requests = ServiceRequest.objects.filter(
             status__in=['PENDING', 'ACCEPTED', 'CANCELLED', 'COMPLETED'],
             service_id__in=service_ids  # Corrected query
-        ).values(
+        ).order_by('-request_date').values(
             'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id', 'status', 'service_name'
         )
 

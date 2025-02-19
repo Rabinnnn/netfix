@@ -4,7 +4,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Avg
-
+from django.db.models import Count
 from .models import Company
 from services.models import Service, ServiceRequest
 from services.forms import CreateNewService, RequestServiceForm  # Reusing forms from services app
@@ -13,7 +13,7 @@ from services.forms import CreateNewService, RequestServiceForm  # Reusing forms
 # List all services for the company
 def service_list(request):
     company = request.user.company  # Directly accessing the company from the user model
-    services = Service.objects.filter(company=company).order_by("date")
+    services = Service.objects.filter(company=company).order_by("-date")
     return render(request, 'company/service_list.html', {'services': services})
 
 # View a single service for the company
@@ -93,6 +93,9 @@ def company_dashboard(request):
     # Fetch any necessary data for the dashboard
     company = request.user.company
     services = Service.objects.filter(company=company).order_by('-date')
+    services_requested = ServiceRequest.objects.values('service_name', 'service__name').annotate(
+        request_count=Count('id')
+    ).order_by('-request_count')[:3]
     pending_requests = ServiceRequest.objects.filter(
         service__company=company,
         status='PENDING'
@@ -101,6 +104,7 @@ def company_dashboard(request):
     context = {
         'company': company,
         'services': services,
+        'services_requested': services_requested,
         'pending_requests': pending_requests,
         'total_services': services.count(),
        # 'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
