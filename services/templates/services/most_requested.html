@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center mb-4">Most Requested Services</h1>
+    <h1 class="text-center mb-4">Services</h1>
 <!--  -->
     <div class="row">
         {% for service in services %}
@@ -13,11 +13,12 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{ service.field }}</h6>
                     <p class="card-text">{{ service.description|truncatewords:30 }}</p>
                     
-                        <p class="card-text">
-                            <small class="text-muted">
-                                Provided by <a href="{% url 'users:UserProfile' user_id=service.company.user.id %}">{{ service.company.user.username }}</a>
-                            </small>
-                        </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Provided by <a href="{% url 'company_profile' name=service.company.user.username %}">{{ service.company.user.username }}</a>
+                        </small>
+                    </p>
+
                         
                     
                     <p class="card-text">
