@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home - NetFix</title>
+    <title>Company Dashboard - NetFix</title>
 
     <!-- Load the static files in Django templates -->
     {% load static %}
@@ -40,7 +40,11 @@
         .logo-card {
             background: #535151;
             display: inline-block;
-            padding: 280px;
+            width: 70%;
+            padding-top: 80px;
+            padding-bottom: 20px;
+            padding-left: 50px;
+            padding-right: 50px;
             margin-bottom: 50px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.1);
@@ -49,8 +53,16 @@
         .home-logo {
             width: 200px;
             height: auto;
-        }
+            padding-bottom: 50px;
 
+        }
+        .box-title{
+            color: #ffffff;
+        }
+        .welcome-message{
+            font-size:larger;
+            font-weight:900;
+        }
         /* Service Box */
         .service-box {
             background-color: #646464;
@@ -93,30 +105,29 @@
     <!-- Include the Navigation bar -->
     {% include 'main/navbar.html' %}
 
-    <!-- Main content with centered card for logo -->
+    <!-- Main content -->
     <div class="main-content">
+        
         <!-- Logo Card -->
         <div class="logo-card">
             <img class="home-logo" src="{% static 'css/logo.png' %}" alt="logo">
-        </div>
-
-        <!-- Most Requested Service Section -->
-        <div class="service-box">
+            
+            <!-- Most Requested Service Section -->
             <h2 class="box-title">Most Requested Services</h2>
             <div class="service-list">
                 {% if services_requested %}
-                    {% for service in services_requested %}
-                        <div class="service-item">
-                           <!-- <p><strong>{{ service.service_name }}</strong></p>
-                            <hr class="service-divider"> -->
-                            <p><strong>{{ service.service__name }}</strong></p>
-                            <hr class="service-divider">
-                            <p>Requested {{ service.request_count }} times</p>                
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>No services available yet.</p>
-                {% endif %}
+                {% for service in services_requested %}
+                    <div class="service-item">
+                       <!-- <p><strong>{{ service.service_name }}</strong></p>
+                        <hr class="service-divider"> -->
+                        <p><strong>{{ service.service__name }}</strong></p>
+                        <hr class="service-divider">
+                        <p>Requested {{ service.request_count }} times</p>                
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No services available yet.</p>
+            {% endif %}
             </div>
         </div>
     </div>
