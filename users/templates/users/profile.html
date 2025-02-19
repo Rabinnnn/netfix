@@ -49,42 +49,43 @@
     </style>
 </head>
 <body>
-    
     <header>
-        <h1>{{ user.company_name }}</h1>
-        <img src="{{ user.logo_url }}" alt="Company Logo">
+        <h1>{{ company.user.company_name }}</h1>
+        <img src="{{ company.user.logo_url }}" alt="Company Logo">
     </header>
     <section>
         <h2>About Us</h2>
-        <p>{{ user.description }}</p>
+        <p>{{ company.description }}</p>
     </section>
     <section>
         <h2>Contact Information</h2>
-        <p>Name: {{ user.username }}</p>
-        <p>Email: {{ user.company.email }}</p>
-        <p>Location: {{user.company.location}}</p>
-        <p>Field of Work: {{user.company.field_of_work }}</p>
-        <p>Description: {{ user.company.description }}</p>
+        <p>Name: {{ company.user.username }}</p>
+        <p>Email: {{ company.email }}</p>
+        <p>Location: {{ company.location }}</p>
+        <p>Field of Work: {{ company.field_of_work }}</p>
+        <p>Description: {{ company.description }}</p>
     </section>
     <section>
         <h2>Services Offered</h2>
-        <li>
-            {% for service in services %}
+              {% for service in services %}
                 <li>{{ service.name }}</li>
+            {% empty %}
+                <li>No services available.</li>
             {% endfor %}
-        </li>
     </section>
     <section>
         <h2>Reviews</h2>
         <div>
-            {% for review in user.reviews %}
-                <p>{{ review }}</p>
+            {% for review in reviews %}
+                <p>{{ review.content }}</p> <!-- Assuming a "content" field for review -->
+            {% empty %}
+                <p>No reviews available.</p>
             {% endfor %}
         </div>
     </section>
     <div>
         <p style="text-align: center;">
-            <a href="{% url 'services:service_list' %}">Go To services</a>
+            <a href="{% url 'services:service_list' %}">Go To Services</a>
         </p>
     </div> 
 </body>

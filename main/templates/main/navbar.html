@@ -394,10 +394,13 @@ function getCSRFToken() {
     return "";
 }
 
-// Event listener for clicking the notification bell
-document.getElementById("notification-bell").addEventListener("click", function() {
-    markNotificationsAsRead();
-});
+const notificationIcon = document.querySelector(".notification-icon");
+if (notificationIcon) {
+    notificationIcon.addEventListener("click", function () {
+        markNotificationsAsRead();
+    });
+}
+
 
 // Update badge count dynamically
 function updateBadgeCount() {
@@ -415,7 +418,7 @@ if (badge) {
 }
 
 // Check for new notifications every minute
-setInterval(checkNewNotifications, 60000);
+setInterval(checkNewNotifications, 10000);
 
 </script>
 </html>

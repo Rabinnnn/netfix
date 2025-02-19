@@ -1,3 +1,4 @@
+{% include 'main/navbar.html' %}
 {% block title %}
     <!-- {{ service.name }} -->
 {% endblock %}
@@ -5,13 +6,14 @@
 {% block content %}
     <div class="service-info-container">
         <div class="service_info_header">
-            <h1 class="service-title">{{ service.name }} -- {{ service.price_per_hour }}€/hour</h1>
-            <h5 class="company-info">by <a href="/company/{{ service.company.user.username }}" class="company-link">{{ service.company.user.username }}</a></h5>
+            <h1 class="service-title">{{ service.name }} -- {{ service.price_per_hour }}$/hour</h1>
+            <h5 class="company-info">Provided by <strong><a href="/company/{{ service.company.user.username }}" class="company-link">{{ service.company.user.username }}</strong></a></h5>
         </div>
         
-        <h3 class="service-field">{{ service.field }}</h3>
-        <p class="service-description">{{ service.description }}</p>
-        
+        <h3 class="service-field"><strong>Service Field:</strong>{{ service.field }}</h3>
+        <p class="service-description"><strong>Service Description:</strong>{{ service.description }}</p>
+        <p class="service-price"><strong>Price: </strong>${{ service.price_per_hour }}/hour</p>
+        <p><strong>Created on:</strong> {{ service.date }}</p>
         {% if request.user.is_customer %}
             <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
         {% endif %}
