@@ -40,7 +40,11 @@
         .logo-card {
             background: #535151;
             display: inline-block;
-            padding: 280px;
+            width: 70%;
+            padding-top: 80px;
+            padding-bottom: 20px;
+            padding-left: 50px;
+            padding-right: 50px;
             margin-bottom: 50px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.1);
@@ -49,8 +53,16 @@
         .home-logo {
             width: 200px;
             height: auto;
-        }
+            padding-bottom: 50px;
 
+        }
+        .box-title{
+            color: #ffffff;
+        }
+        .welcome-message{
+            font-size:larger;
+            font-weight:900;
+        }
         /* Service Box */
         .service-box {
             background-color: #646464;
@@ -95,13 +107,15 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <div class="welcome-message">
         <p>Welcome, {{ company.user.username }}!</p>
+        </div>
         <!-- Logo Card -->
         <div class="logo-card">
             <img class="home-logo" src="{% static 'css/logo.png' %}" alt="logo">
             
             <!-- Most Requested Service Section -->
-            <h2 class="box-title">Most Requested Service</h2>
+            <h2 class="box-title">Most Requested Services</h2>
             <div class="service-list">
                 {% if services_requested %}
                 {% for service in services_requested %}
