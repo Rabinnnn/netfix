@@ -103,16 +103,19 @@
             <!-- Most Requested Service Section -->
             <h2 class="box-title">Most Requested Service</h2>
             <div class="service-list">
-                {% if services %}
-                    {% for service in services %}
-                        <div class="service-item">
-                            <p>{{ service.name }}</p>
-                            <hr class="service-divider">
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>No services available yet.</p>
-                {% endif %}
+                {% if services_requested %}
+                {% for service in services_requested %}
+                    <div class="service-item">
+                       <!-- <p><strong>{{ service.service_name }}</strong></p>
+                        <hr class="service-divider"> -->
+                        <p><strong>{{ service.service__name }}</strong></p>
+                        <hr class="service-divider">
+                        <p>Requested {{ service.request_count }} times</p>                
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No services available yet.</p>
+            {% endif %}
             </div>
         </div>
     </div>
