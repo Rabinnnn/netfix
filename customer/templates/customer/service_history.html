@@ -30,7 +30,9 @@
         <ul>
     {% for request in service_requests %}
         <li>
-            <strong>Request ID: {{ request.id }}</strong><br>
+            <strong>Service Provider: {{user.company_username}}</strong><br>
+            Service Name:{{request.service.name}} <br>
+            Service Field:{{request.service_name}} <br>
             Address: {{ request.address }}<br>
             Hours Needed: {{ request.hours_needed }}<br>
             Total Cost: ${{ request.total_cost }}<br>
@@ -43,7 +45,7 @@
 </ul>
     </div>
 
-    <div class="dashboard-actions">
+    <div class="dashboard-actions"> 
         <a href="{% url 'services:service_list' %}" class="btn btn-primary">Browse Services</a>
         <a href="{% url 'customer:service_history' %}" class="btn btn-info">View Service History</a>
         <a href="{% url 'services:most_requested' %}" class="btn btn-success">Popular Services</a>
