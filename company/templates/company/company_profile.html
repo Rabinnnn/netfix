@@ -75,6 +75,16 @@
         <p>Location: {{company.location}}</p>
         <p>Field of Work: {{ company.field_of_work }}</p>
         <p>Description: {{ company.description }}</p>
+        <div>
+            <section>
+            <h2>Services Offered</h2>
+        
+            {% for service in services %}
+                <li>{{ service.name }}</li>
+            {% endfor %}
+        
+          </section>
+        </div>
     </div>
     <div>
         <p><a href="{% url 'customer:customer_dashboard' %}">Back</a></p>

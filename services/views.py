@@ -127,7 +127,7 @@ def gardening_view(request):
     return render(request, 'services/gardening.html', {'services': services})
 
 def house_keeping_view(request):
-    services = Service.objects.filter(field='House Keeping')
+    services = Service.objects.filter(field='Housekeeping')
     return render(request, 'services/house_keeping.html', {'services': services})
 
 def interior_design_view(request):

@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
+from django.db.models import Count
 
 from django.http import JsonResponse
 from services.models import Service, ServiceRequest# Adjust the import based on your project structure
@@ -12,8 +13,18 @@ from services.models import Service, ServiceRequest# Adjust the import based on 
 
 # Home view
 def home(request):
-    return render(request, "main/home.html", {})
+    services_requested = ServiceRequest.objects.values('service_name', 'service__name').annotate(
+        request_count=Count('id')
+    ).order_by('-request_count')[:3]
+    return render(request, "main/home.html", {'services_requested': services_requested})
+
 # 
+def most_requested_services(request):
+    service = Service.objects.annotate(
+        request_count=Count('requests')
+    ).order_by('-request_count')[:10]
+    return render(request, 'services/most_requested.html', {'service': service})
+
 # Login view
 def login_view(request):
     if request.method == 'POST':

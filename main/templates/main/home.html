@@ -104,11 +104,14 @@
         <div class="service-box">
             <h2 class="box-title">Most Requested Service</h2>
             <div class="service-list">
-                {% if services %}
-                    {% for service in services %}
+                {% if services_requested %}
+                    {% for service in services_requested %}
                         <div class="service-item">
-                            <p>{{ service.name }}</p>
+                           <!-- <p><strong>{{ service.service_name }}</strong></p>
+                            <hr class="service-divider"> -->
+                            <p><strong>{{ service.service__name }}</strong></p>
                             <hr class="service-divider">
+                            <p>Requested {{ service.request_count }} times</p>                
                         </div>
                     {% endfor %}
                 {% else %}
