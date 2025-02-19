@@ -43,21 +43,42 @@
             background-color: #2c3e50;
         }
 
-        /* .profile-container {
+        .profile-container {
             background-color: white;
-            padding: 20px;
-            margin: 20px;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;            margin: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        } */
+        } 
 
         .profile-container h2 {
             color: #ec2f00;
         }
 
-        .profile-container p {
-            color: #555;
+       .profile-container li {
+            font-size: larger;
+       } 
+
+        .services-offered {
+            background-color: white;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        } 
+        .services-offered h2 {
+            color: #ec2f00;
         }
+        .services-offered li {
+            font-size: larger;
+        }
+      
+
     </style>
 
     <!-- <nav>
@@ -70,21 +91,19 @@
     </nav> -->
     <div class="profile-container">
         <h2>Company Profile</h2>
-        <p>Name: {{ user.username }}</p>
-        <p>Email: {{ company.email }}</p>
-        <p>Location: {{company.location}}</p>
-        <p>Field of Work: {{ company.field_of_work }}</p>
-        <p>Description: {{ company.description }}</p>
-        <div>
-            <section>
-            <h2>Services Offered</h2>
-        
-            {% for service in services %}
-                <li>{{ service.name }}</li>
-            {% endfor %}
-        
-          </section>
-        </div>
+        <li><strong>Name:</strong> {{ user.username }}</li>
+        <li><strong>Email:</strong> {{ company.email }}</li>
+        <li><strong>Location:</strong> {{company.location}}</li>
+        <li><strong>Field of Work:</strong> {{ company.field_of_work }}</li>
+        <li><strong>Description:</strong> {{ company.description }}</li>
+    </div>
+
+    <div class="services-offered">
+        <h2>Services Offered</h2>
+    
+        {% for service in services %}
+            <li>{{ service.name }}</li>
+        {% endfor %}
     </div>
     <div>
         <p><a href="{% url 'customer:customer_dashboard' %}">Back</a></p>
