@@ -1,43 +1,128 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+{% load static %}
+<style>
+       .services-list {
+        font-size:larger;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid with auto-fit */
+        gap: 70px; /* Increases space between rows and columns */
+        margin-top: 30px; /* Space above the grid */
+    }
+    .p{
+        font-size:larger;  
+    }
+    .service-item {
+        background-color: #ffffff;
+        padding: 2px; /* Adds padding inside each service item */
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        margin: 10px 0; /* Adds spacing between each card, vertically */
+    }
+
+    /* Hover effect on each card */
+    .service-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .service-info {
+        text-align: left;
+        flex-grow: 1; /* Ensures the content takes the full height of the card */
+    }
+
+    .service-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .service-description {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 15px; /* Adds space between description and price */
+    }
+
+    .service-item p {
+        font-size: 14px;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .no-services {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .no-services h2 {
+        font-size: 22px;
+        color: #777;
+    }
+
+    /* Link styling */
+    .text-center a {
+        text-decoration: none;
+        color: #ec2f00;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size:larger;
+        background-color: #fff;
+        border: 1px solid #ec2f00;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .text-center a:hover {
+        background-color: #ec2f00;
+        color: #fff;
+    }
+    .a{
+
+    }
+</style>
+
 <div class="container">
-    <h1 class="text-center mb-4">Most Requested Services</h1>
-<!--  -->
-    <div class="row">
+    <h1 class="text-center mb-4">Services History</h1>
+    
+    <!-- Grid for services -->
+    <div class="services-list">
         {% for service in services %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ service.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ service.field }}</h6>
-                    <p class="card-text">{{ service.description|truncatewords:30 }}</p>
-                    <p class="card-text">
-                        <small class="text-muted">
-                            Provided by <a href="{% url 'company_profile' name=service.company.user.username %}">{{ service.company.user.username }}</a>
-                        </small>
-                    </p>
-                    <p class="card-text">
-                        <strong>Price per hour:</strong> ${{ service.price_per_hour }}
-                    </p>
-                    <p class="card-text">
-                        <strong>Total Requests:</strong> {{ service.request_count }}
-                    </p>
-                    <a href="{% url 'services:service_detail' id=service.id %}" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
+        <div class="service-item">
+            <p class="card-title">service name: {{ service.name }}</p>
+            <p class="card-subtitle mb-2 text-muted"><strong>Service Field: </strong>{{ service.field }}</p>
+            <p class="card-text"><strong>Service Description: </strong>{{ service.description|truncatewords:30 }}</p>
+            <p class="card-text">
+                <small class="text-muted">
+                     Provided by <a href="{% url 'company_profile' name=service.company.user.username %}">{{ service.company.user.username }}</a>
+                </small>
+            </p>
+
+            <p class="card-text">
+                <strong>Price per hour:</strong> ${{ service.price_per_hour }}
+            </p>
+            <p class="card-text">
+                <strong>Total Requests:</strong> {{ service.request_count }}
+            </p>
+           <p> <a href="{% url 'services:service_detail' id=service.id %}" class="btn btn-primary">View Details</a></p>
         </div>
-      
         {% empty %}
-        <div class="col-12">
+        <div class="no-services col-12">
             <p class="text-center">No services available yet.</p>
         </div>
         {% endfor %}
     </div>
-    <div>
-        <p style="text-align: center;">
-            <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
-        </p>
+    
+    <!-- Link to Dashboard -->
+    <div class="text-center mt-4">
+        <p><a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a></p>
     </div>
 </div>
 {% endblock %}
+
+

@@ -30,15 +30,15 @@
         <ul>
     {% for request in service_requests %}
         <li>
-            <strong>Service Provider: {{user.company_username}}</strong><br>
-            Service Name:{{request.service.name}} <br>
-            Service Field:{{request.service_name}} <br>
+            <h3>Service Request: {{ request.service.name }}</h3>
+            Service Provider:<strong>{{ request.service.company.user.username }}</strong><br>
+            Service Field/Category: {{request.service_name}} <br>
             Address: {{ request.address }}<br>
             Hours Needed: {{ request.hours_needed }}<br>
             Total Cost: ${{ request.total_cost }}<br>
             Status: {{ request.status }}<br>
             Requested on: {{ request.request_date|date:"F j, Y, g:i a" }}<br>
-        </li>
+        </li><br>
     {% empty %}
         <li>No service requests found.</li>
     {% endfor %}
@@ -47,8 +47,8 @@
 
     <div class="dashboard-actions"> 
         <a href="{% url 'services:service_list' %}" class="btn btn-primary">Browse Services</a>
-        <a href="{% url 'customer:service_history' %}" class="btn btn-info">View Service History</a>
-        <a href="{% url 'services:most_requested' %}" class="btn btn-success">Popular Services</a>
+        <!-- <a href="{% url 'customer:service_history' %}" class="btn btn-info">View Service History</a> -->
+        <a href="{% url 'services:most_requested' %}" class="btn btn-success">View Service History</a>
     </div>
 </div>
 <div>
