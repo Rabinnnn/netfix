@@ -146,3 +146,8 @@ def service_requests(request):
         'completed_count': requests.filter(status='COMPLETED').count()
     }
     return render(request, 'company/service_requests.html', context)
+
+#   render single service for viewing 
+def service_detail(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    return render(request, 'company/service_detail.html', {'service': service})

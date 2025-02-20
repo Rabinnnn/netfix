@@ -14,19 +14,21 @@
             </div>
         {% endif %}
 
-        <!-- List of services -->
         <div class="services-list">
             {% if services %}
                 {% for service in services.all %}
-                    <div class="service-item">
-                        <div class="service-info">
-                            <h3 class="service-name">{{ service.name }}</h3>
-                            <p><strong>Description:</strong>{{ service.description }}</p>
-                            <p><strong>Price per hour:</strong> ${{ service.price_per_hour }}</p>
-                            <p><strong>Field of Work:</strong> {{ service.field}}</p>
-                            <p><strong>Created on:</strong> {{ service.date }}</p>
+                    <!-- Wrap the entire service card inside the <a> tag with the correct URL pattern -->
+                    <a href="{% url 'company:service_detail' service.id %}" class="service-link">
+                        <div class="service-item">
+                            <div class="service-info">
+                                <h3 class="service-name">{{ service.name }}</h3>
+                                <p><strong>Description:</strong> {{ service.description }}</p>
+                                <p><strong>Price per hour:</strong> ${{ service.price_per_hour }}</p>
+                                <p><strong>Field of Work:</strong> {{ service.field }}</p>
+                                <p><strong>Created on:</strong> {{ service.date }}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
             {% else %}
                 <div class="no-services">
@@ -34,6 +36,7 @@
                 </div>
             {% endif %}
         </div>
+        
     </div>
     <div>
         <p style="text-align: center;">
