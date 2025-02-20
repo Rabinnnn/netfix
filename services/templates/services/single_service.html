@@ -7,21 +7,38 @@
     <div class="service-info-container">
         <div class="service_info_header">
             <h1 class="service-title">{{ service.name }} -- {{ service.price_per_hour }}$/hour</h1>
-            <h5 class="company-info">Provided by <strong><a href="/company/{{ service.company.user.username }}" class="company-link">{{ service.company.user.username }}</strong></a></h5>
+            {% if user.is_authenticated and user.is_customer%}
+            <h5 class="company-info">Provided by <strong><a href="/company/{{ service.company.user.username }}" class="company-link">{{ service.company.user.username }}</a></strong></h5>
+            {% endif %}
+        
         </div>
         
         <h3 class="service-field"><strong>Service Field:</strong>{{ service.field }}</h3>
         <p class="service-description"><strong>Service Description:</strong>{{ service.description }}</p>
         <p class="service-price"><strong>Price: </strong>${{ service.price_per_hour }}/hour</p>
         <p><strong>Created on:</strong> {{ service.date }}</p>
-        {% if request.user.is_customer %}
-            <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
+        {% if user.is_authenticated %}
+        {% if not user.is_company %}
+        <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
         {% endif %}
+        {% else %}
+        <a href="{% url 'main:login' %}" class="request-button">Login to Request Service</a>
+{% endif %}
+
     </div>
     <div>
         <p style="text-align: center;">
-            <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+            {% if user.is_authenticated %}
+                {% if user.is_company %}
+                    <a href="{% url 'company:company_dashboard' %}">Go To Dashboard</a>
+                {% else %}
+                    <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'main:home' %}">Go to Home</a>
+            {% endif %}
         </p>
+        
     </div>
 {% endblock %}
 

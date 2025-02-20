@@ -76,8 +76,20 @@
                 <p><strong>Field of Work:</strong> {{ service.field}}</p><br>
                 <p class="service-price">Price: ${{ service.price_per_hour }}/hour</p>
                 <p><strong>Created on:</strong> {{ service.date }}</p>
-                <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a> or
-                <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
+                <div class="button-row" style="display: flex; justify-content: space-between; width: 100%;">
+                    <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a>
+                
+                    <div style="text-align: right;">
+                        {% if user.is_authenticated %}
+                            {% if not user.is_company %}
+                                <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'main:login' %}" class="request-button">Login to Request Service</a>
+                        {% endif %}
+                    </div>
+                </div>
+                
             </div>
             {% endfor %}
         </div>
@@ -89,7 +101,16 @@
 </div>
 <div>
     <p style="text-align: center;">
-        <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+        {% if user.is_authenticated %}
+            {% if user.is_company %}
+                <a href="{% url 'company:company_dashboard' %}">Go To Dashboard</a>
+            {% else %}
+                <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'main:home' %}">Go to Home</a>
+        {% endif %}
     </p>
-</div>
+    
+</div>>
 {% endblock %}

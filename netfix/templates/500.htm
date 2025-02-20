@@ -1,0 +1,21 @@
+<!-- templates/500.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server Error - 500</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .error-page { text-align: center; padding: 50px; }
+        .error-page h1 { font-size: 3em; color: #ff0000; }
+        .error-page p { font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="error-page">
+        <h1>500 - Internal Server Error</h1>
+        <p>Oops! Something went wrong on our end.</p>
+        <a href="{% url 'home' %}">Return to Homepage</a>
+    </div>
+</body>
+</html>

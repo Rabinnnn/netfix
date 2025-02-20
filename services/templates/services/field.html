@@ -14,8 +14,20 @@
                             <a href="/services/{{ service.id }}" class="service-name">{{ service.name }}</a>
                             <p class="service-price">{{ service.price_per_hour }}$/hour</p>
                             <p class="service-description">{{ service.description }}</p>
-                            <p class="company-info">by <a href="/company/{{ service.company.user }}" class="company-link">{{ service.company.user }}</a></p>
-                            <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a>
+                            <div class="button-row" style="display: flex; justify-content: space-between; width: 100%;">
+                                <a href="{% url 'services:service_detail' service.id %}" class="btn btn-primary">View Details</a>
+                            
+                                <div style="text-align: right;">
+                                    {% if user.is_authenticated %}
+                                        {% if not user.is_company %}
+                                            <a href="/services/{{ service.id }}/request_service/" class="request-button">Request Service</a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="{% url 'main:login' %}" class="request-button">Login to Request Service</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     {% if forloop.counter != services.all|length %}

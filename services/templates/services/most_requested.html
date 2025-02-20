@@ -82,9 +82,7 @@
         background-color: #ec2f00;
         color: #fff;
     }
-    .a{
 
-    }
 </style>
 
 <div class="container">
@@ -119,8 +117,19 @@
     </div>
     
     <!-- Link to Dashboard -->
-    <div class="text-center mt-4">
-        <p><a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a></p>
+    <div>
+        <p style="text-align: center;">
+            {% if user.is_authenticated %}
+                {% if user.is_company %}
+                    <a href="{% url 'company:company_dashboard' %}">Go To Dashboard</a>
+                {% else %}
+                    <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'main:home' %}">Go to Home</a>
+            {% endif %}
+        </p>
+        
     </div>
 </div>
 {% endblock %}

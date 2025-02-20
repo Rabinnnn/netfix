@@ -137,6 +137,22 @@
             {% if user.is_authenticated and user.is_company %}
                 <!-- If the user is authenticated and is a company, show the direct link to the services -->
                 <a href="{% url 'company:service_list' %}">Services</a>
+                <div class="dropdown">
+                    <a href="javascript:void(0)">Services</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'services:air_conditioner' %}">Air Conditioner</a>
+                        <a href="{% url 'services:carpentry' %}">Carpentry</a>
+                        <a href="{% url 'services:electricity' %}">Electricity</a>
+                        <a href="{% url 'services:gardening' %}">Gardening</a>
+                        <a href="{% url 'services:home_machines' %}">Home Machines</a>
+                        <a href="{% url 'services:house_keeping' %}">House Keeping</a>
+                        <a href="{% url 'services:interior_design' %}">Interior Design</a>
+                        <a href="{% url 'services:locks' %}">Locks</a>
+                        <a href="{% url 'services:painting' %}">Painting</a>
+                        <a href="{% url 'services:plumbing' %}">Plumbing</a>
+                        <a href="{% url 'services:water_heaters' %}">Water Heaters</a>
+                    </div>
+                </div>
             {% else %}
                 <div class="dropdown">
                     <a href="javascript:void(0)">Services</a>
@@ -255,8 +271,6 @@ function checkNewNotifications() {
                             <option value="ACCEPTED">Accept</option>
                             <option value="CANCELLED">Cancel</option>
                             <option value="COMPLETED">Complete</option>
-                            <option value="PENDING">Pending</option>
-
                         </select>
                     `;
                        // Add event listener for when an action is selected
@@ -393,13 +407,10 @@ function getCSRFToken() {
     return "";
 }
 
-const notificationIcon = document.querySelector(".notification-icon");
-if (notificationIcon) {
-    notificationIcon.addEventListener("click", function () {
-        markNotificationsAsRead();
-    });
-}
-
+// Event listener for clicking the notification bell
+document.getElementById("notification-bell").addEventListener("click", function() {
+    markNotificationsAsRead();
+});
 
 // Update badge count dynamically
 function updateBadgeCount() {
@@ -417,7 +428,7 @@ if (badge) {
 }
 
 // Check for new notifications every minute
-setInterval(checkNewNotifications, 10000);
+setInterval(checkNewNotifications, 60000);
 
 </script>
 </html>

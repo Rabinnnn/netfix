@@ -30,8 +30,17 @@
     </div>
     <div>
         <p style="text-align: center;">
-            <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+            {% if user.is_authenticated %}
+                {% if user.is_company %}
+                    <a href="{% url 'company:company_dashboard' %}">Go To Dashboard</a>
+                {% else %}
+                    <a href="{% url 'customer:customer_dashboard' %}">Go To Dashboard</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'main:home' %}">Go to Home</a>
+            {% endif %}
         </p>
+        
     </div>
 {% endblock %}
 

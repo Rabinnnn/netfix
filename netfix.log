@@ -1,0 +1,225 @@
+INFO 2025-02-20 17:23:47,443 autoreload 77296 134864180654080 Watching for file changes with StatReloader
+INFO 2025-02-20 17:24:43,858 autoreload 77296 134864180654080 /home/somulo/all/netfix/netfix/views.py changed, reloading.
+INFO 2025-02-20 17:24:44,192 autoreload 77371 139902327930880 Watching for file changes with StatReloader
+INFO 2025-02-20 17:25:07,432 autoreload 77371 139902327930880 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:25:07,719 autoreload 77427 123750712909824 Watching for file changes with StatReloader
+INFO 2025-02-20 17:25:12,867 autoreload 77427 123750712909824 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:25:13,165 autoreload 77454 123527252885504 Watching for file changes with StatReloader
+INFO 2025-02-20 17:25:16,312 autoreload 77454 123527252885504 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:25:16,598 autoreload 77482 131532262543360 Watching for file changes with StatReloader
+INFO 2025-02-20 17:25:20,731 autoreload 77482 131532262543360 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:25:21,023 autoreload 77509 131972093644800 Watching for file changes with StatReloader
+INFO 2025-02-20 17:25:27,120 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:25:27,787 basehttp 77509 131972030531136 "GET /services/air-conditioner/ HTTP/1.1" 200 19678
+ERROR 2025-02-20 17:25:32,550 log 77509 131972030531136 Internal Server Error: /services/air-conditioner/hhh/
+ERROR 2025-02-20 17:25:32,550 basehttp 77509 131972030531136 "GET /services/air-conditioner/hhh/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:25:37,116 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:25:47,126 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:25:57,199 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:26:07,117 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:26:17,117 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:26:27,197 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:26:37,119 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:26:47,124 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:26:57,123 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:27:07,121 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:27:17,120 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:27:27,120 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:27:37,120 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:27:47,124 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:27:57,122 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:28:07,154 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:28:17,122 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:28:27,125 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:28:37,126 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+ERROR 2025-02-20 17:28:42,968 log 77509 131972030531136 Internal Server Error: /services/air-conditioner/hhh/
+ERROR 2025-02-20 17:28:42,969 basehttp 77509 131972030531136 "GET /services/air-conditioner/hhh/ HTTP/1.1" 500 145
+ERROR 2025-02-20 17:28:43,938 log 77509 131972030531136 Internal Server Error: /services/air-conditioner/hhh/
+ERROR 2025-02-20 17:28:43,938 basehttp 77509 131972030531136 "GET /services/air-conditioner/hhh/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:28:47,125 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:28:57,124 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:29:07,125 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:29:17,125 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:29:27,126 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:29:37,126 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:29:47,127 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:29:57,128 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:30:07,127 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:30:17,128 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:30:27,128 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:30:37,129 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:30:47,130 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:30:57,129 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:31:07,129 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:31:17,130 basehttp 77509 131972041016896 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:31:17,329 autoreload 77509 131972093644800 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:31:17,628 autoreload 78447 129991129722880 Watching for file changes with StatReloader
+INFO 2025-02-20 17:31:18,798 autoreload 78447 129991129722880 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:31:19,080 autoreload 78461 138742813818880 Watching for file changes with StatReloader
+INFO 2025-02-20 17:31:27,132 basehttp 78461 138742761260608 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:31:37,131 basehttp 78461 138742761260608 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:31:44,425 autoreload 78461 138742813818880 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:31:44,725 autoreload 78553 130071713083392 Watching for file changes with StatReloader
+INFO 2025-02-20 17:31:47,134 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:31:57,138 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:32:07,132 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:32:17,132 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:32:27,133 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:32:37,133 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:32:47,135 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:32:57,134 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:33:07,134 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:33:17,134 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:33:27,135 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:33:37,135 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:33:47,135 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:33:57,172 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:34:07,136 basehttp 78553 130071660594752 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:34:08,757 autoreload 78553 130071713083392 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:34:09,048 autoreload 78901 128797834469376 Watching for file changes with StatReloader
+INFO 2025-02-20 17:34:17,140 basehttp 78901 128797783361088 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:34:17,307 autoreload 78901 128797834469376 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:34:17,606 autoreload 78937 137849240035328 Watching for file changes with StatReloader
+INFO 2025-02-20 17:34:27,138 basehttp 78937 137849120753216 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:34:31,874 autoreload 78937 137849240035328 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:34:32,177 autoreload 79008 131653001961472 Watching for file changes with StatReloader
+INFO 2025-02-20 17:34:33,364 autoreload 79008 131653001961472 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:34:33,727 autoreload 79024 129854090178560 Watching for file changes with StatReloader
+INFO 2025-02-20 17:34:37,138 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:34:47,137 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:34:57,137 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:35:07,138 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:35:17,414 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:35:27,138 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:35:37,139 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:35:47,140 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:35:57,140 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:36:07,139 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:36:17,140 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:36:27,140 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:36:37,141 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:36:47,142 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:36:57,141 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:37:07,142 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:37:17,144 basehttp 79024 129854039131712 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:37:26,926 autoreload 79024 129854090178560 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:37:27,251 autoreload 79458 135826346708992 Watching for file changes with StatReloader
+INFO 2025-02-20 17:37:35,458 autoreload 79458 135826346708992 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:37:35,752 autoreload 79503 126266175950848 Watching for file changes with StatReloader
+INFO 2025-02-20 17:37:37,145 basehttp 79503 126266124535360 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:37:47,143 basehttp 79503 126266124535360 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:37:57,070 autoreload 79503 126266175950848 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:37:57,390 autoreload 79582 131986414886912 Watching for file changes with StatReloader
+ERROR 2025-02-20 17:38:03,525 log 79582 131986289067584 Internal Server Error: /services/air-conditioner/ww/
+ERROR 2025-02-20 17:38:03,526 basehttp 79582 131986289067584 "GET /services/air-conditioner/ww/ HTTP/1.1" 500 145
+ERROR 2025-02-20 17:38:05,457 log 79582 131986289067584 Internal Server Error: /services/air-conditioner/ww/
+ERROR 2025-02-20 17:38:05,457 basehttp 79582 131986289067584 "GET /services/air-conditioner/ww/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:38:05,653 basehttp 79582 131986278581824 "GET /services/gardening/ HTTP/1.1" 200 15988
+INFO 2025-02-20 17:38:07,144 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:38:08,689 basehttp 79582 131986278581824 "GET /services/10/ HTTP/1.1" 200 14686
+INFO 2025-02-20 17:38:11,702 basehttp 79582 131986278581824 "GET /services/10/request_service/ HTTP/1.1" 200 4504
+INFO 2025-02-20 17:38:17,145 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:38:27,144 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:38:37,144 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:38:47,199 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:38:57,145 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:39:07,146 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:39:17,146 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:39:27,146 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:39:37,146 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:39:47,147 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:39:57,147 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:40:07,148 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:40:17,150 basehttp 79582 131986268096064 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:40:25,553 autoreload 79582 131986414886912 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:40:25,839 autoreload 80055 132248292392960 Watching for file changes with StatReloader
+INFO 2025-02-20 17:40:27,153 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+ERROR 2025-02-20 17:40:34,599 log 80055 132248229643840 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:40:34,600 basehttp 80055 132248229643840 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:40:37,148 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+ERROR 2025-02-20 17:40:43,645 log 80055 132248147854912 Internal Server Error: /services/gardening/nnn/
+ERROR 2025-02-20 17:40:43,645 basehttp 80055 132248147854912 "GET /services/gardening/nnn/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:40:47,149 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:40:57,150 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:41:07,149 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:41:17,154 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:41:27,151 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:41:37,151 basehttp 80055 132248240129600 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:41:38,426 autoreload 80055 132248292392960 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:41:38,767 autoreload 80303 127250967638016 Watching for file changes with StatReloader
+ERROR 2025-02-20 17:41:42,592 log 80303 127250915657280 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:41:42,592 basehttp 80303 127250915657280 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+ERROR 2025-02-20 17:41:43,327 log 80303 127250915657280 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:41:43,328 basehttp 80303 127250915657280 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+ERROR 2025-02-20 17:41:43,890 log 80303 127250915657280 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:41:43,890 basehttp 80303 127250915657280 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+ERROR 2025-02-20 17:41:44,353 log 80303 127250915657280 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:41:44,354 basehttp 80303 127250915657280 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:41:47,152 basehttp 80303 127250905171520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:41:57,151 basehttp 80303 127250905171520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:42:05,648 autoreload 80443 137675770761216 Watching for file changes with StatReloader
+INFO 2025-02-20 17:42:07,154 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+ERROR 2025-02-20 17:42:16,690 log 80443 137675633854016 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:42:16,690 basehttp 80443 137675633854016 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:42:17,422 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+ERROR 2025-02-20 17:42:17,946 log 80443 137675633854016 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:42:17,947 basehttp 80443 137675633854016 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+INFO 2025-02-20 17:42:27,427 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:42:37,732 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+ERROR 2025-02-20 17:42:45,834 log 80443 137675633854016 Internal Server Error: /services/air-conditioner/ww/hh/
+ERROR 2025-02-20 17:42:45,835 basehttp 80443 137675633854016 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 500 145
+ERROR 2025-02-20 17:42:46,104 log 80443 137675633854016 Internal Server Error: /favicon.ico
+ERROR 2025-02-20 17:42:46,104 basehttp 80443 137675633854016 "GET /favicon.ico HTTP/1.1" 500 145
+INFO 2025-02-20 17:42:47,837 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:42:57,732 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:43:07,729 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:43:17,729 basehttp 80443 137675644339776 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:43:24,247 autoreload 80443 137675770761216 /home/somulo/all/netfix/netfix/urls.py changed, reloading.
+INFO 2025-02-20 17:43:24,539 autoreload 80793 128591299760128 Watching for file changes with StatReloader
+INFO 2025-02-20 17:43:27,731 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+WARNING 2025-02-20 17:43:28,252 log 80793 128591236957760 Not Found: /services/air-conditioner/ww/hh/
+WARNING 2025-02-20 17:43:28,252 basehttp 80793 128591236957760 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 404 179
+WARNING 2025-02-20 17:43:28,429 log 80793 128591236957760 Not Found: /favicon.ico
+WARNING 2025-02-20 17:43:28,430 basehttp 80793 128591236957760 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-02-20 17:43:37,932 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:43:47,730 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:43:57,737 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:44:07,731 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+WARNING 2025-02-20 17:44:08,091 log 80793 128591236957760 Not Found: /services/air-conditioner/ww/hh/
+WARNING 2025-02-20 17:44:08,091 basehttp 80793 128591236957760 "GET /services/air-conditioner/ww/hh/ HTTP/1.1" 404 179
+WARNING 2025-02-20 17:44:08,295 log 80793 128591236957760 Not Found: /favicon.ico
+WARNING 2025-02-20 17:44:08,296 basehttp 80793 128591236957760 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-02-20 17:44:14,242 log 80793 128591236957760 Not Found: /favicon.ico
+WARNING 2025-02-20 17:44:14,242 basehttp 80793 128591236957760 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-02-20 17:44:16,256 basehttp 80793 128591226472000 "GET /services/house-keeping/ HTTP/1.1" 200 15806
+INFO 2025-02-20 17:44:17,732 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:44:19,280 basehttp 80793 128591226472000 "GET /services/1/request_service/ HTTP/1.1" 200 4503
+INFO 2025-02-20 17:44:22,296 basehttp 80793 128591226472000 "GET /services/painting/ HTTP/1.1" 200 15783
+INFO 2025-02-20 17:44:25,308 basehttp 80793 128591226472000 "GET /services/12/ HTTP/1.1" 200 14665
+INFO 2025-02-20 17:44:27,731 basehttp 80793 128591247443520 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:44:28,322 basehttp 80793 128591226472000 "GET /services/12/request_service/ HTTP/1.1" 200 4504
+INFO 2025-02-20 17:44:29,145 autoreload 80793 128591299760128 /home/somulo/all/netfix/netfix/settings.py changed, reloading.
+INFO 2025-02-20 17:45:02,356 autoreload 81150 138692943454208 Watching for file changes with StatReloader
+INFO 2025-02-20 17:45:05,649 basehttp 81150 138692813391424 "GET /services/air-conditioner/ HTTP/1.1" 200 19678
+INFO 2025-02-20 17:45:05,772 basehttp 81150 138692813391424 "GET /static/css/styles.css HTTP/1.1" 200 2775
+WARNING 2025-02-20 17:45:06,005 log 81150 138692813391424 Not Found: /favicon.ico
+WARNING 2025-02-20 17:45:06,005 basehttp 81150 138692813391424 "GET /favicon.ico HTTP/1.1" 404 4968
+INFO 2025-02-20 17:45:07,734 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:45:17,732 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:45:27,734 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:45:37,736 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:45:47,846 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:45:57,736 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:46:07,793 basehttp 81150 138692802905664 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:46:15,964 autoreload 81150 138692943454208 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:46:16,316 autoreload 81382 134900742488064 Watching for file changes with StatReloader
+INFO 2025-02-20 17:46:17,477 autoreload 81382 134900742488064 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:46:17,768 autoreload 81397 125308705599488 Watching for file changes with StatReloader
+INFO 2025-02-20 17:46:18,968 autoreload 81397 125308705599488 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:46:19,352 autoreload 81409 136253111021568 Watching for file changes with StatReloader
+INFO 2025-02-20 17:46:22,525 autoreload 81409 136253111021568 /home/somulo/all/netfix/users/views.py changed, reloading.
+INFO 2025-02-20 17:46:22,860 autoreload 81424 131769015918592 Watching for file changes with StatReloader
+INFO 2025-02-20 17:46:27,738 basehttp 81424 131768963302976 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:46:37,737 basehttp 81424 131768963302976 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:46:47,738 basehttp 81424 131768963302976 "GET /services/check-new-requests/ HTTP/1.1" 200 41
+INFO 2025-02-20 17:46:55,250 autoreload 81424 131769015918592 /home/somulo/all/netfix/netfix/settings.py changed, reloading.
