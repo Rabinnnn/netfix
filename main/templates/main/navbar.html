@@ -136,7 +136,7 @@
             <a href="{% url 'main:home' %}">Home</a>
             {% if user.is_authenticated and user.is_company %}
                 <!-- If the user is authenticated and is a company, show the direct link to the services -->
-                <a href="{% url 'company:service_list' %}">Services</a>
+                <a href="{% url 'company:service_list' %}">My Services</a>
                 <div class="dropdown">
                     <a href="javascript:void(0)">Services</a>
                     <div class="dropdown-content">

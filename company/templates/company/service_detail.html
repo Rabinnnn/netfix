@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ service.name }} - Service Details</title>
+    {% load static %}
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;  /* Keeps content in a vertical column */
+        }
+
+        /* Ensuring that the navbar stays at the top */
+        nav {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            position: relative;
+        }
+
+        .service-detail-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .service-detail-container h1 {
+            font-size: 2.5em;
+            color: #ec2f00;
+            margin-bottom: 20px;
+        }
+
+        .service-info p {
+            font-size: 1.2em;
+            margin: 15px 0;
+        }
+
+        .service-actions {
+            margin-top: 20px;
+        }
+
+        .service-actions .btn {
+            padding: 10px 20px;
+            background-color: #ec2f00;;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .service-actions .btn:hover {
+            background-color: #ec2f00;;
+        }
+
+        .company-info {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .company-info a {
+            color: #ec2f00;
+            text-decoration: none;
+        }
+
+        .company-info a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links a {
+            color: #ec2f00;;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% include 'main/navbar.html' %}  <!-- Include the shared navbar -->
+
+    <div class="service-detail-container">
+        <h1>{{ service.name }}</h1>
+        
+        <div class="service-info">
+            <p><strong>Description:</strong> {{ service.description }}</p>
+            <p><strong>Price per hour:</strong> ${{ service.price_per_hour }}</p>
+            <p><strong>Field of Work:</strong> {{ service.field }}</p>
+            <p><strong>Created on:</strong> {{ service.date }}</p>
+        </div>
+
+        {% if user.is_authenticated and user.is_customer %}
+        <div class="company-info">
+            <h5>Provided by <strong><a href="/company/{{ service.company.user.username }}" class="company-link">{{ service.company.user.username }}</a></strong></h5>
+        </div>
+        {% endif %}
+
+        <div class="footer-links">
+            <p>
+                {% if user.is_authenticated and user.is_company %}
+                  <a href="{% url 'company:service_list' %}">Go back</a>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</body>
+</html>
