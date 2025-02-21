@@ -8,11 +8,11 @@
         <h1 class="page-title">Our Services</h1>
 
         <!-- Create service link for companies -->
-        {% if user.is_company %}
+        <!-- {% if user.is_company %}
             <div class="create-service-container">
                 <a class="create-service" href="{% url 'company:create_service' %}">Create a New Service</a>
             </div>
-        {% endif %}
+        {% endif %} -->
 <!--  -->
         <!-- List of services -->
         <div class="services-list">
@@ -21,8 +21,11 @@
                     <div class="service-item">
                         <div class="service-info">
                             <h3 class="service-name">{{ service.name }}</h3>
+                            {% if user.is_authenticated and user.is_company%}
+                            <p><strong>service provider:</strong> {{ service.company.user.username }}</p>
+                            {% endif%}
                             <p class="service-description"><strong>Service Description: </strong>{{ service.description }}</p>
-                            <p><strong>Price per hour:</strong> ${{ service.price_per_hour }}</p>
+                            <p><strong>Price per hour1:</strong> ${{ service.price_per_hour }}</p>
                             <p><strong>Field of Work:</strong> {{ service.field }}</p>
                             <p><strong>Created on:</strong> {{ service.date }}</p>
                             <div class="button-row" style="display: flex; justify-content: space-between; width: 100%;">
