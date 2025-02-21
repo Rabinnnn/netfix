@@ -144,3 +144,7 @@ def update_request_status(request, request_id):
         except json.JSONDecodeError:
             return JsonResponse({"success": False, "error": "Invalid JSON"})
     return JsonResponse({"success": False, "error": "Invalid method"})
+
+def service_list(request):
+    services = Service.objects.all().order_by("-date")
+    return render(request, 'services/list.html', {'services': services})
