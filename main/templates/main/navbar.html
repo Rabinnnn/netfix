@@ -56,78 +56,78 @@
             display: block;
         }
         /* NOTIFICATION ICON & POPUP */
-.notification-container {
-    position: relative;
-    display: inline-block;
-}
+        .notification-container {
+            position: relative;
+            display: inline-block;
+        }
 
-.notification-icon {
-    font-size: 28px; /* Larger size */
-    color: black;
-    transition: transform 0.2s ease-in-out;
-}
+        .notification-icon {
+            font-size: 28px; /* Larger size */
+            color: black;
+            transition: transform 0.2s ease-in-out;
+        }
 
-.notification-icon:hover {
-    transform: scale(1.2); /* Slight zoom on hover */
-    color: #ff3b3b; /* Change color on hover */
-}
-
-
-.notification-badge {
-    top: 0;
-    right: 0;
-    background-color: #ff3b3b;
-    color: white;
-    font-size: 14px;
-    padding: 5px 8px;
-    font-weight: bold;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-}
+        .notification-icon:hover {
+            transform: scale(1.2); /* Slight zoom on hover */
+            color: #ff3b3b; /* Change color on hover */
+        }
 
 
-/* NOTIFICATION POPUP */
-.notification-popup {
-    display: none;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    background-color: white;  /* Changed to white for better visibility */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 300px;
-    max-height: 300px; /* Prevents overflow */
-    overflow-y: auto; /* Enables scrolling if many notifications */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    z-index: 1002;
-}
+        .notification-badge {
+            top: 0;
+            right: 0;
+            background-color: #ff3b3b;
+            color: white;
+            font-size: 14px;
+            padding: 5px 8px;
+            font-weight: bold;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        }
 
-/* Ensure all text inside notification popup is dark */
-.notification-popup h5 {
-    margin: 5px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
-}
 
-.notification-item {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-    font-size: 14px;
-    color: black; /* Ensures notification text is visible */
-}
+        /* NOTIFICATION POPUP */
+        .notification-popup {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;  /* Changed to white for better visibility */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 300px;
+            max-height: 300px; /* Prevents overflow */
+            overflow-y: auto; /* Enables scrolling if many notifications */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 1002;
+        }
 
-.notification-item:last-child {
-    border-bottom: none;
-}
+        /* Ensure all text inside notification popup is dark */
+        .notification-popup h5 {
+            margin: 5px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+        }
 
-.text-center {
-    text-align: center;
-}
+        .notification-item {
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            color: black; /* Ensures notification text is visible */
+        }
 
-.text-muted {
-    color: #444; /* Slightly darker gray for readability */
-}
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-muted {
+            color: #444; /* Slightly darker gray for readability */
+        }
     </style>
 </head>
 <body>
@@ -138,8 +138,9 @@
                 <!-- If the user is authenticated and is a company, show the direct link to the services -->
                 <a href="{% url 'company:service_list' %}">My Services</a>
                 <div class="dropdown">
-                    <a href="javascript:void(0)">Services</a>
+                    <a href="{% url 'company:service_list' %}">Available Services</a>
                     <div class="dropdown-content">
+                        <a href="{% url 'services:service_list' %}">View all services</a>
                         <a href="{% url 'services:air_conditioner' %}">Air Conditioner</a>
                         <a href="{% url 'services:carpentry' %}">Carpentry</a>
                         <a href="{% url 'services:electricity' %}">Electricity</a>
@@ -374,6 +375,7 @@ document.querySelectorAll(".view-btn").forEach((button) => {
     });
 });
 }
+
 
 // Function to mark notifications as read by sending a request to the server
 function markNotificationsAsRead() {
