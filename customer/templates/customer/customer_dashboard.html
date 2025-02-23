@@ -1,10 +1,28 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<style>
+    .stat-card{
+        background-color: #ffffff;
+        border-radius: 5px;
+        padding-top: 5px;
+        padding-left: 5px;
+        text-align: center;
+    }
+
+    .dashboard-section{
+        background-color: #ffffff;
+        border-radius: 5px;
+        padding-top: 5px;
+        text-align: center;
+        padding-bottom: 3px;
+    }
+
+</style>
 <div class="container">
     <div class="dashboard-header">
-        <h1>Customer Dashboard</h1>
-        <p>Welcome, {{ customer.user.username }}!</p>
+        <h1 style="color: #ffffff;">Customer Dashboard</h1>
+        <p style="color: #ffffff;">Welcome, {{ customer.user.username }}!</p>
         <!-- <form method="POST" action="{% url 'users:logout' %}" style="display:inline;">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Logout1</button>
@@ -35,7 +53,7 @@
         <div class="service-requests">
             {% for request in recent_requests %}
             <div class="request-card">
-                <h4>{{ request.service.name }}</h4>
+                <h4 style="text-decoration: underline;">{{ request.service.name }}</h4>
                 <p><strong>Provider:</strong> {{ request.service.company.user.username }}</p>
                 <p><strong>Status:</strong> {{ request.status }}</p>
                 <p><strong>Address:</strong> {{ request.address }}</p>
@@ -53,3 +71,4 @@
     </div>
 </div>
 {% endblock %}
+
