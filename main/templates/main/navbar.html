@@ -62,17 +62,18 @@
         }
 
         .notification-icon {
-            font-size: 28px; /* Larger size */
+            font-size: 18px; 
             color: black;
             transition: transform 0.2s ease-in-out;
         }
+     
 
         .notification-icon:hover {
             transform: scale(1.2); /* Slight zoom on hover */
             color: #ff3b3b; /* Change color on hover */
         }
 
-
+       
         .notification-badge {
             top: 0;
             right: 0;
@@ -178,7 +179,7 @@
                 {% if user.is_company %}
                     <div class="notification-container">
                         <div class="notification-icon" onclick="toggleNotifications()">
-                            <i class="fas fa-bell"></i>
+                            <i class="fas fa-bell"><a style="font-size: 16px; font-family: 'Times New Roman', Times, serif; font-weight: lighter; color: #313131;">Requested Services</a></i>
                             {% if unread_requests_count > 0 %}
                                 <span class="notification-badge">{{ unread_requests_count }}</span>
                             {% endif %}
