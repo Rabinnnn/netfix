@@ -2,16 +2,15 @@
 
 {% block content %}
 <style>
-    .dashboard-stats{
+    .dashboard-stats .stat-card{
         background-color: #ffffff;
         padding-top: 5px;
-        padding-bottom: 5px;
-        margin-bottom: 30px;
+        margin-bottom: 5px;
         border-radius: 10px;
         text-align: center;
         transition: transform 0.3s ease-in-out;
     }
-    .dashboard-stats:hover{
+    .dashboard-stats .stat-card:hover{
         transform: translateY(-5px);
     }
     .dashboard-section{
@@ -26,6 +25,7 @@
     .dashboard-section:hover{
         transform: translateY(-5px);
     }
+    
 </style>
 <div class="container">
     <div class="dashboard-header">
