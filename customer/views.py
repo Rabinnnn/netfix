@@ -79,6 +79,7 @@ def service_history(request):
     context = {
         'service_requests': service_requests,
         'total_requests': service_requests.count(),
+        'pending_requests': service_requests.filter(status='PENDING').count(),
         'completed_requests': service_requests.filter(status='COMPLETED').count()
     }
     return render(request, 'customer/service_history.html', context)
