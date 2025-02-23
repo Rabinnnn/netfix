@@ -26,10 +26,12 @@
             color: black;
             text-decoration: none;
             padding: 10px;
+            transition: transform 0.2s ease-in-out;
+
         }
         .navbar a:hover {
             background-color: #0056b3;
-            border-radius: 5px;
+            border-radius: 8px;
         }
         .dropdown {
             position: relative;
@@ -67,11 +69,10 @@
             transition: transform 0.2s ease-in-out;
         }
      
-
+        /*
         .notification-icon:hover {
-            transform: scale(1.2); /* Slight zoom on hover */
-            color: #ff3b3b; /* Change color on hover */
-        }
+            color: #ff3b3b;  
+        } */
 
        
         .notification-badge {
@@ -179,7 +180,7 @@
                 {% if user.is_company %}
                     <div class="notification-container">
                         <div class="notification-icon" onclick="toggleNotifications()">
-                            <i class="fas fa-bell"><a style="font-size: 16px; font-family: 'Times New Roman', Times, serif; font-weight: lighter; color: #313131;">Requested Services</a></i>
+                            <i class="fas fa-bell"><a style="font-size: 16px; font-family: 'Times New Roman', Times, serif; font-weight: lighter; color: black;">Requested Services</a></i>
                             {% if unread_requests_count > 0 %}
                                 <span class="notification-badge">{{ unread_requests_count }}</span>
                             {% endif %}
