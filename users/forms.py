@@ -9,13 +9,14 @@ from .models import User, Customer, Company
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-# 
+
+# register customer
 class CustomerSignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password_confirmation = forms.CharField(widget=forms.PasswordInput)
     date_of_birth = forms.DateField(
         widget=DateInput(),
-        help_text='You must be at least 18 years old'
+        help_text='You must be at least 18 years and above'
     )
     email = forms.EmailField(
         help_text='Enter a valid email address'
@@ -23,7 +24,7 @@ class CustomerSignUpForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password','date_of_birth']
+        fields = ['username', 'email', 'password', 'date_of_birth']
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -46,14 +47,29 @@ class CustomerSignUpForm(forms.ModelForm):
         if not email:
             raise ValidationError('Email is required')
         
-        if User.objects.filter(email=email).exists():
-            raise ValidationError('This email is already registered')
-        
         # Basic email format validation
         if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
             raise ValidationError('Enter a valid email address')
+
+        # Check if email is already registered
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('This email is already registered')
+
+        # List of free email providers (the ones you want to allow)
+        allowed_email_providers = [
+            'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com',
+            'aol.com', 'mail.com', 'icloud.com'
+        ]
+        
+        # Extract the domain part of the email (after '@')
+        domain = email.split('@')[1].lower()
+
+        # If the domain is NOT in the list of allowed providers, raise an error
+        if domain not in allowed_email_providers:
+            raise ValidationError("Invalid email address. Please use one of the allowed free email providers like Gmail, Yahoo, Hotmail, etc.")
         
         return email
+
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
@@ -114,7 +130,8 @@ class CustomerSignUpForm(forms.ModelForm):
                 date_of_birth=self.cleaned_data['date_of_birth']
             )
         return user
-
+    
+# register the compnay
 class CompanySignUpForm(forms.ModelForm):
     username = forms.CharField(
         max_length=150, required=True, 

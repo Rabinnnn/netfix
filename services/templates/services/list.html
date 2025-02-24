@@ -5,7 +5,7 @@
 
 {% block content %}
     <div class="services-page">
-        <h1 class="page-title">Our Services</h1>
+        <h1 class="page-title">Available Services</h1>
 
         <!-- Create service link for companies -->
         <!-- {% if user.is_company %}
@@ -24,6 +24,7 @@
                             {% if user.is_authenticated and user.is_company%}
                             <p><strong>service provider:</strong> {{ service.company.user.username }}</p>
                             {% endif%}
+                            <p><strong>service provider:</strong> {{ service.company.user.username }}</p>
                             <p class="service-description"><strong>Service Description: </strong>{{ service.description }}</p>
                             <p><strong>Price per hour1:</strong> ${{ service.price_per_hour }}</p>
                             <p><strong>Field of Work:</strong> {{ service.field }}</p>

@@ -1,7 +1,8 @@
 from django import forms
-
+import re
 from users.models import Company
-
+from django.core.exceptions import ValidationError
+from django.utils.html import escape
 
 class CreateNewService(forms.Form):
     name = forms.CharField(max_length=40)
@@ -34,8 +35,48 @@ class RequestServiceForm(forms.Form):
         required=True
     )
 
+    def clean_address(self):
+        address = self.cleaned_data.get('address')
+
+        # Strip any potential dangerous scripts or tags (XSS prevention)
+        sanitized_address = self.sanitize_input(address)
+        
+        # Optionally, you can further check for certain dangerous patterns
+        if re.search(r'<script|<\/script|on\w+\s*=', sanitized_address, re.IGNORECASE):
+            raise ValidationError("Suspicious content detected. Please avoid using scripts or event handlers.")
+        
+        # Return sanitized address to prevent harmful content being stored
+        return sanitized_address
+
     def clean_hours_needed(self):
         hours = self.cleaned_data.get('hours_needed')
-        if hours < 1:
-            raise forms.ValidationError("Hours must be at least 1")
+        
+        # Define reasonable limits for hours (e.g., 1 to 1000 hours).
+        MIN_HOURS = 1
+        MAX_HOURS = 1000
+        
+        if hours < MIN_HOURS:
+            raise forms.ValidationError(f"Hours must be at least {MIN_HOURS}")
+        
+        if hours > MAX_HOURS:
+            raise forms.ValidationError(f"Hours must not exceed {MAX_HOURS}")
+        
         return hours
+
+
+    def sanitize_input(self, input_string):
+        # Use Django's escape function to escape HTML special characters.
+        # This ensures that any HTML or JavaScript is rendered as text and not executable.
+        sanitized_input = escape(input_string)
+
+        # Optionally, further clean the string by removing other unwanted characters or patterns.
+        sanitized_input = self.remove_unwanted_characters(sanitized_input)
+
+        return sanitized_input
+
+    def remove_unwanted_characters(self, input_string):
+        # Remove unwanted characters (like angle brackets or anything that can be part of an attack)
+        input_string = re.sub(r'<.*?>', '', input_string)  # Remove all HTML tags
+        
+        # You can extend this further to remove other unwanted patterns if needed
+        return input_string

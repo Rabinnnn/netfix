@@ -5,11 +5,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login as django_login
 from django.db.models import Count
+
 
 from django.http import JsonResponse
 from services.models import Service, ServiceRequest# Adjust the import based on your project structure
-
 
 # Home view
 def home(request):
@@ -25,8 +27,18 @@ def most_requested_services(request):
     ).order_by('-request_count')[:10]
     return render(request, 'services/most_requested.html', {'service': service})
 
-# Login view
 def login_view(request):
+    # Check if the user is already authenticated
+    if request.user.is_authenticated:
+        # If already authenticated, redirect to the appropriate dashboard
+        if hasattr(request.user, 'company'):  # Check if the user has a company profile
+            return redirect('company:company_dashboard')
+        elif hasattr(request.user, 'customer'):  # Check if the user has a customer profile
+            return redirect('customer:customer_dashboard')
+        else:
+            return redirect('main:home')  # Fallback if no company or customer profile
+
+    # If not authenticated, proceed with the login form
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -38,19 +50,20 @@ def login_view(request):
                 django_login(request, user)
 
                 # Check if the user is a company or customer
-                if hasattr(user, 'company'):  # Check if the user has a company profile
+                if hasattr(user, 'company'):
                     return redirect('company:company_dashboard')
-                elif hasattr(user, 'customer'):  # Check if the user has a customer profile
+                elif hasattr(user, 'customer'):
                     return redirect('customer:customer_dashboard')
                 else:
                     # Handle case if the user does not have a company or customer profile
-                    return redirect('main:home')  # Or some other fallback page
+                    return redirect('main:home')
             else:
                 form.add_error(None, 'Invalid username or password')  # Display error if authentication fails
     else:
         form = AuthenticationForm()
 
     return render(request, 'main/login.html', {'form': form})
+
 
 # Logout view
 def logout(request):
@@ -89,18 +102,6 @@ def company_dashboard(request):
 def customer_dashboard(request):
     return render(request, 'customer/templates/customer/customer_dashboard.html')  # Make sure this template exists
 
-
-# def check_new_requests(request):
-#     if request.user.is_authenticated and request.user.is_company:
-#         new_requests = ServiceRequest.objects.filter(status='PENDING').values(
-#             'id', 'address', 'hours_needed', 'total_cost', 'request_date', 'customer_id', 'service_id','status',
-#         )
-#         new_requests_count = new_requests.count()
-#         return JsonResponse({
-#             'new_requests_count': new_requests_count,
-#             'requests': list(new_requests)
-#         })
-#     return JsonResponse({'new_requests_count': 0, 'requests': []})
 def check_new_requests(request):
     if request.user.is_authenticated and request.user.is_company:
         # Get all service IDs owned by the logged-in company

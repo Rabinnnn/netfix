@@ -18,6 +18,11 @@ from django.contrib import admin
 from django.urls import include, path
 # 
 from . import views as v
+from django.conf.urls import handler404, handler500
+from users.views import custom_404_view, custom_500_view, test_error_view
+
+handler404 = custom_404_view
+handler500 = custom_500_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +33,6 @@ urlpatterns = [
     path('company/', include('company.urls')),  # Include company URLs
     path('customer/', include('customer.urls')),
     path('customer/<slug:name>', v.customer_profile, name='customer_profile'),
-    path('company/<slug:name>', v.company_profile, name='company_profile')
+    path('company/<slug:name>', v.company_profile, name='company_profile'),
+    path('test-error/', test_error_view, name='test_error'),
 ]
