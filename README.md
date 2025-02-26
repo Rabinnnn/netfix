@@ -47,8 +47,12 @@ Access the application by navigating to `http://127.0.0.1:8000/` in your web bro
 
 ## Contact Information
 For questions or feedback, please reach out to:
-- Samuel Omulo: [github.com/somulo1]
-- Rabin Otieno: [your-email@example.com]
+
+- **Samuel Omulo**  
+  GitHub: [somulo1](https://github.com/somulo1)
+
+- **Rabin Otieno**  
+  GitHub: [rabinnnn](https://github.com/rabinnnn)
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
