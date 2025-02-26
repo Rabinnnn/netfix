@@ -24,12 +24,12 @@ def service_detail(request, id):
         return HttpResponseNotFound("<h1>Service not found</h1>")
     return render(request, 'company/single_service.html', {'service': service})
 
-# Create a new service (for company)
 @login_required
 def create_service(request):
+    # Ensure the user is a company
     if not request.user.is_company:
         messages.error(request, 'Only companies can create services')
-        return redirect('services:service_list')
+        return redirect('services:service_list')  # Redirect to service list page or another relevant page
 
     company = request.user.company
     field_choices = [(choice[0], choice[1]) for choice in Service.choices]
@@ -55,7 +55,7 @@ def create_service(request):
             )
             service.save()
             messages.success(request, 'Service created successfully!')
-            return redirect('company:service_list')  # Ensure correct redirect
+            return redirect('company:service_list')  # Redirect to service list after successful creation
 
     return render(request, 'company/create_service.html', {'form': form, 'company': company})
 
@@ -113,21 +113,26 @@ def company_dashboard(request):
 
 @login_required
 def company_profile(request):
-    # Logic to retrieve and display company profile information
+    # Ensure the user is a company
+    if not request.user.is_company:
+        messages.error(request, 'Only companies can access this page.')
+        return redirect('main:home')  # Redirect to the homepage if the user is not a company
+
+    # At this point, the user is authenticated and is a company
     company = request.user.company
-    services = Service.objects.filter(company=company).order_by('-date')
+    services = Service.objects.filter(company=company).order_by('-date')  # Get company services
     completed_requests = ServiceRequest.objects.filter(
         service__company=company,
         status='COMPLETED'
-    ).count()
+    ).count()  # Count completed service requests for the company
     
     context = {
         'company': company,
         'services': services,
         'completed_requests': completed_requests,
-        # 'avg_rating': services.aggregate(Avg('rating'))['rating__avg'] or 0
     }
-    return render(request, 'company/company_profile.html', context)
+
+    return render(request, 'company/company_profile.html', context)  # Ensure this is being returned
 
 @login_required
 def service_requests(request):

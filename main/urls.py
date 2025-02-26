@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views as v
 
+
 app_name = "main"
 
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
 from django.urls import path, include
 from . import views as v
 from .views import CustomPasswordResetView, CustomPasswordResetDoneView, CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
+# In urls.py
 
 app_name = "main"
 # 

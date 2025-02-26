@@ -12,7 +12,7 @@
             {% endif %}
         
         </div>
-        
+        <p><strong>service provider:</strong> {{ service.company.user.username }}</p>
         <h3 class="service-field"><strong>Service Field:</strong>{{ service.field }}</h3>
         <p class="service-description"><strong>Service Description:</strong>{{ service.description }}</p>
         <p class="service-price"><strong>Price: </strong>${{ service.price_per_hour }}/hour</p>

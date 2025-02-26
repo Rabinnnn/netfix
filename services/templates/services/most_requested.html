@@ -91,30 +91,33 @@
     <!-- Grid for services -->
     <div class="services-list">
         {% for service in services %}
-        <div class="service-item">
-            <p class="card-title">service name: {{ service.name }}</p>
-            <p class="card-subtitle mb-2 text-muted"><strong>Service Field: </strong>{{ service.field }}</p>
-            <p class="card-text"><strong>Service Description: </strong>{{ service.description|truncatewords:30 }}</p>
-            <p class="card-text">
-                <small class="text-muted">
-                     Provided by <a href="{% url 'company_profile' name=service.company.user.username %}">{{ service.company.user.username }}</a>
-                </small>
-            </p>
-
-            <p class="card-text">
-                <strong>Price per hour:</strong> ${{ service.price_per_hour }}
-            </p>
-            <p class="card-text">
-                <strong>Total Requests:</strong> {{ service.request_count }}
-            </p>
-           <p> <a href="{% url 'services:service_detail' id=service.id %}" class="btn btn-primary">View Details</a></p>
-        </div>
+            {% if service.request_count > 0 %}
+                <div class="service-item">
+                    <p class="card-title">Service Name: {{ service.name }}</p>
+                    <p class="card-subtitle mb-2 text-muted"><strong>Service Field: </strong>{{ service.field }}</p>
+                    <p class="card-text"><strong>Service Description: </strong>{{ service.description|truncatewords:30 }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                             Provided by <a href="{% url 'company_profile' name=service.company.user.username %}">{{ service.company.user.username }}</a>
+                        </small>
+                    </p>
+    
+                    <p class="card-text">
+                        <strong>Price per hour:</strong> ${{ service.price_per_hour }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Total Requests:</strong> {{ service.request_count }}
+                    </p>
+                   <p> <a href="{% url 'services:service_detail' id=service.id %}" class="btn btn-primary">View Details</a></p>
+                </div>
+            {% endif %}
         {% empty %}
-        <div class="no-services col-12">
-            <p class="text-center">No services available yet.</p>
-        </div>
+            <div class="no-services col-12">
+                <p class="text-center">No services available yet.</p>
+            </div>
         {% endfor %}
     </div>
+    
     
     <!-- Link to Dashboard -->
     <div>
