@@ -213,13 +213,18 @@ class CompanySignUpForm(forms.ModelForm):
             raise ValidationError("Password must contain at least one special character")
         return password
 
-    def clean(self):
+    def clean_password_confirmation(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         password_confirmation = cleaned_data.get('password_confirmation')
 
-        if password and password_confirmation and password != password_confirmation:
-            raise ValidationError("Passwords do not match")
+        print(password)
+        print(password_confirmation)
+        # comparison_result = password != password_confirmation
+        # print(f'Comparison result: {comparison_result}')
+        if password and password_confirmation:
+            if password != password_confirmation:
+                raise ValidationError("Passwords do not match")
 
         return cleaned_data
 
