@@ -109,7 +109,7 @@ class CustomerSignUpForm(forms.ModelForm):
         
         return dob
 
-    def clean(self):
+    def clean_password_confirmation(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         password_confirmation = cleaned_data.get('password_confirmation')
@@ -218,8 +218,8 @@ class CompanySignUpForm(forms.ModelForm):
         password = cleaned_data.get('password')
         password_confirmation = cleaned_data.get('password_confirmation')
 
-        print(password)
-        print(password_confirmation)
+        # print(password)
+        # print(password_confirmation)
         # comparison_result = password != password_confirmation
         # print(f'Comparison result: {comparison_result}')
         if password and password_confirmation:
