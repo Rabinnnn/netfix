@@ -33,8 +33,10 @@ class CustomerSignUpForm(forms.ModelForm):
         
         if len(username) < 3:
             raise ValidationError('Username must be at least 3 characters long')
+        if re.search(r'\d', username):
+            raise ValidationError("Username name should not contain numbers.")
         
-        if not re.match(r'^[a-zA-Z0-9_]+$', username):
+        if not re.match(r'^[a-zA-Z_-]+$', username):
             raise ValidationError('Username can only contain letters, numbers, and underscores')
         
         if User.objects.filter(username=username).exists():
@@ -180,9 +182,37 @@ class CompanySignUpForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
+        
+        # Check if the username is empty
+        if not username:
+            raise ValidationError('Username is required')
+
+        # Check that the username does not contain digits (numbers)
+        if re.search(r'\d', username):
+            raise ValidationError("Company name should not contain numbers.")
+        
+        # Check if the username is only digits (should not be allowed)
+        if username.isdigit():
+            raise ValidationError("Company name should not contain only numbers.")
+        
+        # Check that the username contains only alphabetic characters, underscores, and hyphens (and is logically sensible)
+        if not re.match(r'^[a-zA-Z_-]+$', username):
+            raise ValidationError("Company name should only contain letters, underscores, and hyphens.")
+        
+        # Check if the username already exists in the User model
         if User.objects.filter(username=username).exists():
             raise ValidationError("This company name is already taken")
+        
         return username
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description')
+
+        # Check that the description only contains alphabets, underscores, and parentheses
+        if not re.match(r'^[A-Za-z_() ]*$', description):
+            raise ValidationError("Description should only contain alphabets, underscores, or parentheses.")
+        
+        return description
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
