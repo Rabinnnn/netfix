@@ -96,7 +96,6 @@
             {% if user.is_authenticated and user.is_company%}
             <p><strong>service provider:</strong> {{ service.company.user.username }}</p>
             {% endif%}
-            <p><strong>service provider:</strong> {{ service.company.user.username }}</p>
             <p><strong>Description:</strong> {{ service.description }}</p>
             <p><strong>Price per hour:</strong> ${{ service.price_per_hour }}</p>
             <p><strong>Field of Work:</strong> {{ service.field }}</p>
