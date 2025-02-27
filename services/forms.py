@@ -38,12 +38,11 @@ class RequestServiceForm(forms.Form):
     def clean_address(self):
         address = self.cleaned_data.get('address')
 
+        if re.search(r'<script|<\/script|on\w+\s*=', address, re.IGNORECASE):
+            raise ValidationError("Suspicious content detected. Please avoid using scripts or event handlers.")
+        
         # Strip any potential dangerous scripts or tags (XSS prevention)
         sanitized_address = self.sanitize_input(address)
-        
-        # Optionally, you can further check for certain dangerous patterns
-        if re.search(r'<script|<\/script|on\w+\s*=', sanitized_address, re.IGNORECASE):
-            raise ValidationError("Suspicious content detected. Please avoid using scripts or event handlers.")
         
         # Return sanitized address to prevent harmful content being stored
         return sanitized_address

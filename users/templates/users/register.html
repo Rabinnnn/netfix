@@ -15,27 +15,28 @@
             margin: 0;
             padding: 0;
             color: #292929;
-            display: flex;
+            position: relative;
             justify-content: center;
             align-items: center;
             height: 100vh; /* Full view height to center the card vertically */
         }
 
         /* Centered card container */
-        .card {
-            background-color: #f9f8fd; /* Light color for the card */
+        /*.card {
+            background-color: #535151;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 800px;
             text-align: center;
-        }
+           
+        }*/
 
         /* Header Text */
         .choice_text {
             font-size: 36px;
-            color: #ec2f00;
+            color: #fff;
             margin-bottom: 40px;
             font-weight: bold;
             text-shadow: 0 0 5px #ec2f00;
@@ -47,6 +48,7 @@
             justify-content: space-around;
             gap: 40px;
             margin-top: 40px;
+            
         }
 
         .choice {
@@ -102,9 +104,10 @@
     </style>
 </head>
 <body>
+    {% include 'main/navbar.html' %}
 
     <!-- Centered Card -->
-    <div class="card">
+    <div class="card" style="background-color: #535151; text-align: center; max-width: 80%;margin-left: 7%;margin-top: 5%;padding-top: 5%;padding-bottom: 5%;">
         <!-- User Type Selection Text -->
         <p class="choice_text">Choose whether you want to be a Customer or a Company</p>
         
@@ -114,7 +117,7 @@
             <div class="choice">
                 <a href="/register/company">
                     <div class="company img" id="company">
-                        <p>Company</p>
+                        <p style="color: #fff;">Company</p>
                         <img src="/static/css/customer.png" alt="">
                     </div>
                 </a>
@@ -125,7 +128,7 @@
             <div class="choice">
                 <a href="/register/customer">
                     <div class="img" id="customer">
-                        <p>Customer</p>
+                        <p style="color: #fff;">Customer</p>
                         <img src="/static/css/customer.png" alt="">
                     </div>
                 </a>
