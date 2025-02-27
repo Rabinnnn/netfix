@@ -162,7 +162,7 @@
         {% endif %} -->
 
         <!-- Error messages (if any) -->
-        {% if form.errors %}
+        <!-- {% if form.errors %}
             <div class="error">
                 {% for field in form %}
                     {% for error in field.errors %}
@@ -170,38 +170,34 @@
                     {% endfor %}
                 {% endfor %}
             </div>
-        {% endif %}
+        {% endif %} -->
 
         <!-- Registration Form -->
         <form method="POST" action="{% url 'company:create_service' %}">
             {% csrf_token %}
 
-            <!-- Company Name Field -->
+            <!-- Service Name Field -->
             <div class="form-group">
                 <label for="name">Service name</label>
-                <input type="text" id="name" name="name" required placeholder="Enter service name">
-                {{ form.name.errors }}
+                <input type="text" id="name" name="name" required placeholder="Enter service name" value="{{ form.name.value }}">
+                <div class="error">{{ form.name.errors }}</div>
             </div>
 
-        
-            <!-- Company Description Field -->
+            <!-- Description Field -->
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" rows="4" required placeholder="Describe the service"></textarea>
-                {{ form.description.errors }}
+                <textarea id="description" name="description" rows="4" required placeholder="Describe the service">{{ form.description.value }}</textarea>
+                <div class="error">{{ form.description.errors }}</div>
             </div>
 
+            <!-- Price Per Hour Field -->
             <div class="form-group">
                 <label for="price_per_hour">Price per hour</label>
-                <input type="number" id="price_per_hour" name="price_per_hour" required placeholder="Enter price...">
-                {{ form.price_per_hour.errors }}
+                <input type="number" id="price_per_hour" name="price_per_hour" required placeholder="Enter price..." value="{{ form.price_per_hour.value }}">
+                <div class="error">{{ form.price_per_hour.errors }}</div>
             </div>
 
-         <!--   <div class="form-group">
-                <label for="field">Field of work</label>
-                <input type="text" id="field" name="field" required placeholder="Enter field of work...">
-                {{ form.field.errors }}
-            </div> -->
+            <!-- Field of Work Selection -->
             <div class="form-group">
                 <label for="field">Field of Work</label>
                 <select id="field" name="field" required>
@@ -221,18 +217,15 @@
                     <option value="Plumbing">Plumbing</option>
                     <option value="Water Heaters">Water Heaters</option>
                     {% endif %}
-
                 </select>
-                {{ form.field.errors }}
+                <div class="error">{{ form.field.errors }}</div>
             </div>
-            
 
-            <!-- Register Button -->
+            <!-- Submit Button -->
             <button type="submit" name="create_service">Submit</button>
         </form>
         <p><a href="{% url 'company:service_list' %}">Back</a></p>
-        <!-- Link to login page -->
-        <!-- <p>Already have an account? <a class="login-link" href="/login">Login here</a></p> -->
     </div>
 </body>
+
 </html>
