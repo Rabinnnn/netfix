@@ -163,7 +163,7 @@
         {% endif %} -->
 
         <!-- Error messages (if any) -->
-        {% if form.errors %}
+        <!-- {% if form.errors %}
             <div class="error">
                 {% for field in form %}
                     {% for error in field.errors %}
@@ -171,7 +171,7 @@
                     {% endfor %}
                 {% endfor %}
             </div>
-        {% endif %}
+        {% endif %} -->
 
         <!-- Registration Form -->
         <form method="POST" action="{% url 'users:register_company' %}">

@@ -9,21 +9,22 @@
 - [Contact Information](#contact-information)
 
 ## Description
-Netfix is a web application designed to manage services, allowing users to request and manage various services efficiently.
+Netfix is a web application designed to manage services, allowing users to request and manage various services efficiently. It is a B2C platform where companies can create account and post the services that they provide. The customer can then view all the availble services from all companies and make a request for the service they require.
 
 ## Installation Instructions
-1. Clone the repository:
+1. Clone the repository and navigate to the directory:
    ```bash
-   git clone <repository-url>
-   cd netfix
+   $ git clone https://learn.zone01kisumu.ke/git/somulo/netfix.git
+   $ cd netfix
    ```
 2. Install the required dependencies:
    ```bash
-   pip install -r requirements.txt
+   $ pip install -r requirements.txt
    ```
 3. Apply migrations:
    ```bash
-   python3 manage.py migrate
+   $ python manage.py makemigrations
+   $ python3 manage.py migrate
    ```
 4. Run the development server:
    ```bash
@@ -34,14 +35,15 @@ Netfix is a web application designed to manage services, allowing users to reque
 Access the application by navigating to `http://127.0.0.1:8000/` in your web browser.
 
 ## Features
-- User authentication
-- Service management
-- Request tracking
-- Email notifications for service requests
+- Account creation and user authentication.
+- Service management(creation and request of services).
+- Request status tracking(the company can accept or cancel a pending service request).
+- Service request history (customer can view all service requests they've made).
+- Most requested services(company can view the most requested services).
 
 ## Technologies Used
 - Django
-- Python
+- SQLite
 - HTML/CSS
 - JavaScript
 
@@ -55,4 +57,4 @@ For questions or feedback, please reach out to:
   GitHub: [rabinnnn](https://github.com/rabinnnn)
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This is an opensource project licensed under the MIT License. See the LICENSE file for details. If you'd like to contribute, create a branch then create a pull request after making the changes.

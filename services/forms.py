@@ -21,7 +21,19 @@ class CreateNewService(forms.Form):
         self.fields['description'].widget.attrs['placeholder'] = 'Enter Description'
         self.fields['price_per_hour'].widget.attrs['placeholder'] = 'Enter Price per Hour'
 
+ 
         self.fields['name'].widget.attrs['autocomplete'] = 'off'
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if re.search(r'\d', name):
+            raise ValidationError("service name name should not contain numbers.")
+        # Check that name only contains letters, spaces, and hyphens
+        if not re.match(r'^[a-zA-Z -]+$', name):
+            raise ValidationError('Service name can only contain letters, spaces, and hyphens.')
+        
+        return name
+    
 # 
 
 class RequestServiceForm(forms.Form):
