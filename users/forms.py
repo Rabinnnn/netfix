@@ -195,7 +195,7 @@ class CompanySignUpForm(forms.ModelForm):
         ]
         domain = email.split('@')[1].lower()
         if domain in free_email_providers:
-            raise ValidationError("Please use a business email address, not a personal one")
+            raise ValidationError("Please use a business email address, personal email is not allowed")
         
         return email
 
